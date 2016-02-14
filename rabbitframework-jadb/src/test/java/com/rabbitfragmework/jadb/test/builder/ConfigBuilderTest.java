@@ -4,16 +4,15 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.Collection;
 
-import junit.framework.TestCase;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import com.rabbitfragmework.jadb.test.mapper.TestUserMapper;
 import com.rabbitframework.commons.utils.ResourceUtils;
 import com.rabbitframework.jadb.builder.Configuration;
 import com.rabbitframework.jadb.builder.XMLConfigBuilder;
 import com.rabbitframework.jadb.mapping.EntityMap;
+
+import junit.framework.TestCase;
 
 /**
  * xml初始化测试
@@ -21,20 +20,18 @@ import com.rabbitframework.jadb.mapping.EntityMap;
  * @author Justin
  */
 public class ConfigBuilderTest extends TestCase {
-	private static final Logger logger = LogManager
-			.getLogger(ConfigBuilderTest.class);
+	private static final Logger logger = LoggerFactory.getLogger(ConfigBuilderTest.class);
 
 	public void testConfig() throws IOException {
 		Reader reader = ResourceUtils.getResourceAsReader("jadbConfig.xml");
 		XMLConfigBuilder configBuilder = new XMLConfigBuilder(reader);
 		Configuration configuration = configBuilder.parse();
 		reader.close();
-		logger.debug(configuration.getVariables().size());
-		Collection<EntityMap> entityMaps = configuration.getEntityRegistry()
-				.getEntityMaps();
+		logger.debug(configuration.getVariables().size() + "");
+		Collection<EntityMap> entityMaps = configuration.getEntityRegistry().getEntityMaps();
 		for (EntityMap entityMap : entityMaps) {
-			logger.debug(entityMap.getIdProperties().size());
-			logger.debug(entityMap.getColumnProperties().size());
+			logger.debug(entityMap.getIdProperties().size() + "");
+			logger.debug(entityMap.getColumnProperties().size() + "");
 		}
 	}
 

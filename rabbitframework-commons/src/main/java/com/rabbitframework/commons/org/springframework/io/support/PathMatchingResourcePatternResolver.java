@@ -31,8 +31,8 @@ import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.rabbitframework.commons.org.springframework.io.DefaultResourceLoader;
 import com.rabbitframework.commons.org.springframework.io.FileSystemResource;
@@ -165,8 +165,7 @@ import com.rabbitframework.commons.org.springframework.util.SpringStringUtils;
  * @see ClassLoader#getResources(String)
  */
 public class PathMatchingResourcePatternResolver implements ResourcePatternResolver {
-
-	private static final Logger logger = LogManager.getLogger(PathMatchingResourcePatternResolver.class);
+	private static final Logger logger = LoggerFactory.getLogger(PathMatchingResourcePatternResolver.class);
 
 	private static Method equinoxResolveMethod;
 

@@ -7,7 +7,7 @@ import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
 /*
  * PreparedStatement proxy to add logging
  */

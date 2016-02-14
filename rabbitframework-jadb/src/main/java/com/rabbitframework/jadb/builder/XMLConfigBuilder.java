@@ -7,8 +7,8 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.rabbitframework.commons.utils.ClassUtils;
 import com.rabbitframework.commons.utils.ResourceUtils;
@@ -26,8 +26,7 @@ import com.rabbitframework.jadb.intercept.Interceptor;
  * 构建启动xml初始化
  */
 public class XMLConfigBuilder extends BaseBuilder {
-	private static final Logger logger = LogManager
-			.getLogger(XMLConfigBuilder.class);
+	private static final Logger logger = LoggerFactory.getLogger(XMLConfigBuilder.class);
 	private boolean parsed;
 	private XPathParser xPathParser;
 

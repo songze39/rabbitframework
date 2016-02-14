@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.rabbitframework.commons.utils.StringUtils;
@@ -43,7 +43,7 @@ import com.rabbitframework.jadb.scripting.SqlSource;
  * Mapper解析类
  */
 public class MapperParser {
-	private static final Logger logger = LogManager.getLogger(MapperParser.class);
+	private static final Logger logger = LoggerFactory.getLogger(MapperParser.class);
 	private final Set<Class<? extends Annotation>> sqlAnnotationType = new HashSet<Class<? extends Annotation>>();
 	private Configuration configuration;
 	private Class<?> mapperInterface;

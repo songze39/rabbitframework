@@ -1,7 +1,7 @@
 package com.rabbitframework.jadb.cache.decorators;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.rabbitframework.jadb.cache.Cache;
 
@@ -14,7 +14,7 @@ public class LoggingCache implements Cache {
 
     public LoggingCache(Cache delegate) {
         this.delegate = delegate;
-        this.logger = LogManager.getLogger(getId());
+        this.logger = LoggerFactory.getLogger(getId());
     }
 
     @Override

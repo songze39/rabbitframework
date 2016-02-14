@@ -3,9 +3,9 @@ package com.rabbitfragmework.jadb.test.demo;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.rabbitfragmework.jadb.test.code.DataAccessTestCase;
 import com.rabbitfragmework.jadb.test.mapper.TestUserMapper;
@@ -14,7 +14,7 @@ import com.rabbitframework.jadb.mapping.RowBounds;
 import com.rabbitframework.jadb.mapping.param.WhereParamType;
 
 public class TestUserTestCase extends DataAccessTestCase {
-	private Logger logger = LogManager.getLogger(TestUserTestCase.class);
+	private static final Logger logger = LoggerFactory.getLogger(TestUserTestCase.class);
 
 	// @Test
 	public void createTestUser() {
