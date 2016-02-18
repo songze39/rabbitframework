@@ -7,7 +7,7 @@ import java.lang.reflect.Proxy;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
 
 /*
  * Statement proxy to add logging

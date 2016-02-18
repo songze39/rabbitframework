@@ -1,17 +1,16 @@
 package com.rabbitframework.jadb.cache.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.rabbitframework.jadb.cache.Cache;
+
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import com.rabbitframework.jadb.cache.Cache;
-
 public class EhcacheCache implements Cache {
-	private static final Logger logger = LogManager
-			.getLogger(EhcacheCache.class);
+	private static final Logger logger = LoggerFactory.getLogger(EhcacheCache.class);
 	/**
 	 * The cache manager reference.
 	 */

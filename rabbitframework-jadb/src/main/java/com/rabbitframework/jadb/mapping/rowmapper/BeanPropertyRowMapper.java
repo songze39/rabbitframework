@@ -6,9 +6,6 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.BeanInstantiationException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.JdbcUtils;
@@ -20,7 +17,6 @@ import com.rabbitframework.commons.reflect.SystemMetaObject;
 
 @SuppressWarnings("rawtypes")
 public class BeanPropertyRowMapper implements RowMapper {
-	protected final Logger logger = LogManager.getLogger(getClass());
 	private final Class<?> mappedClass;
 	private Map<String, String> mappedFields;
 

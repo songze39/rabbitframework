@@ -5,12 +5,11 @@ import java.util.Collection;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class StringUtils {
-	private final static Logger logger = LogManager
-			.getLogger(StringUtils.class);
+	private static final Logger logger = LoggerFactory.getLogger(StringUtils.class);
 	public final static String CONFIG_LOCATION_DELIMITERS = ",; \t\n";
 
 	public static int stringToInt(String value, int defaultValue) {

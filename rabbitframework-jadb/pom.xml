@@ -5,14 +5,13 @@
 	<parent>
 		<groupId>com.rabbitframework</groupId>
 		<artifactId>rabbitframework-root-pom</artifactId>
-		<version>1.0</version>
+		<version>1.1</version>
 		<!-- <relativePath>../rabbit-root-pom/pom.xml</relativePath> -->
 	</parent>
 	<artifactId>rabbitframework-jadb</artifactId>
 	<packaging>jar</packaging>
-	<description>数据库框架集成rose-jade</description>
 	<properties>
-		<rabbitframework-commons.version>1.0</rabbitframework-commons.version>
+		<rabbitframework-commons.version>1.1</rabbitframework-commons.version>
 		<mysql.version>5.1.36</mysql.version>
 		<c3po.version>0.9.1.2</c3po.version>
 	</properties>
@@ -75,16 +74,6 @@
 			<groupId>c3p0</groupId>
 			<artifactId>c3p0</artifactId>
 			<version>${c3po.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-jcl</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

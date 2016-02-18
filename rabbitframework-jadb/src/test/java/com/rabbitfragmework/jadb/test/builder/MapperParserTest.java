@@ -9,9 +9,9 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.rabbitfragmework.jadb.test.mapper.TestUserMapper;
 import com.rabbitframework.jadb.annontations.SQLProvider;
@@ -20,8 +20,7 @@ import com.rabbitframework.jadb.builder.MapperParser;
 import com.rabbitframework.jadb.mapping.MappedStatement;
 
 public class MapperParserTest {
-	private static final Logger logger = LogManager
-			.getLogger(MapperParserTest.class);
+	private static final Logger logger = LoggerFactory.getLogger(MapperParserTest.class);
 
 	public static void main(String[] args) {
 		System.out.println(Object.class.getSimpleName().equals(String.class.getSimpleName()));

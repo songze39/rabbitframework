@@ -25,8 +25,8 @@ import java.lang.reflect.Method;
 import java.net.URI;
 import java.net.URL;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.rabbitframework.commons.org.springframework.util.ReflectionUtils;
 
@@ -46,7 +46,7 @@ import com.rabbitframework.commons.org.springframework.util.ReflectionUtils;
  */
 public abstract class VfsUtils {
 
-	private static final Logger logger = LogManager.getLogger(VfsUtils.class);
+	private static final Logger logger = LoggerFactory.getLogger(VfsUtils.class);
 
 	private static final String VFS2_PKG = "org.jboss.virtual.";
 	private static final String VFS3_PKG = "org.jboss.vfs.";

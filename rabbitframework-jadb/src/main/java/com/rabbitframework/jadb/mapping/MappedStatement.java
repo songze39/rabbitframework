@@ -3,8 +3,8 @@ package com.rabbitframework.jadb.mapping;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.rabbitframework.jadb.builder.Configuration;
@@ -91,7 +91,7 @@ public class MappedStatement {
 			mappedStatement.id = id;
 			mappedStatement.sqlCommendType = sqlCommendType;
 			mappedStatement.catalog = catalog;
-			mappedStatement.statementLogger = LogManager.getLogger(id);
+			mappedStatement.statementLogger = LoggerFactory.getLogger(id);
 			mappedStatement.keyGenerators = new ArrayList<KeyGenerator>();
 		}
 

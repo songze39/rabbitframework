@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>com.rabbitframework</groupId>
 		<artifactId>rabbitframework-root-pom</artifactId>
-		<version>1.0</version>
+		<version>1.1</version>
 	</parent>
 	<artifactId>rabbitframework-web</artifactId>
 	<packaging>jar</packaging>
@@ -47,7 +47,12 @@
 			<groupId>org.glassfish.jersey.ext</groupId>
 			<artifactId>jersey-mvc-jsp</artifactId>
 		</dependency>
-
+		
+		<dependency>
+			<groupId>org.glassfish.jersey.ext</groupId>
+			<artifactId>jersey-mvc-freemarker</artifactId>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.glassfish.jersey.media</groupId>
 			<artifactId>jersey-media-multipart</artifactId>

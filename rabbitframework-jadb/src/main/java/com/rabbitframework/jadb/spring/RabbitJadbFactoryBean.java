@@ -8,8 +8,8 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationEvent;
@@ -27,10 +27,9 @@ import com.rabbitframework.jadb.cache.Cache;
 import com.rabbitframework.jadb.dataaccess.Environment;
 import com.rabbitframework.jadb.dataaccess.datasource.DataSourceFactory;
 
-public class RabbitJadbFactoryBean implements FactoryBean<RabbitJadbFactory>,
-		InitializingBean, ApplicationListener<ApplicationEvent> {
-	private static final Logger logger = LogManager
-			.getLogger(RabbitJadbFactoryBean.class);
+public class RabbitJadbFactoryBean
+		implements FactoryBean<RabbitJadbFactory>, InitializingBean, ApplicationListener<ApplicationEvent> {
+	private static final Logger logger = LoggerFactory.getLogger(RabbitJadbFactoryBean.class);
 	private RabbitJadbFactoryBuilder rabbitJadbFactoryBuilder = new RabbitJadbFactoryBuilder();
 	private RabbitJadbFactory rabbitJadbFactory;
 	private Resource configLocation;
@@ -46,8 +45,7 @@ public class RabbitJadbFactoryBean implements FactoryBean<RabbitJadbFactory>,
 		this.failFast = failFast;
 	}
 
-	public void setRabbitJadbFactoryBuilder(
-			RabbitJadbFactoryBuilder rabbitJadbFactoryBuilder) {
+	public void setRabbitJadbFactoryBuilder(RabbitJadbFactoryBuilder rabbitJadbFactoryBuilder) {
 		this.rabbitJadbFactoryBuilder = rabbitJadbFactoryBuilder;
 	}
 
@@ -89,8 +87,7 @@ public class RabbitJadbFactoryBean implements FactoryBean<RabbitJadbFactory>,
 
 	@Override
 	public Class<? extends RabbitJadbFactory> getObjectType() {
-		return this.rabbitJadbFactory == null ? RabbitJadbFactory.class
-				: this.rabbitJadbFactory.getClass();
+		return this.rabbitJadbFactory == null ? RabbitJadbFactory.class : this.rabbitJadbFactory.getClass();
 	}
 
 	@Override
@@ -101,8 +98,7 @@ public class RabbitJadbFactoryBean implements FactoryBean<RabbitJadbFactory>,
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		notNull(dataSourceMap, "Property 'dataSourceMap' is required");
-		notNull(rabbitJadbFactoryBuilder,
-				"Property 'RabbitJadbFactoryBuilder' is required");
+		notNull(rabbitJadbFactoryBuilder, "Property 'RabbitJadbFactoryBuilder' is required");
 		notNull(dataSourceFactory, "Property 'dataSourceFactory' is required");
 		this.rabbitJadbFactory = buildRabbitJadbFactory();
 	}
@@ -111,8 +107,7 @@ public class RabbitJadbFactoryBean implements FactoryBean<RabbitJadbFactory>,
 		Configuration configuration = null;
 		XMLConfigBuilder configBuilder = null;
 		if (configLocation != null) {
-			configBuilder = new XMLConfigBuilder(
-					configLocation.getInputStream(), configurationProperties);
+			configBuilder = new XMLConfigBuilder(configLocation.getInputStream(), configurationProperties);
 			configuration = configBuilder.getConfiguration();
 		} else {
 			configuration = new Configuration();
@@ -121,11 +116,9 @@ public class RabbitJadbFactoryBean implements FactoryBean<RabbitJadbFactory>,
 		if (configBuilder != null) {
 			try {
 				configBuilder.parse();
-				logger.trace("Parsed configuration file: '"
-						+ this.configLocation + "'");
+				logger.trace("Parsed configuration file: '" + this.configLocation + "'");
 			} catch (Exception ex) {
-				throw new NestedIOException("Failed to parse config resource: "
-						+ this.configLocation, ex);
+				throw new NestedIOException("Failed to parse config resource: " + this.configLocation, ex);
 			}
 		}
 		Environment environment = new Environment();
@@ -136,11 +129,9 @@ public class RabbitJadbFactoryBean implements FactoryBean<RabbitJadbFactory>,
 			environment.addCacheDataSource(dataSource);
 		}
 		environment.setDataSourceFactory(dataSourceFactory);
-		String[] entityPackageNames = StringUtils
-				.tokenizeToStringArray(entityPackages);
+		String[] entityPackageNames = StringUtils.tokenizeToStringArray(entityPackages);
 		configuration.addEntitys(entityPackageNames);
-		String[] mapperPackageNames = StringUtils
-				.tokenizeToStringArray(mapperPackages);
+		String[] mapperPackageNames = StringUtils.tokenizeToStringArray(mapperPackages);
 		configuration.addMappers(mapperPackageNames);
 		configuration.addCaches(cacheMap);
 		configuration.setEnvironment(environment);

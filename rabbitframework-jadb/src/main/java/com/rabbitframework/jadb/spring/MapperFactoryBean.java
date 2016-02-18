@@ -2,8 +2,8 @@ package com.rabbitframework.jadb.spring;
 
 import static org.springframework.util.Assert.notNull;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 
@@ -37,8 +37,7 @@ import com.rabbitframework.jadb.dataaccess.SqlDataAccess;
  * classes.
  */
 public class MapperFactoryBean<T> implements FactoryBean<T>, InitializingBean {
-	private static final Logger logger = LogManager
-			.getLogger(MapperFactoryBean.class);
+	private static final Logger logger = LoggerFactory.getLogger(MapperFactoryBean.class);
 	private Class<T> mapperInterface;
 	private SqlDataAccess sqlDataAccess;
 

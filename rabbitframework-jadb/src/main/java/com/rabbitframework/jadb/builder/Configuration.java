@@ -8,8 +8,8 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.rabbitframework.commons.reflect.MetaObject;
 import com.rabbitframework.commons.reflect.factory.DefaultObjectFactory;
@@ -40,8 +40,7 @@ import com.rabbitframework.jadb.scripting.LanguageDriverImpl;
  * Jadb初始化类,启动时加载
  */
 public class Configuration {
-	private final static Logger logger = LogManager
-			.getLogger(Configuration.class);
+	private static final Logger logger = LoggerFactory.getLogger(Configuration.class);
 	protected final Map<String, MappedStatement> mappedStatements = new StrictMap<MappedStatement>(
 			"Mapped Statements collection");
 	protected final EntityRegistry entityRegistry = new EntityRegistry(this);

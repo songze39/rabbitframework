@@ -1,14 +1,14 @@
 package com.rabbitfragmework.jadb.test.intercept;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.rabbitframework.jadb.intercept.InterceptorChain;
 
 import junit.framework.TestCase;
 
 public class InterceptTest extends TestCase {
-	private static Logger logger = LogManager.getLogger(InterceptTest.class);
+	private static final Logger logger = LoggerFactory.getLogger(InterceptTest.class);
 
 	public void testIntercept() {
 		InterceptorChain interceptorChain = new InterceptorChain();

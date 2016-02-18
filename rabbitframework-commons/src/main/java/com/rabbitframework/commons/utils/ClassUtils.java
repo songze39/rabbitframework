@@ -6,8 +6,8 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.rabbitframework.commons.exceptions.ClassException;
 import com.rabbitframework.commons.exceptions.NewInstanceException;
@@ -20,7 +20,7 @@ import com.rabbitframework.commons.org.springframework.util.Assert;
  * @author Justin
  */
 public class ClassUtils {
-	private final static Logger logger = LogManager.getLogger(ClassUtils.class);
+	private static final Logger logger = LoggerFactory.getLogger(ClassUtils.class);
 	public static String CLASSPATH_ALL_URL_PREFIX = "classpath*:";
 	private static String CLASS_SUFFIX = "**/*.class";
 
