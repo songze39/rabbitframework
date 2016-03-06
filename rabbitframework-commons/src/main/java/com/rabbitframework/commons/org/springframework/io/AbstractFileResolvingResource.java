@@ -41,7 +41,7 @@ public abstract class AbstractFileResolvingResource extends AbstractResource {
 	/**
 	 * This implementation returns a File reference for the underlying class path
 	 * resource, provided that it refers to a file in the file system.
-	 * @see com.rapid.commons.spring.util.SpringResourceUtils#getFile(java.net.URL, String)
+	 * @see SpringResourceUtils#getFile(java.net.URL, String)
 	 */
 	@Override
 	public File getFile() throws IOException {
