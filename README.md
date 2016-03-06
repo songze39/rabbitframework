@@ -17,7 +17,7 @@ rabbitframework框架利用第三方开源框架以及对maven的依赖而整合
 	
 	5、支持创建表、分表分库（通过拦截器功能实现）**暂没有验证**；
 
-三、rabbitframework-security:权限框架，集成[shiro1.2.4]框架，**目前处于依赖状态**；
+三、rabbitframework-security:权限框架
 [shiro1.2.4]:https://github.com/apache/shiro/ "shiro1.2.4"
 四、rabbitframework-web:web-rest框架，集成[jersey2]框架，**目前处于依赖状态**;
 [jersey2]: https://github.com/jersey/jersey "jersey2"
