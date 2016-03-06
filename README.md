@@ -3,7 +3,7 @@ rabbitframework框架利用第三方开源框架以及对maven的依赖而整合
 
 一、rabbitframework-commons:公共模块，包括对xml解释，反射机制通用类。
 
-二、rabbitframework-jadb:数据库ORM模块,其主要对[paoding-rose]的jade和[mybatis]源码的学习研究，集成各自的优点而形成，主要实现以下功能：
+二、rabbitframework-jadb:数据库ORM模块,主要实现以下功能：
 [paoding-rose]:https://github.com/paoding-code/paoding-rose "rose"
 [mybatis]:https://github.com/mybatis/mybatis-3 "mybatis"
 
