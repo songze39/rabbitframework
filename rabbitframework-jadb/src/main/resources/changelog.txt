@@ -1,2 +1,0 @@
-修改项：
-1、修改log4j的jar包,由log4j2改为slf4j
