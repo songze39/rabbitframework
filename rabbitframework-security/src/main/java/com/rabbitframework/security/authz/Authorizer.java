@@ -18,9 +18,8 @@
  */
 package com.rabbitframework.security.authz;
 
-import com.rabbitframework.security.authz.Permission;
+import com.rabbitframework.security.exceptions.AuthorizationException;
 import com.rabbitframework.security.subject.PrincipalCollection;
-import org.apache.shiro.authz.AuthorizationException;
 
 import java.util.Collection;
 import java.util.List;
