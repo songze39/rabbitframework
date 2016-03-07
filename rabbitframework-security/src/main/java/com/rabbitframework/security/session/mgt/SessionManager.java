@@ -18,15 +18,13 @@
  */
 package com.rabbitframework.security.session.mgt;
 
-import org.apache.shiro.session.Session;
-import org.apache.shiro.session.SessionException;
-import org.apache.shiro.session.mgt.SessionFactory;
-import org.apache.shiro.session.mgt.SessionKey;
+import com.rabbitframework.security.exceptions.SessionException;
+import com.rabbitframework.security.session.Session;
 
 /**
- * A SessionManager manages the creation, maintenance, and clean-up of all application
- * {@link org.apache.shiro.session.Session Session}s.
- * session管理创建接口类
+ * A SessionManager manages the creation, maintenance, ad clean-up of all application
+ * {@link Session Session}s.
+ * session管理接口类
  */
 public interface SessionManager {
 
@@ -37,7 +35,7 @@ public interface SessionManager {
      * <p/>
      * This method is mainly used in framework development, as the implementation will often relay the argument
      * to an underlying {@link SessionFactory} which could use the context to construct the internal Session
-     * instance in a specific manner.  This allows pluggable {@link org.apache.shiro.session.Session Session} creation
+     * instance in a specific manner.  This allows pluggable {@link Session Session} creation
      * logic by simply injecting a {@code SessionFactory} into the {@code SessionManager} instance.
      *
      * @param context the contextual initialization data that can be used by the implementation or underlying
