@@ -18,27 +18,25 @@
  */
 package com.rabbitframework.security.session.mgt;
 
-import org.apache.shiro.session.mgt.SessionFactory;
-
 import java.io.Serializable;
 import java.util.Map;
 
 /**
  * A {@code SessionContext} is a 'bucket' of data presented to a {@link SessionFactory SessionFactory} which interprets
- * this data to construct {@link org.apache.shiro.session.Session Session} instances.  It is essentially a Map of data
+ * this data to construct {@link com.rabbitframework.security.session.Session Session} instances.  It is essentially a Map of data
  * with a few additional type-safe methods for easy retrieval of objects commonly used to construct Subject instances.
  * <p/>
  * While this interface contains type-safe setters and getters for common data types, the map can contain anything
  * additional that might be needed by the {@code SessionFactory} implementation to construct {@code Session} instances.
  * <p/>
  * <b>USAGE</b>: Most Shiro end-users will never use a {@code SubjectContext} instance directly and instead will call
- * the {@code Subject.}{@link org.apache.shiro.subject.Subject#getSession() getSession()} or
- * {@code Subject.}{@link org.apache.shiro.subject.Subject#getSession(boolean) getSession(boolean)} methods (which
+ * the {@code Subject.}{@link Subject#getSession() getSession()} or
+ * {@code Subject.}{@link Subject#getSession(boolean) getSession(boolean)} methods (which
  * will usually use {@code SessionContext} instances to start a session with the application's
  * {@link SessionManager SessionManager}.
  *
  * @see SessionManager#start SessionManager.start(SessionContext)
- * @see org.apache.shiro.session.mgt.SessionFactory SessionFactory
+ * @see SessionFactory SessionFactory
  * @since 1.0
  */
 public interface SessionContext extends Map<String, Object> {

@@ -17,9 +17,6 @@
  * under the License.
  */
 package com.rabbitframework.security.subject;
-
-import org.apache.shiro.subject.Subject;
-
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
@@ -29,7 +26,7 @@ import java.util.Set;
  * A collection of all principals associated with a corresponding {@link Subject Subject}.  A <em>principal</em> is
  * just a security term for an identifying attribute, such as a username or user id or social security number or
  * anything else that can be considered an 'identifying' attribute for a {@code Subject}.
- * 负责所有可匹配{@link Subject Subject}相关的集合
+ * 负责所有可匹配{@link Subject Subject}相关的集合接口
  * <p/>
  * A PrincipalCollection organizes its internal principals based on the {@code Realm} where they came from when the
  * Subject was first created.  To obtain the principal(s) for a specific Realm, see the {@link #fromRealm} method.  You
