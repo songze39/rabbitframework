@@ -25,6 +25,7 @@ public class SecurityFilterFactoryBean implements FactoryBean, BeanPostProcessor
     private String successUrl;
     private String unauthorizedUrl;
 
+
     public SecurityFilterFactoryBean() {
         filters = new LinkedHashMap<>();
         //order matters
@@ -83,4 +84,29 @@ public class SecurityFilterFactoryBean implements FactoryBean, BeanPostProcessor
             throws BeansException {
         return null;
     }
+
+    public String getLoginUrl() {
+        return loginUrl;
+    }
+
+    public void setLoginUrl(String loginUrl) {
+        this.loginUrl = loginUrl;
+    }
+
+    public String getSuccessUrl() {
+        return successUrl;
+    }
+
+    public void setSuccessUrl(String successUrl) {
+        this.successUrl = successUrl;
+    }
+
+    public String getUnauthorizedUrl() {
+        return unauthorizedUrl;
+    }
+
+    public void setUnauthorizedUrl(String unauthorizedUrl) {
+        this.unauthorizedUrl = unauthorizedUrl;
+    }
+
 }
