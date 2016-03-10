@@ -117,7 +117,6 @@ public class ThreadContext {
         return (SecurityManager) remove(SECURITY_MANAGER_KEY);
     }
 
-
     public static Subject getSubject() {
         return (Subject) get(SUBJECT_KEY);
     }
@@ -132,8 +131,8 @@ public class ThreadContext {
         return (Subject) remove(SUBJECT_KEY);
     }
 
-
-    private static final class InheritableThreadLocalMap<T extends Map<Object, Object>> extends InheritableThreadLocal<Map<Object, Object>> {
+    private static final class InheritableThreadLocalMap<T extends Map<Object, Object>>
+            extends InheritableThreadLocal<Map<Object, Object>> {
         @Override
         protected Map<Object, Object> childValue(Map<Object, Object> parentValue) {
             if (parentValue != null) {

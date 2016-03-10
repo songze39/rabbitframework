@@ -3,7 +3,7 @@ package com.rabbitframework.security.subject;
 import com.rabbitframework.security.authc.AuthenticationInfo;
 import com.rabbitframework.security.authc.AuthenticationToken;
 import com.rabbitframework.security.session.Session;
-
+import com.rabbitframework.security.mgt.SecurityManager;
 import java.io.Serializable;
 import java.util.Map;
 

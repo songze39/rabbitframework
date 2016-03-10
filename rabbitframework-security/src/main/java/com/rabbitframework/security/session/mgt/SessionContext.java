@@ -30,8 +30,8 @@ import java.util.Map;
  * additional that might be needed by the {@code SessionFactory} implementation to construct {@code Session} instances.
  * <p/>
  * <b>USAGE</b>: Most Shiro end-users will never use a {@code SubjectContext} instance directly and instead will call
- * the {@code Subject.}{@link Subject#getSession() getSession()} or
- * {@code Subject.}{@link Subject#getSession(boolean) getSession(boolean)} methods (which
+ * the {@code Subject.}{@link com.rabbitframework.security.subject.Subject#getSession() getSession()} or
+ * {@code Subject.}{@link com.rabbitframework.security.subject.Subject#getSession(boolean) getSession(boolean)} methods (which
  * will usually use {@code SessionContext} instances to start a session with the application's
  * {@link SessionManager SessionManager}.
  *

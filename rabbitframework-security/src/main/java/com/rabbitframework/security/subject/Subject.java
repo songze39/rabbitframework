@@ -8,7 +8,11 @@ import com.rabbitframework.security.exceptions.AuthorizationException;
 import com.rabbitframework.security.exceptions.ExecutionException;
 import com.rabbitframework.security.mgt.SecurityManager;
 import com.rabbitframework.security.session.Session;
+import com.rabbitframework.security.subject.support.DefaultSubjectContext;
+import com.rabbitframework.security.util.CollectionUtils;
+import com.rabbitframework.security.util.StringUtils;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -144,10 +148,81 @@ public interface Subject {
                 throw new NullPointerException("SecurityManager method argument cannot be null.");
             }
             this.securityManager = securityManager;
+            this.subjectContext = newSubjectContextInstance();
+            if (this.subjectContext == null) {
+                throw new IllegalStateException("Subject instance returned from 'newSubjectContextInstance' " +
+                        "cannot be null.");
+            }
+            this.subjectContext.setSecurityManager(securityManager);
         }
 
-        public void buildSubject() {
+        /**
+         * Creates a new {@code SubjectContext} instance to be used to populate with subject contextual data that
+         * will then be sent to the {@code SecurityManager} to create a new {@code Subject} instance.
+         *
+         * @return a new {@code SubjectContext} instance
+         */
+        protected SubjectContext newSubjectContextInstance() {
+            return new DefaultSubjectContext();
+        }
 
+        protected SubjectContext getSubjectContext() {
+            return this.subjectContext;
+        }
+
+        public Builder sessionId(Serializable sessionId) {
+            if (sessionId != null) {
+                this.subjectContext.setSessionId(sessionId);
+            }
+            return this;
+        }
+
+        public Builder host(String host) {
+            if (StringUtils.hasText(host)) {
+                this.subjectContext.setHost(host);
+            }
+            return this;
+        }
+
+        public Builder session(Session session) {
+            if (session != null) {
+                this.subjectContext.setSession(session);
+            }
+            return this;
+        }
+
+        public Builder principals(PrincipalCollection principals) {
+            if (!CollectionUtils.isEmpty(principals)) {
+                this.subjectContext.setPrincipals(principals);
+            }
+            return this;
+        }
+
+        public Builder sessionCreationEnabled(boolean enabled) {
+            this.subjectContext.setSessionCreationEnabled(enabled);
+            return this;
+        }
+
+        public Builder authenticated(boolean authenticated) {
+            this.subjectContext.setAuthenticated(authenticated);
+            return this;
+        }
+
+        public Builder contextAttribute(String attributeKey, Object attributeValue) {
+            if (attributeKey == null) {
+                String msg = "Subject context map key cannot be null.";
+                throw new IllegalArgumentException(msg);
+            }
+            if (attributeValue == null) {
+                this.subjectContext.remove(attributeKey);
+            } else {
+                this.subjectContext.put(attributeKey, attributeValue);
+            }
+            return this;
+        }
+
+        public Subject buildSubject() {
+            return this.securityManager.createSubject(this.subjectContext);
         }
 
     }
