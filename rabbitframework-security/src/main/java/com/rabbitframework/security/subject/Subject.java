@@ -33,7 +33,7 @@ import java.util.concurrent.Callable;
  * a {@link Permission Permission} if desired.  The underlying Authorization subsystem implementations will usually
  * simply convert these String values to {@link Permission Permission} instances and then just call the corresponding
  * type-safe method.  (Shiro's default implementations do String-to-Permission conversion for these methods using
- * {@link org.apache.shiro.authz.permission.PermissionResolver PermissionResolver}s.)
+ * {@link com.rabbitframework.security.authz.PermissionResolver PermissionResolver}s.)
  *
  * These overloaded *Permission methods forgo type-saftey for the benefit of convenience and simplicity,
  * so you should choose which ones to use based on your preferences and needs.

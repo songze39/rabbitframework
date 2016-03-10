@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.config.BeanPostProcessor;
+import com.rabbitframework.security.mgt.SecurityManager;
 
 import javax.servlet.Filter;
 import java.util.LinkedHashMap;
@@ -19,17 +20,25 @@ import java.util.Map;
  */
 public class SecurityFilterFactoryBean implements FactoryBean, BeanPostProcessor {
     private static transient final Logger log = LoggerFactory.getLogger(SecurityFilterFactoryBean.class);
+    private SecurityManager securityManager;
     private Map<String, Filter> filters;
     private Map<String, String> filterChainDefinitionMap;
     private String loginUrl;
     private String successUrl;
     private String unauthorizedUrl;
 
-
     public SecurityFilterFactoryBean() {
         filters = new LinkedHashMap<>();
         //order matters
         filterChainDefinitionMap = new LinkedHashMap<>();
+    }
+
+    public void setSecurityManager(SecurityManager securityManager) {
+        this.securityManager = securityManager;
+    }
+
+    public SecurityManager getSecurityManager() {
+        return securityManager;
     }
 
     /**
@@ -108,5 +117,4 @@ public class SecurityFilterFactoryBean implements FactoryBean, BeanPostProcessor
     public void setUnauthorizedUrl(String unauthorizedUrl) {
         this.unauthorizedUrl = unauthorizedUrl;
     }
-
 }
