@@ -12,7 +12,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * 权限过虑工厂,实现
+ * 权限过虑工厂实现
  * {@link FactoryBean}与{@link BeanPostProcessor}
  * spring配置基本入口
  *
@@ -31,14 +31,6 @@ public class SecurityFilterFactoryBean implements FactoryBean, BeanPostProcessor
         filters = new LinkedHashMap<>();
         //order matters
         filterChainDefinitionMap = new LinkedHashMap<>();
-    }
-
-    public void setSecurityManager(SecurityManager securityManager) {
-        this.securityManager = securityManager;
-    }
-
-    public SecurityManager getSecurityManager() {
-        return securityManager;
     }
 
     /**
@@ -116,5 +108,29 @@ public class SecurityFilterFactoryBean implements FactoryBean, BeanPostProcessor
 
     public void setUnauthorizedUrl(String unauthorizedUrl) {
         this.unauthorizedUrl = unauthorizedUrl;
+    }
+
+    public void setSecurityManager(SecurityManager securityManager) {
+        this.securityManager = securityManager;
+    }
+
+    public SecurityManager getSecurityManager() {
+        return securityManager;
+    }
+
+    public void setFilters(Map<String, Filter> filters) {
+        this.filters = filters;
+    }
+
+    public Map<String, Filter> getFilters() {
+        return filters;
+    }
+
+    public void setFilterChainDefinitionMap(Map<String, String> filterChainDefinitionMap) {
+        this.filterChainDefinitionMap = filterChainDefinitionMap;
+    }
+
+    public Map<String, String> getFilterChainDefinitionMap() {
+        return filterChainDefinitionMap;
     }
 }
