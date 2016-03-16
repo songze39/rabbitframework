@@ -39,7 +39,7 @@ import java.util.List;
  * a {@link Permission Permission} if desired.  Most implementations of this interface will simply convert these
  * String values to {@link Permission Permission} instances and then just call the corresponding type-safe method.
  * (Shiro's default implementations do String-to-Permission conversion for these methods using
- * {@link PermissionResolver PermissionResolver}s.)
+ * {@link com.rabbitframework.security.authz.permission.PermissionResolver PermissionResolver}s.)
  * <p/>
  * <p>These overloaded *Permission methods <em>do</em> forego type-saftey for the benefit of convenience and simplicity,
  * so you should choose which ones to use based on your preferences and needs.
