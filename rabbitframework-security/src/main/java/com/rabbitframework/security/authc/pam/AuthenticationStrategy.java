@@ -1,11 +1,8 @@
 package com.rabbitframework.security.authc.pam;
-
-
 import com.rabbitframework.security.authc.AuthenticationInfo;
 import com.rabbitframework.security.authc.AuthenticationToken;
 import com.rabbitframework.security.exceptions.AuthenticationException;
 import com.rabbitframework.security.realm.Realm;
-
 import java.util.Collection;
 
 /**
@@ -15,11 +12,9 @@ import java.util.Collection;
  * <p>The {@code ModularRealmAuthenticator} will consult implementations of this interface on what to do during each
  * interaction with the configured Realms.  This allows a pluggable strategy of whether or not an authentication
  * attempt must be successful for all realms, only 1 or more realms, no realms, etc.
- *
  * @see AllSuccessfulStrategy
  * @see AtLeastOneSuccessfulStrategy
  * @see FirstSuccessfulStrategy
- * @since 0.2
  */
 public interface AuthenticationStrategy {
 
@@ -94,4 +89,3 @@ public interface AuthenticationStrategy {
      */
     AuthenticationInfo afterAllAttempts(AuthenticationToken token, AuthenticationInfo aggregate) throws AuthenticationException;
 }
-
