@@ -43,8 +43,8 @@ public abstract class AbstractFilter extends ServletContextSupport implements Fi
         }
     }
 
-
     protected void onFilterConfigSet() throws Exception {
+
     }
 
     @Override
