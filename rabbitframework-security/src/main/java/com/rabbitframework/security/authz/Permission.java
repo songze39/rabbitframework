@@ -52,16 +52,16 @@ package com.rabbitframework.security.authz;
  * <p/>
  * A benefit to Shiro is that, although it assumes most systems are based on these types of static role or
  * dynamic role w/ permission schemes, it does not require a system to model their security data this way - all
- * Permission checks are relegated to {@link org.apache.shiro.realm.Realm} implementations, and only those
+ * Permission checks are relegated to {@link com.rabbitframework.security.realm.Realm} implementations, and only those
  * implementations really determine how a user 'has' a permission or not.  The Realm could use the semantics described
  * here, or it could utilize some other mechanism entirely - it is always up to the application developer.
  * <p/>
  * Shiro provides a very powerful default implementation of this interface in the form of the
- * {@link org.apache.shiro.authz.permission.WildcardPermission WildcardPermission}.  We highly recommend that you
+ * {@link WildcardPermission WildcardPermission}.  We highly recommend that you
  * investigate this class before trying to implement your own <code>Permission</code>s.
  * 权限接口类
  *
- * @see org.apache.shiro.authz.permission.WildcardPermission WildcardPermission
+ * @see WildcardPermission WildcardPermission
  * @since 0.2
  */
 public interface Permission {

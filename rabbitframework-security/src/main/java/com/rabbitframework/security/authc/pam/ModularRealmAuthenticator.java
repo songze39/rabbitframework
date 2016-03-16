@@ -15,6 +15,40 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
 
+/**
+ * A {@code ModularRealmAuthenticator} delgates account lookups to a pluggable (modular) collection of
+ * {@link Realm}s.  This enables PAM (Pluggable Authentication Module) behavior in Shiro.
+ * In addition to authorization duties, a Shiro Realm can also be thought of a PAM 'module'.
+ * <p/>
+ * Using this Authenticator allows you to &quot;plug-in&quot; your own
+ * {@code Realm}s as you see fit.  Common realms are those based on accessing
+ * LDAP, relational databases, file systems, etc.
+ * <p/>
+ * If only one realm is configured (this is often the case for most applications), authentication success is naturally
+ * only dependent upon invoking this one Realm's
+ * {@link Realm#getAuthenticationInfo(AuthenticationToken)} method.
+ * <p/>
+ * But if two or more realms are configured, PAM behavior is implemented by iterating over the collection of realms
+ * and interacting with each over the course of the authentication attempt.  As this is more complicated, this
+ * authenticator allows customized behavior for interpreting what happens when interacting with multiple realms - for
+ * example, you might require all realms to be successful during the attempt, or perhaps only at least one must be
+ * successful, or some other interpretation.  This customized behavior can be performed via the use of a
+ * {@link #setAuthenticationStrategy(AuthenticationStrategy) AuthenticationStrategy}, which
+ * you can inject as a property of this class.
+ * <p/>
+ * The strategy object provides callback methods that allow you to
+ * determine what constitutes a success or failure in a multi-realm (PAM) scenario.  And because this only makes sense
+ * in a mult-realm scenario, the strategy object is only utilized when more than one Realm is configured.
+ * <p/>
+ * As most multi-realm applications require at least one Realm authenticates successfully, the default
+ * implementation is the {@link AtLeastOneSuccessfulStrategy}.
+ *
+ * @see #setRealms
+ * @see AtLeastOneSuccessfulStrategy
+ * @see AllSuccessfulStrategy
+ * @see FirstSuccessfulStrategy
+ * @since 0.1
+ */
 public class ModularRealmAuthenticator extends AbstractAuthenticator {
     private static final Logger log = LoggerFactory.getLogger(ModularRealmAuthenticator.class);
     /**
@@ -33,7 +67,7 @@ public class ModularRealmAuthenticator extends AbstractAuthenticator {
      * {@link AtLeastOneSuccessfulStrategy} by default.
      */
     public ModularRealmAuthenticator() {
-//        this.authenticationStrategy = new AtLeastOneSuccessfulStrategy();
+        this.authenticationStrategy = new AtLeastOneSuccessfulStrategy();
     }
 
     /**

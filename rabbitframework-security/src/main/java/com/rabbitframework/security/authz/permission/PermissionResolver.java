@@ -16,7 +16,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.rabbitframework.security.authz;
+package com.rabbitframework.security.authz.permission;
+
+import com.rabbitframework.security.authz.Permission;
 
 /**
  * A {@code PermisisonResolver} resolves a String value and converts it into a
@@ -40,8 +42,8 @@ package com.rabbitframework.security.authz;
  * Although this happens to be the Shiro default, you are of course free to provide custom
  * String-to-Permission conversion by providing Shiro components any instance of this interface.
  *
- * @see org.apache.shiro.authz.ModularRealmAuthorizer#setPermissionResolver(PermissionResolver) ModularRealmAuthorizer.setPermissionResolver
- * @see org.apache.shiro.realm.AuthorizingRealm#setPermissionResolver(PermissionResolver) AuthorizingRealm.setPermissionResolver
+ * @see ModularRealmAuthorizer#setPermissionResolver(PermissionResolver) ModularRealmAuthorizer.setPermissionResolver
+ * @see AuthorizingRealm#setPermissionResolver(PermissionResolver) AuthorizingRealm.setPermissionResolver
  * @see PermissionResolverAware PermissionResolverAware
  * @since 0.9
  */

@@ -66,9 +66,10 @@ public interface PrincipalCollection extends Iterable, Serializable {
      * matters if you want to retain this default heuristic.
      * <p/>
      * If this heuristic is not sufficient, most Shiro end-users will need to implement a custom
-     * {@link org.apache.shiro.authc.pam.AuthenticationStrategy}.  An {@code AuthenticationStrategy} has exact control
+     * {@link com.rabbitframework.security.authc.pam.AuthenticationStrategy}.  An {@code AuthenticationStrategy} has exact control
      * over the {@link PrincipalCollection} returned at the end of an authentication attempt via the
-     * <code>AuthenticationStrategy#{@link org.apache.shiro.authc.pam.AuthenticationStrategy#afterAllAttempts(org.apache.shiro.authc.AuthenticationToken, org.apache.shiro.authc.AuthenticationInfo) afterAllAttempts}</code>
+     * <code>AuthenticationStrategy#{@link com.rabbitframework.security.authc.pam.AuthenticationStrategy#afterAllAttempts(
+     * com.rabbitframework.security.authc.AuthenticationToken, com.rabbitframework.security.authc.AuthenticationInfo) afterAllAttempts}</code>
      * implementation.
      *
      * @return the primary principal used to uniquely identify the owning account/Subject
