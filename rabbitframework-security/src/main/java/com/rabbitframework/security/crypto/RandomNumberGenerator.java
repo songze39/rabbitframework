@@ -18,6 +18,8 @@
  */
 package com.rabbitframework.security.crypto;
 
+import com.rabbitframework.security.codec.ByteSource;
+
 /**
  * A component that can generate random number/byte values as needed.  Useful in cryptography or security scenarios
  * where random byte arrays are needed, such as for password salts, nonces, initialization vectors and other seeds.

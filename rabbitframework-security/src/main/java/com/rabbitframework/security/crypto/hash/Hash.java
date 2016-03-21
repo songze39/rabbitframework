@@ -18,6 +18,8 @@
  */
 package com.rabbitframework.security.crypto.hash;
 
+import com.rabbitframework.security.codec.ByteSource;
+
 /**
  * A Cryptographic {@code Hash} represents a one-way conversion algorithm that transforms an input source to an
  * underlying byte array.  Hex and Base64-encoding output of the hashed bytes are automatically supported by the

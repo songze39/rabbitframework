@@ -18,6 +18,7 @@
  */
 package com.rabbitframework.security.crypto;
 
+import com.rabbitframework.security.codec.ByteSource;
 import com.rabbitframework.security.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

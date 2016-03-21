@@ -19,6 +19,7 @@
 package com.rabbitframework.security.crypto.hash.format;
 
 import com.rabbitframework.commons.codec.Base64;
+import com.rabbitframework.security.codec.ByteSource;
 import com.rabbitframework.security.crypto.hash.Hash;
 import com.rabbitframework.security.crypto.hash.SimpleHash;
 import com.rabbitframework.security.util.StringUtils;

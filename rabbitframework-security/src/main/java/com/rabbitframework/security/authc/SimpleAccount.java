@@ -20,6 +20,7 @@ package com.rabbitframework.security.authc;
 
 import com.rabbitframework.security.authz.Permission;
 import com.rabbitframework.security.authz.SimpleAuthorizationInfo;
+import com.rabbitframework.security.codec.ByteSource;
 import com.rabbitframework.security.subject.PrincipalCollection;
 import com.rabbitframework.security.subject.SimplePrincipalCollection;
 

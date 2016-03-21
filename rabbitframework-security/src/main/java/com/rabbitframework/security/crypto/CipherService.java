@@ -18,6 +18,8 @@
  */
 package com.rabbitframework.security.crypto;
 
+import com.rabbitframework.security.codec.ByteSource;
+
 import java.io.InputStream;
 import java.io.OutputStream;
 

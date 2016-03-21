@@ -18,6 +18,8 @@
  */
 package com.rabbitframework.security.crypto;
 
+import com.rabbitframework.security.codec.ByteSource;
+import com.rabbitframework.security.codec.CodecSupport;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;

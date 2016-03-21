@@ -19,6 +19,7 @@
 package com.rabbitframework.security.config;
 
 import com.rabbitframework.commons.codec.*;
+import com.rabbitframework.security.codec.ByteSource;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.slf4j.Logger;

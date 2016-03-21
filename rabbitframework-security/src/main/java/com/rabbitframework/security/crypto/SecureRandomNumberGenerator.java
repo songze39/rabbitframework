@@ -18,6 +18,8 @@
  */
 package com.rabbitframework.security.crypto;
 
+import com.rabbitframework.security.codec.ByteSource;
+
 import java.security.SecureRandom;
 
 /**

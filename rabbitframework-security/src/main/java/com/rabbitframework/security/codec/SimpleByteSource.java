@@ -69,7 +69,7 @@ public class SimpleByteSource implements ByteSource {
      * @since 1.1
      */
     public SimpleByteSource(String string) {
-        this.bytes = com.rabbitframework.commons.codec.CodecSupport.toBytes(string);
+        this.bytes = CodecSupport.toBytes(string);
     }
 
     /**

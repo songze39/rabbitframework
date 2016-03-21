@@ -23,6 +23,7 @@ import com.rabbitframework.security.authc.AuthenticationException;
 import com.rabbitframework.security.authc.AuthenticationInfo;
 import com.rabbitframework.security.authc.AuthenticationToken;
 import com.rabbitframework.security.authc.RememberMeAuthenticationToken;
+import com.rabbitframework.security.codec.ByteSource;
 import com.rabbitframework.security.crypto.AesCipherService;
 import com.rabbitframework.security.crypto.CipherService;
 import com.rabbitframework.security.io.DefaultSerializer;

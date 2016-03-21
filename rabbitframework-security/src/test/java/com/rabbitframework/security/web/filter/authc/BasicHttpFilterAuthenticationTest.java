@@ -18,24 +18,17 @@
  */
 package com.rabbitframework.security.web.filter.authc;
 
-import static org.easymock.EasyMock.createMock;
-import static org.easymock.EasyMock.expect;
-import static org.easymock.EasyMock.replay;
-import static org.easymock.EasyMock.verify;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import com.rabbitframework.commons.codec.Base64;
+import com.rabbitframework.security.authc.AuthenticationToken;
+import com.rabbitframework.security.authc.UsernamePasswordToken;
+import org.junit.Before;
+import org.junit.Test;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.junit.Before;
-import org.junit.Test;
-
-import com.rabbitframework.security.authc.AuthenticationToken;
-import com.rabbitframework.security.authc.UsernamePasswordToken;
-import com.rabbitframework.security.codec.Base64;
-import com.rabbitframework.security.web.filter.authc.BasicHttpAuthenticationFilter;
+import static org.easymock.EasyMock.*;
+import static org.junit.Assert.*;
 
 
 /**

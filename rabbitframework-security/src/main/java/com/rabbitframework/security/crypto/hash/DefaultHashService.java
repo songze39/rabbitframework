@@ -18,6 +18,7 @@
  */
 package com.rabbitframework.security.crypto.hash;
 
+import com.rabbitframework.security.codec.ByteSource;
 import com.rabbitframework.security.crypto.RandomNumberGenerator;
 import com.rabbitframework.security.crypto.SecureRandomNumberGenerator;
 

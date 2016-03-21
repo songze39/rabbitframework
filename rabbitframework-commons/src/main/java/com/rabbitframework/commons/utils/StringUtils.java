@@ -246,10 +246,10 @@ public class StringUtils {
     }
 
     /**
-     * Converts the specified byte array to a String using the {@link com.rabbitframework.commons.codec.CodecSupport#PREFERRED_ENCODING PREFERRED_ENCODING}.
+     * Converts the specified byte array to a String using the {@link StringUtils#PREFERRED_ENCODING}.
      *
      * @param bytes the byte array to turn into a String.
-     * @return the specified byte array as an encoded String ({@link com.rabbitframework.commons.codec.CodecSupport#PREFERRED_ENCODING PREFERRED_ENCODING}).
+     * @return the specified byte array as an encoded String ({@link StringUtils#PREFERRED_ENCODING}).
      * @see #toString(byte[], String)
      */
     public static String toString(byte[] bytes) {

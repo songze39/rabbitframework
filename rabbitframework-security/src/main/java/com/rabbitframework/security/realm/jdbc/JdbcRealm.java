@@ -18,6 +18,7 @@
  */
 package com.rabbitframework.security.realm.jdbc;
 
+import com.rabbitframework.security.codec.ByteSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

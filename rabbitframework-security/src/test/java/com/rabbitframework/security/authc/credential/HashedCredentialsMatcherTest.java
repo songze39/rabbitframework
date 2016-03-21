@@ -18,6 +18,7 @@
  */
 package com.rabbitframework.security.authc.credential;
 
+import com.rabbitframework.security.codec.ByteSource;
 import org.junit.Test;
 
 import com.rabbitframework.security.authc.AuthenticationInfo;
