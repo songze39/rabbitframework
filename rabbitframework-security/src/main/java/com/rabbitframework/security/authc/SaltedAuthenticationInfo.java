@@ -18,8 +18,6 @@
  */
 package com.rabbitframework.security.authc;
 
-import com.rabbitframework.security.util.ByteSource;
-
 /**
  * Interface representing account information that may use a salt when hashing credentials.  This interface
  * exists primarily to support environments that hash user credentials (e.g. passwords).

@@ -18,14 +18,13 @@
  */
 package com.rabbitframework.security.config;
 
+import com.rabbitframework.commons.codec.*;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.rabbitframework.security.codec.Base64;
-import com.rabbitframework.security.codec.Hex;
 import com.rabbitframework.security.util.*;
+import com.rabbitframework.commons.codec.Base64;
 
 import java.beans.PropertyDescriptor;
 import java.util.*;
@@ -276,7 +275,7 @@ public class ReflectionBuilder {
         if (tokens.length == 1 && isReference(tokens[0])) {
             Object reference = resolveReference(tokens[0]);
             if (reference instanceof Set) {
-                return (Set)reference;
+                return (Set) reference;
             }
         }
 
@@ -302,7 +301,7 @@ public class ReflectionBuilder {
         if (tokens.length == 1 && isReference(tokens[0])) {
             Object reference = resolveReference(tokens[0]);
             if (reference instanceof Map) {
-                return (Map)reference;
+                return (Map) reference;
             }
         }
 
@@ -341,7 +340,7 @@ public class ReflectionBuilder {
         if (tokens.length == 1 && isReference(tokens[0])) {
             Object reference = resolveReference(tokens[0]);
             if (reference instanceof Collection) {
-                return (Collection)reference;
+                return (Collection) reference;
             }
         }
 
@@ -364,7 +363,7 @@ public class ReflectionBuilder {
         if (tokens.length == 1 && isReference(tokens[0])) {
             Object reference = resolveReference(tokens[0]);
             if (reference instanceof List) {
-                return (List)reference;
+                return (List) reference;
             }
         }
 
@@ -417,7 +416,7 @@ public class ReflectionBuilder {
             return stringValue;
         }
     }
-    
+
     protected void applyProperty(Object object, String propertyPath, Object value) {
 
         int mapBegin = propertyPath.indexOf(MAP_PROPERTY_BEGIN_TOKEN);
@@ -426,24 +425,24 @@ public class ReflectionBuilder {
         String keyString = null;
 
         String remaining = null;
-        
+
         if (mapBegin >= 0) {
             //a map is being referenced in the overall property path.  Find just the map's path:
             mapPropertyPath = propertyPath.substring(0, mapBegin);
             //find the end of the map reference:
             mapEnd = propertyPath.indexOf(MAP_PROPERTY_END_TOKEN, mapBegin);
             //find the token in between the [ and the ] (the map/array key or index):
-            keyString = propertyPath.substring(mapBegin+1, mapEnd);
+            keyString = propertyPath.substring(mapBegin + 1, mapEnd);
 
             //find out if there is more path reference to follow.  If not, we're at a terminal of the OGNL expression
-            if (propertyPath.length() > (mapEnd+1)) {
-                remaining = propertyPath.substring(mapEnd+1);
+            if (propertyPath.length() > (mapEnd + 1)) {
+                remaining = propertyPath.substring(mapEnd + 1);
                 if (remaining.startsWith(".")) {
                     remaining = StringUtils.clean(remaining.substring(1));
                 }
             }
         }
-        
+
         if (remaining == null) {
             //we've terminated the OGNL expression.  Check to see if we're assigning a property or a map entry:
             if (keyString == null) {
@@ -452,7 +451,7 @@ public class ReflectionBuilder {
             } else {
                 //we're assigning a map or array entry.  Check to see which we should call:
                 if (isTypedProperty(object, mapPropertyPath, Map.class)) {
-                    Map map = (Map)getProperty(object, mapPropertyPath);
+                    Map map = (Map) getProperty(object, mapPropertyPath);
                     Object mapKey = resolveValue(keyString);
                     //noinspection unchecked
                     map.put(mapKey, value);
@@ -467,7 +466,7 @@ public class ReflectionBuilder {
             //recursively call this method with the remaining property path
             Object referencedValue = null;
             if (isTypedProperty(object, mapPropertyPath, Map.class)) {
-                Map map = (Map)getProperty(object, mapPropertyPath);
+                Map map = (Map) getProperty(object, mapPropertyPath);
                 Object mapKey = resolveValue(keyString);
                 referencedValue = map.get(mapKey);
             } else {
@@ -478,13 +477,13 @@ public class ReflectionBuilder {
 
             if (referencedValue == null) {
                 throw new ConfigurationException("Referenced map/array value '" + mapPropertyPath + "[" +
-                keyString + "]' does not exist.");
+                        keyString + "]' does not exist.");
             }
 
             applyProperty(referencedValue, remaining, value);
         }
     }
-    
+
     private void setProperty(Object object, String propertyPath, Object value) {
         try {
             if (log.isTraceEnabled()) {
@@ -502,7 +501,7 @@ public class ReflectionBuilder {
             throw new ConfigurationException(msg, e);
         }
     }
-    
+
     private Object getProperty(Object object, String propertyPath) {
         try {
             return PropertyUtils.getProperty(object, propertyPath);
@@ -510,7 +509,7 @@ public class ReflectionBuilder {
             throw new ConfigurationException("Unable to access property '" + propertyPath + "'", e);
         }
     }
-    
+
     private void setIndexedProperty(Object object, String propertyPath, int index, Object value) {
         try {
             PropertyUtils.setIndexedProperty(object, propertyPath, index, value);
@@ -518,7 +517,7 @@ public class ReflectionBuilder {
             throw new ConfigurationException("Unable to set array property '" + propertyPath + "'", e);
         }
     }
-    
+
     private Object getIndexedProperty(Object object, String propertyPath, int index) {
         try {
             return PropertyUtils.getIndexedProperty(object, propertyPath, index);
@@ -526,7 +525,7 @@ public class ReflectionBuilder {
             throw new ConfigurationException("Unable to acquire array property '" + propertyPath + "'", e);
         }
     }
-    
+
     protected boolean isIndexedPropertyAssignment(String propertyPath) {
         return propertyPath.endsWith("" + MAP_PROPERTY_END_TOKEN);
     }

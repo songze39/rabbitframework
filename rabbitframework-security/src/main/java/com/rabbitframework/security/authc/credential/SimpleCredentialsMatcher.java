@@ -18,12 +18,10 @@
  */
 package com.rabbitframework.security.authc.credential;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.rabbitframework.security.authc.AuthenticationInfo;
 import com.rabbitframework.security.authc.AuthenticationToken;
-import com.rabbitframework.security.codec.CodecSupport;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 

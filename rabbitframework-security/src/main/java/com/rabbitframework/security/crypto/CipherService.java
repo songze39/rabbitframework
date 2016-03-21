@@ -21,8 +21,6 @@ package com.rabbitframework.security.crypto;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import com.rabbitframework.security.util.ByteSource;
-
 /**
  * A {@code CipherService} uses a cryptographic algorithm called a
  * <a href="http://en.wikipedia.org/wiki/Cipher">Cipher</a> to convert an original input source using a {@code key} to

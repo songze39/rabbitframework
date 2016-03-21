@@ -28,7 +28,6 @@ import com.rabbitframework.security.authz.SimpleAuthorizationInfo;
 import com.rabbitframework.security.config.ConfigurationException;
 import com.rabbitframework.security.realm.AuthorizingRealm;
 import com.rabbitframework.security.subject.PrincipalCollection;
-import com.rabbitframework.security.util.ByteSource;
 import com.rabbitframework.security.util.JdbcUtils;
 
 import javax.sql.DataSource;

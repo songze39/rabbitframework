@@ -20,9 +20,6 @@ package com.rabbitframework.security.crypto;
 
 import org.junit.Test;
 
-import com.rabbitframework.security.crypto.SecureRandomNumberGenerator;
-import com.rabbitframework.security.util.ByteSource;
-
 import static org.junit.Assert.*;
 
 /**

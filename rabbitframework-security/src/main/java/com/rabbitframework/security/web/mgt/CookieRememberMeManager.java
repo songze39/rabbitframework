@@ -18,10 +18,7 @@
  */
 package com.rabbitframework.security.web.mgt;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.rabbitframework.security.codec.Base64;
+import com.rabbitframework.commons.codec.Base64;
 import com.rabbitframework.security.mgt.AbstractRememberMeManager;
 import com.rabbitframework.security.subject.Subject;
 import com.rabbitframework.security.subject.SubjectContext;
@@ -31,6 +28,8 @@ import com.rabbitframework.security.web.servlet.SimpleCookie;
 import com.rabbitframework.security.web.subject.WebSubject;
 import com.rabbitframework.security.web.subject.WebSubjectContext;
 import com.rabbitframework.security.web.util.WebUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;

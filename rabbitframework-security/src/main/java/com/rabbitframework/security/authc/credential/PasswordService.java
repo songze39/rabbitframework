@@ -18,8 +18,6 @@
  */
 package com.rabbitframework.security.authc.credential;
 
-import com.rabbitframework.security.util.ByteSource;
-
 /**
  * A {@code PasswordService} supports common use cases when using passwords as a credentials mechanism.
  * <p/>

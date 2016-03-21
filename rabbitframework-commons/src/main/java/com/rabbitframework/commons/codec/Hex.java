@@ -18,6 +18,8 @@
  */
 package com.rabbitframework.commons.codec;
 
+import com.rabbitframework.commons.utils.StringUtils;
+
 /**
  * <a href="http://en.wikipedia.org/wiki/Hexadecimal">Hexadecimal</a> encoder and decoder.
  * <p/>
@@ -91,7 +93,7 @@ public class Hex {
      * @see #decode(char[])
      */
     public static byte[] decode(byte[] array) throws IllegalArgumentException {
-        String s = CodecSupport.toString(array);
+        String s = StringUtils.toString(array);
         return decode(s);
     }
 

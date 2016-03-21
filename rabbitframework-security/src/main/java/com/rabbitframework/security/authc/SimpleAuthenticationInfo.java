@@ -21,7 +21,6 @@ package com.rabbitframework.security.authc;
 import com.rabbitframework.security.subject.MutablePrincipalCollection;
 import com.rabbitframework.security.subject.PrincipalCollection;
 import com.rabbitframework.security.subject.SimplePrincipalCollection;
-import com.rabbitframework.security.util.ByteSource;
 
 import java.util.Collection;
 import java.util.HashSet;

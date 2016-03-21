@@ -18,8 +18,6 @@
  */
 package com.rabbitframework.security.crypto.hash;
 
-import com.rabbitframework.security.util.ByteSource;
-
 /**
  * Simple implementation of {@link HashRequest} that can be used when interacting with a {@link HashService}.
  *

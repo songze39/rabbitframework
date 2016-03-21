@@ -18,11 +18,11 @@
  */
 package com.rabbitframework.security.authc.credential;
 
+import com.rabbitframework.commons.codec.Base64;
+import com.rabbitframework.commons.codec.Hex;
 import com.rabbitframework.security.authc.AuthenticationInfo;
 import com.rabbitframework.security.authc.AuthenticationToken;
 import com.rabbitframework.security.authc.SaltedAuthenticationInfo;
-import com.rabbitframework.security.codec.Base64;
-import com.rabbitframework.security.codec.Hex;
 import com.rabbitframework.security.crypto.hash.AbstractHash;
 import com.rabbitframework.security.crypto.hash.Hash;
 import com.rabbitframework.security.crypto.hash.SimpleHash;

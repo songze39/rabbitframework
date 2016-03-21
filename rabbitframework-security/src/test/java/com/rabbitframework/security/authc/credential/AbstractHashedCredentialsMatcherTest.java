@@ -25,9 +25,6 @@ import com.rabbitframework.security.authc.AuthenticationInfo;
 import com.rabbitframework.security.authc.AuthenticationToken;
 import com.rabbitframework.security.authc.SimpleAuthenticationInfo;
 import com.rabbitframework.security.authc.UsernamePasswordToken;
-import com.rabbitframework.security.authc.credential.CredentialsMatcher;
-import com.rabbitframework.security.authc.credential.HashedCredentialsMatcher;
-import com.rabbitframework.security.crypto.hash.AbstractHash;
 import com.rabbitframework.security.util.ClassUtils;
 
 /**

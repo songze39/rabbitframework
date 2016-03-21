@@ -19,7 +19,6 @@
 package com.rabbitframework.security.authc.credential;
 
 import com.rabbitframework.security.crypto.hash.Hash;
-import com.rabbitframework.security.util.ByteSource;
 
 /**
  * A {@code HashingPasswordService} is a {@link PasswordService} that performs password encryption and comparisons

@@ -16,7 +16,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.rabbitframework.commons.codec;
+package com.rabbitframework.security.codec;
+
+import com.rabbitframework.commons.codec.*;
 
 import java.io.File;
 import java.io.InputStream;
@@ -57,7 +59,7 @@ public class SimpleByteSource implements ByteSource {
      * @since 1.1
      */
     public SimpleByteSource(char[] chars) {
-        this.bytes = CodecSupport.toBytes(chars);
+        this.bytes = com.rabbitframework.security.codec.CodecSupport.toBytes(chars);
     }
 
     /**
@@ -67,7 +69,7 @@ public class SimpleByteSource implements ByteSource {
      * @since 1.1
      */
     public SimpleByteSource(String string) {
-        this.bytes = CodecSupport.toBytes(string);
+        this.bytes = com.rabbitframework.commons.codec.CodecSupport.toBytes(string);
     }
 
     /**

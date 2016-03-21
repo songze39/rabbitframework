@@ -20,8 +20,6 @@ package com.rabbitframework.security.crypto;
 
 import java.security.SecureRandom;
 
-import com.rabbitframework.security.util.ByteSource;
-
 /**
  * Default implementation of the {@link RandomNumberGenerator RandomNumberGenerator} interface, backed by a
  * {@link SecureRandom SecureRandom} instance.

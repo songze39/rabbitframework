@@ -19,7 +19,6 @@
 package com.rabbitframework.security.crypto.hash;
 
 import com.rabbitframework.security.crypto.RandomNumberGenerator;
-import com.rabbitframework.security.util.ByteSource;
 
 /**
  * A {@code HashService} that allows configuration of its strategy via JavaBeans-compatible setter methods.

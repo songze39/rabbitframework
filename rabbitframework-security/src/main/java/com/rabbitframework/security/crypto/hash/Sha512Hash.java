@@ -18,8 +18,8 @@
  */
 package com.rabbitframework.security.crypto.hash;
 
-import com.rabbitframework.security.codec.Base64;
-import com.rabbitframework.security.codec.Hex;
+import com.rabbitframework.commons.codec.Base64;
+import com.rabbitframework.commons.codec.Hex;
 
 /**
  * Generates an SHA-512 Hash from a given input <tt>source</tt> with an optional <tt>salt</tt> and hash iterations.

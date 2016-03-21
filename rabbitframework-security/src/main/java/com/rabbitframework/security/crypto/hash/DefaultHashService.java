@@ -20,7 +20,6 @@ package com.rabbitframework.security.crypto.hash;
 
 import com.rabbitframework.security.crypto.RandomNumberGenerator;
 import com.rabbitframework.security.crypto.SecureRandomNumberGenerator;
-import com.rabbitframework.security.util.ByteSource;
 
 /**
  * Default implementation of the {@link HashService} interface, supporting a customizable hash algorithm name,

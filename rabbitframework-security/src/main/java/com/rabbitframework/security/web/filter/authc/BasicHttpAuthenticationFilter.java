@@ -18,12 +18,11 @@
  */
 package com.rabbitframework.security.web.filter.authc;
 
+import com.rabbitframework.commons.codec.Base64;
+import com.rabbitframework.security.authc.AuthenticationToken;
+import com.rabbitframework.security.web.util.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.rabbitframework.security.authc.AuthenticationToken;
-import com.rabbitframework.security.codec.Base64;
-import com.rabbitframework.security.web.util.WebUtils;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;

@@ -22,7 +22,6 @@ import com.rabbitframework.security.authz.Permission;
 import com.rabbitframework.security.authz.SimpleAuthorizationInfo;
 import com.rabbitframework.security.subject.PrincipalCollection;
 import com.rabbitframework.security.subject.SimplePrincipalCollection;
-import com.rabbitframework.security.util.ByteSource;
 
 import java.io.Serializable;
 import java.util.Collection;

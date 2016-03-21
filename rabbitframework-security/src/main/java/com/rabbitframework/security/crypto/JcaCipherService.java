@@ -18,11 +18,9 @@
  */
 package com.rabbitframework.security.crypto;
 
+import com.rabbitframework.security.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.rabbitframework.security.util.ByteSource;
-import com.rabbitframework.security.util.StringUtils;
 
 import javax.crypto.CipherInputStream;
 import javax.crypto.spec.IvParameterSpec;

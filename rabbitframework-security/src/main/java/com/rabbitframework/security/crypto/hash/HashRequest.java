@@ -18,8 +18,6 @@
  */
 package com.rabbitframework.security.crypto.hash;
 
-import com.rabbitframework.security.util.ByteSource;
-
 /**
  * A {@code HashRequest} is composed of data that will be used by a {@link HashService} to compute a hash (aka
  * 'digest').  While you can instantiate a concrete {@code HashRequest} class directly, most will find using the

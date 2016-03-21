@@ -24,12 +24,10 @@ import com.rabbitframework.security.authc.AuthenticationInfo;
 import com.rabbitframework.security.authc.AuthenticationToken;
 import com.rabbitframework.security.authc.SimpleAuthenticationInfo;
 import com.rabbitframework.security.authc.UsernamePasswordToken;
-import com.rabbitframework.security.authc.credential.HashedCredentialsMatcher;
 import com.rabbitframework.security.crypto.SecureRandomNumberGenerator;
 import com.rabbitframework.security.crypto.hash.Sha1Hash;
 import com.rabbitframework.security.subject.PrincipalCollection;
 import com.rabbitframework.security.subject.SimplePrincipalCollection;
-import com.rabbitframework.security.util.ByteSource;
 
 import static org.junit.Assert.assertTrue;
 

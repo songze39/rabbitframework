@@ -18,14 +18,11 @@
  */
 package com.rabbitframework.security.mgt;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import com.rabbitframework.commons.codec.Base64;
 import com.rabbitframework.security.authc.AuthenticationException;
 import com.rabbitframework.security.authc.AuthenticationInfo;
 import com.rabbitframework.security.authc.AuthenticationToken;
 import com.rabbitframework.security.authc.RememberMeAuthenticationToken;
-import com.rabbitframework.security.codec.Base64;
 import com.rabbitframework.security.crypto.AesCipherService;
 import com.rabbitframework.security.crypto.CipherService;
 import com.rabbitframework.security.io.DefaultSerializer;
@@ -33,7 +30,8 @@ import com.rabbitframework.security.io.Serializer;
 import com.rabbitframework.security.subject.PrincipalCollection;
 import com.rabbitframework.security.subject.Subject;
 import com.rabbitframework.security.subject.SubjectContext;
-import com.rabbitframework.security.util.ByteSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Abstract implementation of the {@code RememberMeManager} interface that handles

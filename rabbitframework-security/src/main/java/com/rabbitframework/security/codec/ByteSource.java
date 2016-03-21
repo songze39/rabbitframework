@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.rabbitframework.security.util;
+package com.rabbitframework.security.codec;
 
 import java.io.File;
 import java.io.InputStream;
@@ -78,8 +78,8 @@ public interface ByteSource {
          * @param bytes the bytes to represent as a {@code ByteSource} instance.
          * @return a new {@code ByteSource} instance representing the specified byte array.
          */
-        public static ByteSource bytes(byte[] bytes) {
-            return new SimpleByteSource(bytes);
+        public static com.rabbitframework.commons.codec.ByteSource bytes(byte[] bytes) {
+            return new com.rabbitframework.commons.codec.SimpleByteSource(bytes);
         }
 
         /**
@@ -89,8 +89,8 @@ public interface ByteSource {
          * @param chars the character array to represent as a {@code ByteSource} instance.
          * @return a new {@code ByteSource} instance representing the specified character array's bytes.
          */
-        public static ByteSource bytes(char[] chars) {
-            return new SimpleByteSource(chars);
+        public static com.rabbitframework.commons.codec.ByteSource bytes(char[] chars) {
+            return new com.rabbitframework.commons.codec.SimpleByteSource(chars);
         }
 
         /**
@@ -100,8 +100,8 @@ public interface ByteSource {
          * @param string the string to represent as a {@code ByteSource} instance.
          * @return a new {@code ByteSource} instance representing the specified string's bytes.
          */
-        public static ByteSource bytes(String string) {
-            return new SimpleByteSource(string);
+        public static com.rabbitframework.commons.codec.ByteSource bytes(String string) {
+            return new com.rabbitframework.commons.codec.SimpleByteSource(string);
         }
 
         /**
@@ -110,8 +110,8 @@ public interface ByteSource {
          * @param source the ByteSource to represent as a new {@code ByteSource} instance.
          * @return a new {@code ByteSource} instance representing the specified ByteSource.
          */
-        public static ByteSource bytes(ByteSource source) {
-            return new SimpleByteSource(source);
+        public static com.rabbitframework.commons.codec.ByteSource bytes(com.rabbitframework.commons.codec.ByteSource source) {
+            return new com.rabbitframework.commons.codec.SimpleByteSource(source);
         }
 
         /**
@@ -120,8 +120,8 @@ public interface ByteSource {
          * @param file the file to represent as a {@code ByteSource} instance.
          * @return a new {@code ByteSource} instance representing the specified File's bytes.
          */
-        public static ByteSource bytes(File file) {
-            return new SimpleByteSource(file);
+        public static com.rabbitframework.commons.codec.ByteSource bytes(File file) {
+            return new com.rabbitframework.commons.codec.SimpleByteSource(file);
         }
 
         /**
@@ -130,15 +130,15 @@ public interface ByteSource {
          * @param stream the InputStream to represent as a {@code ByteSource} instance.
          * @return a new {@code ByteSource} instance representing the specified InputStream's bytes.
          */
-        public static ByteSource bytes(InputStream stream) {
-            return new SimpleByteSource(stream);
+        public static com.rabbitframework.commons.codec.ByteSource bytes(InputStream stream) {
+            return new com.rabbitframework.commons.codec.SimpleByteSource(stream);
         }
 
         /**
          * Returns {@code true} if the specified object can be easily represented as a {@code ByteSource} using
          * the {@link Util}'s default heuristics, {@code false} otherwise.
          * <p/>
-         * This implementation merely returns {@link SimpleByteSource}.{@link SimpleByteSource#isCompatible(Object) isCompatible(source)}.
+         * This implementation merely returns {@link com.rabbitframework.commons.codec.SimpleByteSource}.{@link com.rabbitframework.commons.codec.SimpleByteSource#isCompatible(Object) isCompatible(source)}.
          *
          * @param source the object to test to see if it can be easily converted to ByteSource instances using default
          *               heuristics.
@@ -159,7 +159,7 @@ public interface ByteSource {
          * @throws IllegalArgumentException if the argument <em>cannot</em> be easily converted to bytes
          *                                  (as indicated by the {@link #isCompatible(Object)} JavaDoc)
          */
-        public static ByteSource bytes(Object source) throws IllegalArgumentException {
+        public static com.rabbitframework.commons.codec.ByteSource bytes(Object source) throws IllegalArgumentException {
             if (source == null) {
                 return null;
             }
@@ -171,8 +171,8 @@ public interface ByteSource {
             }
             if (source instanceof byte[]) {
                 return bytes((byte[]) source);
-            } else if (source instanceof ByteSource) {
-                return (ByteSource) source;
+            } else if (source instanceof com.rabbitframework.commons.codec.ByteSource) {
+                return (com.rabbitframework.commons.codec.ByteSource) source;
             } else if (source instanceof char[]) {
                 return bytes((char[]) source);
             } else if (source instanceof String) {

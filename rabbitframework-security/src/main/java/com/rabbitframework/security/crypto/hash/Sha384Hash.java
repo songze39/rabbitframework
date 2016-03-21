@@ -18,8 +18,8 @@
  */
 package com.rabbitframework.security.crypto.hash;
 
-import com.rabbitframework.security.codec.Base64;
-import com.rabbitframework.security.codec.Hex;
+import com.rabbitframework.commons.codec.Base64;
+import com.rabbitframework.commons.codec.Hex;
 
 
 /**

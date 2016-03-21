@@ -18,10 +18,8 @@
  */
 package com.rabbitframework.security.crypto.hash;
 
-import com.rabbitframework.security.codec.Base64;
-import com.rabbitframework.security.codec.CodecException;
-import com.rabbitframework.security.codec.CodecSupport;
-import com.rabbitframework.security.codec.Hex;
+import com.rabbitframework.commons.codec.Base64;
+import com.rabbitframework.commons.codec.Hex;
 import com.rabbitframework.security.crypto.UnknownAlgorithmException;
 
 import java.io.Serializable;

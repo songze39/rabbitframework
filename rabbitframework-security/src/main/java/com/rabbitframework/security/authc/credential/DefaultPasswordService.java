@@ -26,7 +26,6 @@ import com.rabbitframework.security.crypto.hash.Hash;
 import com.rabbitframework.security.crypto.hash.HashRequest;
 import com.rabbitframework.security.crypto.hash.HashService;
 import com.rabbitframework.security.crypto.hash.format.*;
-import com.rabbitframework.security.util.ByteSource;
 
 /**
  * Default implementation of the {@link PasswordService} interface that relies on an internal
