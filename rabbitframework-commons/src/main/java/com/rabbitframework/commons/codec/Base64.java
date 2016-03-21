@@ -18,8 +18,6 @@
  */
 package com.rabbitframework.commons.codec;
 
-import com.rabbitframework.commons.utils.StringUtils;
-
 /**
  * Provides <a href="http://en.wikipedia.org/wiki/Base64">Base 64</a> encoding and decoding as defined by
  * <a href="http://www.ietf.org/rfc/rfc2045.txt">RFC 2045</a>.
@@ -233,7 +231,7 @@ public class Base64 {
      */
     public static String encodeToString(byte[] bytes) {
         byte[] encoded = encode(bytes);
-        return StringUtils.toString(encoded);
+        return CodecSupport.toString(encoded);
     }
 
     /**
@@ -390,7 +388,7 @@ public class Base64 {
      * @return the decoded String, UTF-8 encoded.
      */
     public static String decodeToString(String base64Encoded) {
-        byte[] encodedBytes = StringUtils.toBytes(base64Encoded);
+        byte[] encodedBytes = CodecSupport.toBytes(base64Encoded);
         return decodeToString(encodedBytes);
     }
 
@@ -402,7 +400,7 @@ public class Base64 {
      */
     public static String decodeToString(byte[] base64Encoded) {
         byte[] decoded = decode(base64Encoded);
-        return StringUtils.toString(decoded);
+        return CodecSupport.toString(decoded);
     }
 
     /**
@@ -412,7 +410,7 @@ public class Base64 {
      * @return the raw Base64 decoded byte array.
      */
     public static byte[] decode(String base64Encoded) {
-        byte[] bytes = StringUtils.toBytes(base64Encoded);
+        byte[] bytes = CodecSupport.toBytes(base64Encoded);
         return decode(bytes);
     }
 

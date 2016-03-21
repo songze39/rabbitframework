@@ -87,13 +87,13 @@ public class Hex {
      *
      * @param array An array of character bytes containing hexidecimal digits
      * @return A byte array containing binary data decoded from
-     *         the supplied byte array (representing characters).
+     * the supplied byte array (representing characters).
      * @throws IllegalArgumentException Thrown if an odd number of characters is supplied
      *                                  to this function
      * @see #decode(char[])
      */
     public static byte[] decode(byte[] array) throws IllegalArgumentException {
-        String s = StringUtils.toString(array);
+        String s = CodecSupport.toString(array);
         return decode(s);
     }
 
@@ -118,7 +118,7 @@ public class Hex {
      *
      * @param data An array of characters containing hexidecimal digits
      * @return A byte array containing binary data decoded from
-     *         the supplied char array.
+     * the supplied char array.
      * @throws IllegalArgumentException if an odd number or illegal of characters
      *                                  is supplied
      */

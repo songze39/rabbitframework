@@ -6,7 +6,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import com.rabbitframework.commons.exceptions.CodecException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,6 +13,55 @@ public class StringUtils {
     private static final Logger logger = LoggerFactory.getLogger(StringUtils.class);
     public final static String CONFIG_LOCATION_DELIMITERS = ",; \t\n";
     public static final String PREFERRED_ENCODING = "UTF-8";
+
+    /**
+     * Check that the given String is neither <code>null</code> nor of length 0.
+     * Note: Will return <code>true</code> for a String that purely consists of whitespace.
+     * <p/>
+     * <code>StringUtils.hasLength(null) == false<br/>
+     * StringUtils.hasLength("") == false<br/>
+     * StringUtils.hasLength(" ") == true<br/>
+     * StringUtils.hasLength("Hello") == true</code>
+     * <p/>
+     * Copied from the Spring Framework while retaining all license, copyright and author information.
+     *
+     * @param str the String to check (may be <code>null</code>)
+     * @return <code>true</code> if the String is not null and has length
+     */
+    public static boolean hasLength(String str) {
+        return (str != null && str.length() > 0);
+    }
+
+    /**
+     * Check whether the given String has actual text.
+     * More specifically, returns <code>true</code> if the string not <code>null</code>,
+     * its length is greater than 0, and it contains at least one non-whitespace character.
+     * <p/>
+     * <code>StringUtils.hasText(null) == false<br/>
+     * StringUtils.hasText("") == false<br/>
+     * StringUtils.hasText(" ") == false<br/>
+     * StringUtils.hasText("12345") == true<br/>
+     * StringUtils.hasText(" 12345 ") == true</code>
+     * <p/>
+     * <p>Copied from the Spring Framework while retaining all license, copyright and author information.
+     *
+     * @param str the String to check (may be <code>null</code>)
+     * @return <code>true</code> if the String is not <code>null</code>, its length is
+     * greater than 0, and it does not contain whitespace only
+     * @see Character#isWhitespace
+     */
+    public static boolean hasText(String str) {
+        if (!hasLength(str)) {
+            return false;
+        }
+        int strLen = str.length();
+        for (int i = 0; i < strLen; i++) {
+            if (!Character.isWhitespace(str.charAt(i))) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public static int stringToInt(String value, int defaultValue) {
         int result = defaultValue;
@@ -241,58 +289,25 @@ public class StringUtils {
         return collection.toArray(new String[collection.size()]);
     }
 
-    public static byte[] toBytes(String source) {
-        return toBytes(source, PREFERRED_ENCODING);
-    }
-
     /**
-     * Converts the specified byte array to a String using the {@link StringUtils#PREFERRED_ENCODING}.
+     * Returns the input argument, but ensures the first character is capitalized (if possible).
      *
-     * @param bytes the byte array to turn into a String.
-     * @return the specified byte array as an encoded String ({@link StringUtils#PREFERRED_ENCODING}).
-     * @see #toString(byte[], String)
+     * @param in the string to uppercase the first character.
+     * @return the input argument, but with the first character capitalized (if possible).
+     * @since 1.2
      */
-    public static String toString(byte[] bytes) {
-        return toString(bytes, PREFERRED_ENCODING);
-    }
-
-    /**
-     * Converts the specified source to a byte array via the specified encoding, throwing a
-     * {@link CodecException CodecException} if the encoding fails.
-     *
-     * @param source   the source string to convert to a byte array.
-     * @param encoding the encoding to use to use.
-     * @return the byte array of the specified source with the given encoding.
-     * @throws CodecException if the JVM does not support the specified encoding.
-     */
-    public static byte[] toBytes(String source, String encoding) throws CodecException {
-        try {
-            return source.getBytes(encoding);
-        } catch (UnsupportedEncodingException e) {
-            String msg = "Unable to convert source [" + source + "] to byte array using " +
-                    "encoding '" + encoding + "'";
-            throw new CodecException(msg, e);
+    public static String uppercaseFirstChar(String in) {
+        if (in == null || in.length() == 0) {
+            return in;
         }
-    }
+        int length = in.length();
+        StringBuilder sb = new StringBuilder(length);
 
-    /**
-     * Converts the specified byte array to a String using the specified character encoding.  This implementation
-     * does the same thing as <code>new {@link String#String(byte[], String) String(byte[], encoding)}</code>, but will
-     * wrap any {@link UnsupportedEncodingException} with a nicer runtime {@link CodecException}, allowing you to
-     * decide whether or not you want to catch the exception or let it propagate.
-     *
-     * @param bytes    the byte array to convert to a String
-     * @param encoding the character encoding used to encode the String.
-     * @return the specified byte array as an encoded String
-     * @throws CodecException if the JVM does not support the specified encoding.
-     */
-    public static String toString(byte[] bytes, String encoding) throws CodecException {
-        try {
-            return new String(bytes, encoding);
-        } catch (UnsupportedEncodingException e) {
-            String msg = "Unable to convert byte array to String with encoding '" + encoding + "'.";
-            throw new CodecException(msg, e);
+        sb.append(Character.toUpperCase(in.charAt(0)));
+        if (length > 1) {
+            String remaining = in.substring(1);
+            sb.append(remaining);
         }
+        return sb.toString();
     }
-
 }

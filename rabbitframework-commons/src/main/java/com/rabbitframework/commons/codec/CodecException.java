@@ -1,4 +1,4 @@
-package com.rabbitframework.commons.exceptions;
+package com.rabbitframework.commons.codec;
 
 
 public class CodecException extends RuntimeException {
