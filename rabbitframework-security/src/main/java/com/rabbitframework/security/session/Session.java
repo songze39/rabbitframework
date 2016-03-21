@@ -1,5 +1,4 @@
 package com.rabbitframework.security.session;
-import com.rabbitframework.security.exceptions.InvalidSessionException;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;

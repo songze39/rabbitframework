@@ -146,7 +146,7 @@ public abstract class AbstractSecurityFilter extends OncePerRequestFilter {
 
     /**
      * Wraps the original HttpServletRequest in a {@link ShiroHttpServletRequest}, which is required for supporting
-     * Servlet Specification behavior backed by a {@link org.apache.shiro.subject.Subject Subject} instance.
+     * Servlet Specification behavior backed by a {@link Subject Subject} instance.
      *
      * @param orig the original Servlet Container-provided incoming {@code HttpServletRequest} instance.
      * @return {@link ShiroHttpServletRequest ShiroHttpServletRequest} instance wrapping the original.
@@ -294,15 +294,11 @@ public abstract class AbstractSecurityFilter extends OncePerRequestFilter {
      */
     protected void doFilterInternal(ServletRequest servletRequest, ServletResponse servletResponse, final FilterChain chain)
             throws ServletException, IOException {
-
         Throwable t = null;
-
         try {
             final ServletRequest request = prepareServletRequest(servletRequest, servletResponse, chain);
             final ServletResponse response = prepareServletResponse(request, servletResponse, chain);
-
             final Subject subject = createSubject(request, response);
-
             //noinspection unchecked
             subject.execute(new Callable() {
                 public Object call() throws Exception {

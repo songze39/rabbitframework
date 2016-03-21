@@ -4,13 +4,14 @@ import com.rabbitframework.security.cache.CacheManagerAware;
 import com.rabbitframework.security.exceptions.AuthorizationException;
 import com.rabbitframework.security.exceptions.SessionException;
 import com.rabbitframework.security.session.Session;
+import com.rabbitframework.security.session.mgt.DefaultSessionManager;
 import com.rabbitframework.security.session.mgt.SessionContext;
 import com.rabbitframework.security.session.mgt.SessionKey;
 import com.rabbitframework.security.session.mgt.SessionManager;
 import com.rabbitframework.security.util.LifecycleUtils;
 
 /**
- * Shiro support of a {@link SecurityManager} class hierarchy that delegates all
+ * Security support of a {@link SecurityManager} class hierarchy that delegates all
  * {@link Session session} operations to a wrapped
  * {@link SessionManager SessionManager} instance.  That is, this class implements the
  * methods in the {@link SessionManager SessionManager} interface, but in reality, those methods are merely
@@ -19,10 +20,8 @@ import com.rabbitframework.security.util.LifecycleUtils;
  * The remaining {@code SecurityManager} methods not implemented by this class or its parents are left to be
  * implemented by subclasses.
  * <p/>
- * In keeping with the other classes in this hierarchy and Shiro's desire to minimize configuration whenever
+ * In keeping with the other classes in this hierarchy and Security's desire to minimize configuration whenever
  * possible, suitable default instances for all dependencies will be created upon instantiation.
- *
- * @since 0.9
  */
 public abstract class SessionsSecurityManager extends AuthorizingSecurityManager {
     /**
@@ -32,6 +31,7 @@ public abstract class SessionsSecurityManager extends AuthorizingSecurityManager
     private SessionManager sessionManager;
 
     /**
+     * /**
      * Default no-arg constructor, internally creates a suitable default {@link SessionManager SessionManager} delegate
      * instance.
      */

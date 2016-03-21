@@ -141,7 +141,6 @@ public class DefaultSubjectContext extends MapContext implements SubjectContext 
                 principals = (PrincipalCollection) session.getAttribute(PRINCIPALS_SESSION_KEY);
             }
         }
-
         return principals;
     }
 

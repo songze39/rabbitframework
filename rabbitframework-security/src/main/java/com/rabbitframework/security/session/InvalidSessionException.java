@@ -1,4 +1,6 @@
-package com.rabbitframework.security.exceptions;
+package com.rabbitframework.security.session;
+
+import com.rabbitframework.security.exceptions.SessionException;
 
 public class InvalidSessionException extends SessionException {
     public InvalidSessionException() {
