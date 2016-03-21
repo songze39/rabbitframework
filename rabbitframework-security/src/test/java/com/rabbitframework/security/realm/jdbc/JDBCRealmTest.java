@@ -18,29 +18,33 @@
  */
 package com.rabbitframework.security.realm.jdbc;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.HashMap;
+
+import javax.sql.DataSource;
+
 import org.hsqldb.jdbc.JDBCDataSource;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.TestName;
 
+import com.rabbitframework.commons.crypto.hash.Sha256Hash;
 import com.rabbitframework.security.SecurityUtils;
 import com.rabbitframework.security.authc.AuthenticationException;
 import com.rabbitframework.security.authc.IncorrectCredentialsException;
 import com.rabbitframework.security.authc.UsernamePasswordToken;
 import com.rabbitframework.security.config.Ini;
 import com.rabbitframework.security.config.IniSecurityManagerFactory;
-import com.rabbitframework.security.crypto.hash.Sha256Hash;
 import com.rabbitframework.security.mgt.DefaultSecurityManager;
 import com.rabbitframework.security.realm.AuthorizingRealm;
-import com.rabbitframework.security.realm.jdbc.JdbcRealm;
 import com.rabbitframework.security.subject.Subject;
 import com.rabbitframework.security.util.JdbcUtils;
 import com.rabbitframework.security.util.ThreadContext;
-
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.HashMap;
 
 /**
  * Test case for JDBCRealm.

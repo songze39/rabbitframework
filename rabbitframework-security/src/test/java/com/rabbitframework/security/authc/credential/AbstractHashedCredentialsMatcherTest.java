@@ -18,15 +18,16 @@
  */
 package com.rabbitframework.security.authc.credential;
 
-import com.rabbitframework.security.crypto.hash.AbstractHash;
-import junit.framework.TestCase;
 import org.junit.Test;
 
+import com.rabbitframework.commons.crypto.hash.SimpleHash;
 import com.rabbitframework.security.authc.AuthenticationInfo;
 import com.rabbitframework.security.authc.AuthenticationToken;
 import com.rabbitframework.security.authc.SimpleAuthenticationInfo;
 import com.rabbitframework.security.authc.UsernamePasswordToken;
 import com.rabbitframework.security.util.ClassUtils;
+
+import junit.framework.TestCase;
 
 /**
  * @since Jun 10, 2008 4:47:09 PM
@@ -35,7 +36,7 @@ public abstract class AbstractHashedCredentialsMatcherTest extends TestCase {
 
     public abstract Class<? extends HashedCredentialsMatcher> getMatcherClass();
 
-    public abstract AbstractHash hash(Object credentials);
+    public abstract SimpleHash hash(Object credentials);
 
     @Test
     public void testBasic() {

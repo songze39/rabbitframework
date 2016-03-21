@@ -16,10 +16,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.rabbitframework.security.crypto;
+package com.rabbitframework.commons.crypto;
 
-import com.rabbitframework.security.codec.ByteSource;
-import com.rabbitframework.security.codec.CodecSupport;
+import com.rabbitframework.commons.codec.ByteSource;
+import com.rabbitframework.commons.codec.CodecSupport;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -30,11 +30,11 @@ import java.util.Arrays;
 import static junit.framework.Assert.assertTrue;
 
 /**
- * Test class for the AesCipherService class.
+ * Test cases for the {@link BlowfishCipherService} class.
  *
  * @since 1.0
  */
-public class AesCipherServiceTest {
+public class BlowfishCipherServiceTest {
 
     private static final String[] PLAINTEXTS = new String[]{
             "Hello, this is a test.",
@@ -43,14 +43,14 @@ public class AesCipherServiceTest {
 
     @Test
     public void testBlockOperations() {
-        AesCipherService aes = new AesCipherService();
+        BlowfishCipherService blowfish = new BlowfishCipherService();
 
-        byte[] key = aes.generateNewKey().getEncoded();
+        byte[] key = blowfish.generateNewKey().getEncoded();
 
         for (String plain : PLAINTEXTS) {
             byte[] plaintext = CodecSupport.toBytes(plain);
-            ByteSource ciphertext = aes.encrypt(plaintext, key);
-            ByteSource decrypted = aes.decrypt(ciphertext.getBytes(), key);
+            ByteSource ciphertext = blowfish.encrypt(plaintext, key);
+            ByteSource decrypted = blowfish.decrypt(ciphertext.getBytes(), key);
             assertTrue(Arrays.equals(plaintext, decrypted.getBytes()));
         }
     }
@@ -58,7 +58,7 @@ public class AesCipherServiceTest {
     @Test
     public void testStreamingOperations() {
 
-        AesCipherService cipher = new AesCipherService();
+        BlowfishCipherService cipher = new BlowfishCipherService();
         byte[] key = cipher.generateNewKey().getEncoded();
 
         for (String plain : PLAINTEXTS) {
@@ -75,5 +75,6 @@ public class AesCipherServiceTest {
             byte[] decrypted = plainOut.toByteArray();
             assertTrue(Arrays.equals(plaintext, decrypted));
         }
+
     }
 }

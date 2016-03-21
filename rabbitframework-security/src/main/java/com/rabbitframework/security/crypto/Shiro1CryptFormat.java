@@ -22,7 +22,6 @@ import com.rabbitframework.commons.codec.Base64;
 import com.rabbitframework.commons.codec.ByteSource;
 import com.rabbitframework.commons.crypto.hash.Hash;
 import com.rabbitframework.commons.crypto.hash.SimpleHash;
-import com.rabbitframework.commons.crypto.hash.format.ModularCryptFormat;
 import com.rabbitframework.security.util.StringUtils;
 
 /**

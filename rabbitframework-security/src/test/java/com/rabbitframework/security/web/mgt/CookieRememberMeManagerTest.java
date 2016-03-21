@@ -18,26 +18,32 @@
  */
 package com.rabbitframework.security.web.mgt;
 
-import org.junit.Test;
-
-import com.rabbitframework.security.authc.AuthenticationInfo;
-import com.rabbitframework.security.authc.SimpleAuthenticationInfo;
-import com.rabbitframework.security.authc.UsernamePasswordToken;
-import com.rabbitframework.security.crypto.CryptoException;
-import com.rabbitframework.security.subject.PrincipalCollection;
-import com.rabbitframework.security.web.mgt.CookieRememberMeManager;
-import com.rabbitframework.security.web.servlet.ShiroHttpServletRequest;
-import com.rabbitframework.security.web.servlet.SimpleCookie;
-import com.rabbitframework.security.web.subject.WebSubject;
-import com.rabbitframework.security.web.subject.WebSubjectContext;
-import com.rabbitframework.security.web.subject.support.DefaultWebSubjectContext;
+import static org.easymock.EasyMock.createMock;
+import static org.easymock.EasyMock.createNiceMock;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.isA;
+import static org.easymock.EasyMock.replay;
+import static org.easymock.EasyMock.verify;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static org.easymock.EasyMock.*;
-import static org.junit.Assert.*;
+import org.junit.Test;
+
+import com.rabbitframework.commons.crypto.CryptoException;
+import com.rabbitframework.security.authc.AuthenticationInfo;
+import com.rabbitframework.security.authc.SimpleAuthenticationInfo;
+import com.rabbitframework.security.authc.UsernamePasswordToken;
+import com.rabbitframework.security.subject.PrincipalCollection;
+import com.rabbitframework.security.web.servlet.ShiroHttpServletRequest;
+import com.rabbitframework.security.web.servlet.SimpleCookie;
+import com.rabbitframework.security.web.subject.WebSubject;
+import com.rabbitframework.security.web.subject.WebSubjectContext;
+import com.rabbitframework.security.web.subject.support.DefaultWebSubjectContext;
 
 /**
  * Unit tests for the {@link CookieRememberMeManager} implementation.

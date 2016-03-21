@@ -18,19 +18,19 @@
  */
 package com.rabbitframework.security.authc.credential;
 
-import com.rabbitframework.security.codec.ByteSource;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
+import com.rabbitframework.commons.codec.ByteSource;
+import com.rabbitframework.commons.crypto.SecureRandomNumberGenerator;
+import com.rabbitframework.commons.crypto.hash.Sha1Hash;
 import com.rabbitframework.security.authc.AuthenticationInfo;
 import com.rabbitframework.security.authc.AuthenticationToken;
 import com.rabbitframework.security.authc.SimpleAuthenticationInfo;
 import com.rabbitframework.security.authc.UsernamePasswordToken;
-import com.rabbitframework.security.crypto.SecureRandomNumberGenerator;
-import com.rabbitframework.security.crypto.hash.Sha1Hash;
 import com.rabbitframework.security.subject.PrincipalCollection;
 import com.rabbitframework.security.subject.SimplePrincipalCollection;
-
-import static org.junit.Assert.assertTrue;
 
 /**
  * Tests for the {@link HashedCredentialsMatcher} class.

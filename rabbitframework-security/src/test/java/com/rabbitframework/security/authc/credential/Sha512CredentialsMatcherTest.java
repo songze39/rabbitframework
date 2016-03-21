@@ -18,8 +18,8 @@
  */
 package com.rabbitframework.security.authc.credential;
 
-import com.rabbitframework.security.crypto.hash.AbstractHash;
-import com.rabbitframework.security.crypto.hash.Sha512Hash;
+import com.rabbitframework.commons.crypto.hash.Sha512Hash;
+import com.rabbitframework.commons.crypto.hash.SimpleHash;
 
 
 /**
@@ -31,7 +31,7 @@ public class Sha512CredentialsMatcherTest extends AbstractHashedCredentialsMatch
         return Sha512CredentialsMatcher.class;
     }
 
-    public AbstractHash hash(Object credentials) {
+    public SimpleHash hash(Object credentials) {
         return new Sha512Hash(credentials);
     }
 }

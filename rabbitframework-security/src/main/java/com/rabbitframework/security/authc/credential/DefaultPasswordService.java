@@ -18,18 +18,19 @@
  */
 package com.rabbitframework.security.authc.credential;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.rabbitframework.commons.codec.ByteSource;
 import com.rabbitframework.commons.crypto.hash.DefaultHashService;
 import com.rabbitframework.commons.crypto.hash.Hash;
 import com.rabbitframework.commons.crypto.hash.HashRequest;
 import com.rabbitframework.commons.crypto.hash.HashService;
-import com.rabbitframework.commons.crypto.hash.format.DefaultHashFormatFactory;
-import com.rabbitframework.commons.crypto.hash.format.HashFormat;
-import com.rabbitframework.commons.crypto.hash.format.HashFormatFactory;
+import com.rabbitframework.security.crypto.DefaultHashFormatFactory;
+import com.rabbitframework.security.crypto.HashFormat;
+import com.rabbitframework.security.crypto.HashFormatFactory;
 import com.rabbitframework.security.crypto.ParsableHashFormat;
 import com.rabbitframework.security.crypto.Shiro1CryptFormat;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Default implementation of the {@link PasswordService} interface that relies on an internal

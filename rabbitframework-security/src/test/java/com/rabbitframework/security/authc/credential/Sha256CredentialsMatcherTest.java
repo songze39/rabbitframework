@@ -18,8 +18,8 @@
  */
 package com.rabbitframework.security.authc.credential;
 
-import com.rabbitframework.security.crypto.hash.AbstractHash;
-import com.rabbitframework.security.crypto.hash.Sha256Hash;
+import com.rabbitframework.commons.crypto.hash.Sha256Hash;
+import com.rabbitframework.commons.crypto.hash.SimpleHash;
 
 
 /**
@@ -31,7 +31,7 @@ public class Sha256CredentialsMatcherTest extends AbstractHashedCredentialsMatch
         return Sha256CredentialsMatcher.class;
     }
 
-    public AbstractHash hash(Object credentials) {
+    public SimpleHash hash(Object credentials) {
         return new Sha256Hash(credentials);
     }
 }

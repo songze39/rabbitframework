@@ -16,14 +16,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.rabbitframework.security.crypto;
-
-import static org.junit.Assert.*;
+package com.rabbitframework.commons.crypto;
 
 import org.junit.Test;
-
-import com.rabbitframework.security.crypto.CryptoException;
-import com.rabbitframework.security.crypto.JcaCipherService;
 
 public class JcaCipherServiceTest {
 

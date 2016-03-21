@@ -19,8 +19,6 @@
 package com.rabbitframework.security.crypto;
 
 import com.rabbitframework.commons.crypto.hash.Hash;
-import com.rabbitframework.commons.crypto.hash.format.HashFormat;
-import com.rabbitframework.commons.crypto.hash.format.ModularCryptFormat;
 
 /**
  * A {@code ParsableHashFormat} is able to parse a formatted string and convert it into a {@link Hash} instance.
