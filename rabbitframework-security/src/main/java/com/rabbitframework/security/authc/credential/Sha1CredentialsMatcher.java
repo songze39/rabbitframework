@@ -18,7 +18,7 @@
  */
 package com.rabbitframework.security.authc.credential;
 
-import com.rabbitframework.security.crypto.hash.Sha1Hash;
+import com.rabbitframework.commons.crypto.hash.Sha1Hash;
 
 
 /**

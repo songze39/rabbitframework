@@ -19,13 +19,13 @@
 package com.rabbitframework.security.mgt;
 
 import com.rabbitframework.commons.codec.Base64;
+import com.rabbitframework.commons.codec.ByteSource;
+import com.rabbitframework.commons.crypto.AesCipherService;
+import com.rabbitframework.commons.crypto.CipherService;
 import com.rabbitframework.security.authc.AuthenticationException;
 import com.rabbitframework.security.authc.AuthenticationInfo;
 import com.rabbitframework.security.authc.AuthenticationToken;
 import com.rabbitframework.security.authc.RememberMeAuthenticationToken;
-import com.rabbitframework.security.codec.ByteSource;
-import com.rabbitframework.security.crypto.AesCipherService;
-import com.rabbitframework.security.crypto.CipherService;
 import com.rabbitframework.security.io.DefaultSerializer;
 import com.rabbitframework.security.io.Serializer;
 import com.rabbitframework.security.subject.PrincipalCollection;
@@ -33,7 +33,6 @@ import com.rabbitframework.security.subject.Subject;
 import com.rabbitframework.security.subject.SubjectContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 /**
  * Abstract implementation of the {@code RememberMeManager} interface that handles
  * {@link #setSerializer(Serializer) serialization} and
@@ -56,7 +55,7 @@ import org.slf4j.LoggerFactory;
  * However, if you do feel this constitutes sensitive information, it is recommended that you provide your own
  * {@code key} via the {@link #setCipherKey setCipherKey} method to a key known only to your application,
  * guaranteeing that no third party can decrypt your data.  You can generate your own key by calling the
- * {@code CipherService}'s {@link com.rabbitframework.security.crypto.AesCipherService#generateNewKey() generateNewKey} method
+ * {@code CipherService}'s {@link AesCipherService#generateNewKey() generateNewKey} method
  * and using that result as the {@link #setCipherKey cipherKey} configuration attribute.
  *
  * @since 0.9
@@ -239,7 +238,7 @@ public abstract class AbstractRememberMeManager implements RememberMeManager {
      * asymmetric CipherService?(such as a public/private key pair), you cannot use this method, and should instead use
      * the {@link #setEncryptionCipherKey(byte[])} and {@link #setDecryptionCipherKey(byte[])} methods individually.
      * <p/>
-     * The default {@link AesCipherService} instance is a symmetric CipherService, so this method can be used if you
+     * The default {@link com.rabbitframework.commons.crypto.AesCipherService} instance is a symmetric CipherService, so this method can be used if you
      * are using the default.
      *
      * @param cipherKey the symmetric cipher key to use for both encryption and decryption.

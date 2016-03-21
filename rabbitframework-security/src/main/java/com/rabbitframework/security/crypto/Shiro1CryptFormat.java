@@ -16,12 +16,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.rabbitframework.security.crypto.hash.format;
+package com.rabbitframework.security.crypto;
 
 import com.rabbitframework.commons.codec.Base64;
-import com.rabbitframework.security.codec.ByteSource;
-import com.rabbitframework.security.crypto.hash.Hash;
-import com.rabbitframework.security.crypto.hash.SimpleHash;
+import com.rabbitframework.commons.codec.ByteSource;
+import com.rabbitframework.commons.crypto.hash.Hash;
+import com.rabbitframework.commons.crypto.hash.SimpleHash;
+import com.rabbitframework.commons.crypto.hash.format.ModularCryptFormat;
 import com.rabbitframework.security.util.StringUtils;
 
 /**

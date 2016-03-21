@@ -18,9 +18,9 @@
  */
 package com.rabbitframework.security.authc.credential;
 
+import com.rabbitframework.commons.codec.CodecSupport;
 import com.rabbitframework.security.authc.AuthenticationInfo;
 import com.rabbitframework.security.authc.AuthenticationToken;
-import com.rabbitframework.security.codec.CodecSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

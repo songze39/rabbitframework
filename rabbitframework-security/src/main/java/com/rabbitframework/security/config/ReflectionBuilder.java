@@ -18,14 +18,14 @@
  */
 package com.rabbitframework.security.config;
 
-import com.rabbitframework.commons.codec.*;
-import com.rabbitframework.security.codec.ByteSource;
+import com.rabbitframework.commons.codec.Base64;
+import com.rabbitframework.commons.codec.ByteSource;
+import com.rabbitframework.commons.codec.Hex;
+import com.rabbitframework.security.util.*;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.rabbitframework.security.util.*;
-import com.rabbitframework.commons.codec.Base64;
 
 import java.beans.PropertyDescriptor;
 import java.util.*;

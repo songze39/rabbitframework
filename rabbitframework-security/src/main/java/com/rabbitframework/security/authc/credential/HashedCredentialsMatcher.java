@@ -20,12 +20,11 @@ package com.rabbitframework.security.authc.credential;
 
 import com.rabbitframework.commons.codec.Base64;
 import com.rabbitframework.commons.codec.Hex;
+import com.rabbitframework.commons.crypto.hash.Hash;
+import com.rabbitframework.commons.crypto.hash.SimpleHash;
 import com.rabbitframework.security.authc.AuthenticationInfo;
 import com.rabbitframework.security.authc.AuthenticationToken;
 import com.rabbitframework.security.authc.SaltedAuthenticationInfo;
-import com.rabbitframework.security.crypto.hash.AbstractHash;
-import com.rabbitframework.security.crypto.hash.Hash;
-import com.rabbitframework.security.crypto.hash.SimpleHash;
 import com.rabbitframework.security.util.StringUtils;
 
 /**
@@ -50,8 +49,8 @@ import com.rabbitframework.security.util.StringUtils;
  * <a href="http://www.owasp.org/index.php/Hashing_Java" _target="blank">Hashing Java article</a> to learn about
  * salting and multiple iterations and why you might want to use them. (Note of sections 5
  * &quot;Why add salt?&quot; and 6 "Hardening against the attacker's attack").   We should also note here that all of
- * Shiro's Hash implementations (for example, {@link com.rabbitframework.security.crypto.hash.Md5Hash Md5Hash},
- * {@link com.rabbitframework.security.crypto.hash.Sha1Hash Sha1Hash}, etc) support salting and multiple hash iterations via
+ * Shiro's Hash implementations (for example, {@link com.rabbitframework.commons.crypto.hash.Md5Hash Md5Hash},
+ * {@link com.rabbitframework.commons.crypto.hash.Sha1Hash Sha1Hash}, etc) support salting and multiple hash iterations via
  * overloaded constructors.
  * <h4>Real World Case Study</h4>
  * In April 2010, some public Atlassian Jira and Confluence
@@ -112,9 +111,9 @@ import com.rabbitframework.security.util.StringUtils;
  * two, if your application mandates high security, use the SHA-256 (or higher) hashing algorithms and their
  * supporting {@code CredentialsMatcher} implementations.
  *
- * @see com.rabbitframework.security.crypto.hash.Md5Hash
- * @see com.rabbitframework.security.crypto.hash.Sha1Hash
- * @see com.rabbitframework.security.crypto.hash.Sha256Hash
+ * @see com.rabbitframework.commons.crypto.hash.Md5Hash
+ * @see com.rabbitframework.commons.crypto.hash.Sha1Hash
+ * @see com.rabbitframework.commons.crypto.hash.Sha256Hash
  * @since 0.9
  */
 public class HashedCredentialsMatcher extends SimpleCredentialsMatcher {
@@ -142,24 +141,25 @@ public class HashedCredentialsMatcher extends SimpleCredentialsMatcher {
     /**
      * Creates an instance using the specified {@link #getHashAlgorithmName() hashAlgorithmName} to hash submitted
      * credentials.
-     * @param hashAlgorithmName the {@code Hash} {@link com.rabbitframework.security.crypto.hash.Hash#getAlgorithmName() algorithmName}
+     *
+     * @param hashAlgorithmName the {@code Hash} {@link Hash#getAlgorithmName() algorithmName}
      *                          to use when performing hashes for credentials matching.
      * @since 1.1
      */
     public HashedCredentialsMatcher(String hashAlgorithmName) {
         this();
-        if (!StringUtils.hasText(hashAlgorithmName) ) {
+        if (!StringUtils.hasText(hashAlgorithmName)) {
             throw new IllegalArgumentException("hashAlgorithmName cannot be null or empty.");
         }
         this.hashAlgorithm = hashAlgorithmName;
     }
 
     /**
-     * Returns the {@code Hash} {@link com.rabbitframework.security.crypto.hash.Hash#getAlgorithmName() algorithmName} to use
+     * Returns the {@code Hash} {@link Hash#getAlgorithmName() algorithmName} to use
      * when performing hashes for credentials matching.
      *
-     * @return the {@code Hash} {@link com.rabbitframework.security.crypto.hash.Hash#getAlgorithmName() algorithmName} to use
-     *         when performing hashes for credentials matching.
+     * @return the {@code Hash} {@link Hash#getAlgorithmName() algorithmName} to use
+     * when performing hashes for credentials matching.
      * @since 1.1
      */
     public String getHashAlgorithmName() {
@@ -167,10 +167,10 @@ public class HashedCredentialsMatcher extends SimpleCredentialsMatcher {
     }
 
     /**
-     * Sets the {@code Hash} {@link com.rabbitframework.security.crypto.hash.Hash#getAlgorithmName() algorithmName} to use
+     * Sets the {@code Hash} {@link Hash#getAlgorithmName() algorithmName} to use
      * when performing hashes for credentials matching.
      *
-     * @param hashAlgorithmName the {@code Hash} {@link com.rabbitframework.security.crypto.hash.Hash#getAlgorithmName() algorithmName}
+     * @param hashAlgorithmName the {@code Hash} {@link Hash#getAlgorithmName() algorithmName}
      *                          to use when performing hashes for credentials matching.
      * @since 1.1
      */
@@ -187,7 +187,7 @@ public class HashedCredentialsMatcher extends SimpleCredentialsMatcher {
      * easier.
      *
      * @return {@code true} if the system's stored credential hash is Hex encoded, {@code false} if it
-     *         is Base64 encoded.  Default is {@code true}
+     * is Base64 encoded.  Default is {@code true}
      */
     public boolean isStoredCredentialsHexEncoded() {
         return storedCredentialsHexEncoded;
@@ -219,19 +219,19 @@ public class HashedCredentialsMatcher extends SimpleCredentialsMatcher {
      * The default value is {@code false}.
      *
      * @return {@code true} if a submitted {@code AuthenticationToken}'s credentials should be salted when hashing,
-     *         {@code false} if it should not be salted.
+     * {@code false} if it should not be salted.
      * @deprecated since Shiro 1.1.  Hash salting is now expected to be based on if the {@link AuthenticationInfo}
-     *             returned from the {@code Realm} is a {@link SaltedAuthenticationInfo} instance and its
-     *             {@link com.rabbitframework.security.authc.SaltedAuthenticationInfo#getCredentialsSalt() getCredentialsSalt()} method returns a non-null value.
-     *             This method and the 1.0 behavior still exists for backwards compatibility if the {@code Realm} does not return
-     *             {@code SaltedAuthenticationInfo} instances, but <b>it is highly recommended that {@code Realm} implementations
-     *             that support hashed credentials start returning {@link SaltedAuthenticationInfo SaltedAuthenticationInfo}
-     *             instances as soon as possible</b>.
-     *             <p/>
-     *             This is because salts should always be obtained from the stored account information and
-     *             never be interpreted based on user/Subject-entered data.  User-entered data is easier to compromise for
-     *             attackers, whereas account-unique (and secure randomly-generated) salts never disseminated to the end-user
-     *             are almost impossible to break.  This method will be removed in Shiro 2.0.
+     * returned from the {@code Realm} is a {@link SaltedAuthenticationInfo} instance and its
+     * {@link com.rabbitframework.security.authc.SaltedAuthenticationInfo#getCredentialsSalt() getCredentialsSalt()} method returns a non-null value.
+     * This method and the 1.0 behavior still exists for backwards compatibility if the {@code Realm} does not return
+     * {@code SaltedAuthenticationInfo} instances, but <b>it is highly recommended that {@code Realm} implementations
+     * that support hashed credentials start returning {@link SaltedAuthenticationInfo SaltedAuthenticationInfo}
+     * instances as soon as possible</b>.
+     * <p/>
+     * This is because salts should always be obtained from the stored account information and
+     * never be interpreted based on user/Subject-entered data.  User-entered data is easier to compromise for
+     * attackers, whereas account-unique (and secure randomly-generated) salts never disseminated to the end-user
+     * are almost impossible to break.  This method will be removed in Shiro 2.0.
      */
     @Deprecated
     public boolean isHashSalted() {
@@ -247,17 +247,17 @@ public class HashedCredentialsMatcher extends SimpleCredentialsMatcher {
      *
      * @param hashSalted whether or not to salt a submitted {@code AuthenticationToken}'s credentials when hashing.
      * @deprecated since Shiro 1.1.  Hash salting is now expected to be based on if the {@link AuthenticationInfo}
-     *             returned from the {@code Realm} is a {@link SaltedAuthenticationInfo} instance and its
-     *             {@link com.rabbitframework.security.authc.SaltedAuthenticationInfo#getCredentialsSalt() getCredentialsSalt()} method returns a non-null value.
-     *             This method and the 1.0 behavior still exists for backwards compatibility if the {@code Realm} does not return
-     *             {@code SaltedAuthenticationInfo} instances, but <b>it is highly recommended that {@code Realm} implementations
-     *             that support hashed credentials start returning {@link SaltedAuthenticationInfo SaltedAuthenticationInfo}
-     *             instances as soon as possible</b>.
-     *             <p/>
-     *             This is because salts should always be obtained from the stored account information and
-     *             never be interpreted based on user/Subject-entered data.  User-entered data is easier to compromise for
-     *             attackers, whereas account-unique (and secure randomly-generated) salts never disseminated to the end-user
-     *             are almost impossible to break.  This method will be removed in Shiro 2.0.
+     * returned from the {@code Realm} is a {@link SaltedAuthenticationInfo} instance and its
+     * {@link com.rabbitframework.security.authc.SaltedAuthenticationInfo#getCredentialsSalt() getCredentialsSalt()} method returns a non-null value.
+     * This method and the 1.0 behavior still exists for backwards compatibility if the {@code Realm} does not return
+     * {@code SaltedAuthenticationInfo} instances, but <b>it is highly recommended that {@code Realm} implementations
+     * that support hashed credentials start returning {@link SaltedAuthenticationInfo SaltedAuthenticationInfo}
+     * instances as soon as possible</b>.
+     * <p/>
+     * This is because salts should always be obtained from the stored account information and
+     * never be interpreted based on user/Subject-entered data.  User-entered data is easier to compromise for
+     * attackers, whereas account-unique (and secure randomly-generated) salts never disseminated to the end-user
+     * are almost impossible to break.  This method will be removed in Shiro 2.0.
      */
     @Deprecated
     public void setHashSalted(boolean hashSalted) {
@@ -271,7 +271,7 @@ public class HashedCredentialsMatcher extends SimpleCredentialsMatcher {
      * Unless overridden, the default value is {@code 1}, meaning a normal hash execution will occur.
      *
      * @return the number of times a submitted {@code AuthenticationToken}'s credentials will be hashed before
-     *         comparing to the credentials stored in the system.
+     * comparing to the credentials stored in the system.
      */
     public int getHashIterations() {
         return hashIterations;
@@ -306,16 +306,16 @@ public class HashedCredentialsMatcher extends SimpleCredentialsMatcher {
      * @param token the AuthenticationToken submitted during the authentication attempt.
      * @return a salt value to use to hash the authentication token's credentials.
      * @deprecated since Shiro 1.1.  Hash salting is now expected to be based on if the {@link AuthenticationInfo}
-     *             returned from the {@code Realm} is a {@link SaltedAuthenticationInfo} instance and its
-     *             {@link com.rabbitframework.security.authc.SaltedAuthenticationInfo#getCredentialsSalt() getCredentialsSalt()} method returns a non-null value.
-     *             This method and the 1.0 behavior still exists for backwards compatibility if the {@code Realm} does not return
-     *             {@code SaltedAuthenticationInfo} instances, but <b>it is highly recommended that {@code Realm} implementations
-     *             that support hashed credentials start returning {@link SaltedAuthenticationInfo SaltedAuthenticationInfo}
-     *             instances as soon as possible</b>.<p/>
-     *             This is because salts should always be obtained from the stored account information and
-     *             never be interpreted based on user/Subject-entered data.  User-entered data is easier to compromise for
-     *             attackers, whereas account-unique (and secure randomly-generated) salts never disseminated to the end-user
-     *             are almost impossible to break.  This method will be removed in Shiro 2.0.
+     * returned from the {@code Realm} is a {@link SaltedAuthenticationInfo} instance and its
+     * {@link com.rabbitframework.security.authc.SaltedAuthenticationInfo#getCredentialsSalt() getCredentialsSalt()} method returns a non-null value.
+     * This method and the 1.0 behavior still exists for backwards compatibility if the {@code Realm} does not return
+     * {@code SaltedAuthenticationInfo} instances, but <b>it is highly recommended that {@code Realm} implementations
+     * that support hashed credentials start returning {@link SaltedAuthenticationInfo SaltedAuthenticationInfo}
+     * instances as soon as possible</b>.<p/>
+     * This is because salts should always be obtained from the stored account information and
+     * never be interpreted based on user/Subject-entered data.  User-entered data is easier to compromise for
+     * attackers, whereas account-unique (and secure randomly-generated) salts never disseminated to the end-user
+     * are almost impossible to break.  This method will be removed in Shiro 2.0.
      */
     @Deprecated
     protected Object getSalt(AuthenticationToken token) {
@@ -355,7 +355,7 @@ public class HashedCredentialsMatcher extends SimpleCredentialsMatcher {
                 storedBytes = Base64.decode(storedBytes);
             }
         }
-        AbstractHash hash = newHashInstance();
+        SimpleHash hash = newHashInstance();
         hash.setBytes(storedBytes);
         return hash;
     }
@@ -371,7 +371,7 @@ public class HashedCredentialsMatcher extends SimpleCredentialsMatcher {
      * @param token the {@code AuthenticationToken} submitted during the authentication attempt.
      * @param info  the {@code AuthenticationInfo} stored in the system matching the token principal
      * @return {@code true} if the provided token credentials hash match to the stored account credentials hash,
-     *         {@code false} otherwise
+     * {@code false} otherwise
      * @since 1.1
      */
     @Override
@@ -451,7 +451,7 @@ public class HashedCredentialsMatcher extends SimpleCredentialsMatcher {
      *
      * @return a new, <em>uninitialized</em> instance, without its byte array set.
      */
-    protected AbstractHash newHashInstance() {
+    protected SimpleHash newHashInstance() {
         String hashAlgorithmName = assertHashAlgorithmName();
         return new SimpleHash(hashAlgorithmName);
     }

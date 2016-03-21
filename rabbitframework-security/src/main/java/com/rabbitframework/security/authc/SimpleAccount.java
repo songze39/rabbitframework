@@ -18,9 +18,9 @@
  */
 package com.rabbitframework.security.authc;
 
+import com.rabbitframework.commons.codec.ByteSource;
 import com.rabbitframework.security.authz.Permission;
 import com.rabbitframework.security.authz.SimpleAuthorizationInfo;
-import com.rabbitframework.security.codec.ByteSource;
 import com.rabbitframework.security.subject.PrincipalCollection;
 import com.rabbitframework.security.subject.SimplePrincipalCollection;
 
@@ -253,7 +253,7 @@ public class SimpleAccount implements Account, MergableAuthenticationInfo, Salte
      * was used or credentials were not hashed at all.
      *
      * @return the salt used to hash this Account's credentials (eg for password hashing), or {@code null} if no salt
-     *         was used or credentials were not hashed at all.
+     * was used or credentials were not hashed at all.
      * @since 1.1
      */
     public ByteSource getCredentialsSalt() {
@@ -467,7 +467,7 @@ public class SimpleAccount implements Account, MergableAuthenticationInfo, Salte
      *
      * @param o the object to test for equality.
      * @return <code>true</code> if the specified object is also a {@link SimpleAccount SimpleAccount} and its
-     *         {@link #getPrincipals() principals} are equal to this object's <code>principals</code>, <code>false</code> otherwise.
+     * {@link #getPrincipals() principals} are equal to this object's <code>principals</code>, <code>false</code> otherwise.
      */
     public boolean equals(Object o) {
         if (o == this) {

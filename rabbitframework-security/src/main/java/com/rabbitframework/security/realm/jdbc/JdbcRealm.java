@@ -18,10 +18,7 @@
  */
 package com.rabbitframework.security.realm.jdbc;
 
-import com.rabbitframework.security.codec.ByteSource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import com.rabbitframework.commons.codec.ByteSource;
 import com.rabbitframework.security.authc.*;
 import com.rabbitframework.security.authz.AuthorizationException;
 import com.rabbitframework.security.authz.AuthorizationInfo;
@@ -30,6 +27,8 @@ import com.rabbitframework.security.config.ConfigurationException;
 import com.rabbitframework.security.realm.AuthorizingRealm;
 import com.rabbitframework.security.subject.PrincipalCollection;
 import com.rabbitframework.security.util.JdbcUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.sql.Connection;

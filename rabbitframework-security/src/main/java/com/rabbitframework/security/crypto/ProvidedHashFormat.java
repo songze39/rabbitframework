@@ -16,7 +16,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.rabbitframework.security.crypto.hash.format;
+package com.rabbitframework.security.crypto;
+
+import com.rabbitframework.commons.crypto.hash.format.Base64Format;
+import com.rabbitframework.commons.crypto.hash.format.HashFormat;
+import com.rabbitframework.commons.crypto.hash.format.HexFormat;
 
 /**
  * An enum representing Shiro's default provided {@link HashFormat} implementations.
