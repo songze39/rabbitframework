@@ -16,30 +16,26 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.rabbitframework.commons.crypto.hash.format;
+package com.rabbitframework.security.crypto;
 
 import com.rabbitframework.commons.crypto.hash.Hash;
 
 /**
- * A {@code HashFormat} is able to format a {@link Hash} instance into a well-defined formatted String.
- * <p/>
- * Note that not all HashFormat algorithms are reversible.  That is, they can't be parsed and reconstituted to the
- * original Hash instance.  The traditional <a href="http://en.wikipedia.org/wiki/Crypt_(Unix)">
- * Unix crypt(3)</a> is one such format.
- * <p/>
- * The formats that <em>are</em> reversible however will be represented as {@link ParsableHashFormat} instances.
- *
- * @see ParsableHashFormat
+ * {@code HashFormat} that outputs <em>only</em> The hash's digest bytes in hex format.  It does not print out
+ * anything else (salt, iterations, etc).  This implementation is mostly provided as a convenience for
+ * command-line hashing.
  *
  * @since 1.2
  */
-public interface HashFormat {
+public class HexFormat implements HashFormat {
 
     /**
-     * Returns a formatted string representing the specified Hash instance.
+     * Returns {@code hash != null ? hash.toHex() : null}.
      *
      * @param hash the hash instance to format into a String.
-     * @return a formatted string representing the specified Hash instance.
+     * @return {@code hash != null ? hash.toHex() : null}.
      */
-    String format(Hash hash);
+    public String format(Hash hash) {
+        return hash != null ? hash.toHex() : null;
+    }
 }

@@ -18,13 +18,11 @@
  */
 package com.rabbitframework.commons.crypto.hash;
 
-import com.rabbitframework.commons.codec.Base64;
-import com.rabbitframework.commons.codec.ByteSource;
-import com.rabbitframework.commons.codec.CodecException;
-import com.rabbitframework.commons.codec.Hex;
+import com.rabbitframework.commons.codec.*;
 import com.rabbitframework.commons.crypto.UnknownAlgorithmException;
 import com.rabbitframework.commons.utils.StringUtils;
 
+import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
@@ -34,13 +32,10 @@ import java.util.Arrays;
  * be used.  This class is a less type-safe variant than the other {@code AbstractHash} subclasses
  * (e.g. {@link Sha512Hash}, etc), but it does allow for any algorithm name to be specified in case the other subclass
  * implementations do not represent an algorithm that you may want to use.
- * <p/>
- * As of Shiro 1.1, this class effectively replaces the (now-deprecated) {@link AbstractHash} class.  It subclasses
- * {@code AbstractHash} only to retain backwards-compatibility.
  *
  * @since 1.1
  */
-public class SimpleHash extends AbstractHash {
+public class SimpleHash extends CodecSupport implements Hash, Serializable {
 
     private static final int DEFAULT_ITERATIONS = 1;
 
@@ -108,8 +103,7 @@ public class SimpleHash extends AbstractHash {
      * @param algorithmName the {@link MessageDigest MessageDigest} algorithm name to use when
      *                      performing the hash.
      * @param source        the object to be hashed.
-     * @throws CodecException
-     *                                   if the specified {@code source} cannot be converted into a byte array (byte[]).
+     * @throws CodecException            if the specified {@code source} cannot be converted into a byte array (byte[]).
      * @throws UnknownAlgorithmException if the {@code algorithmName} is not available.
      */
     public SimpleHash(String algorithmName, Object source) throws CodecException, UnknownAlgorithmException {
@@ -407,7 +401,7 @@ public class SimpleHash extends AbstractHash {
      *
      * @param o the object (Hash) to check for equality.
      * @return {@code true} if the specified object is a Hash and its {@link #getBytes byte array} is identical to
-     *         this Hash's byte array, {@code false} otherwise.
+     * this Hash's byte array, {@code false} otherwise.
      */
     public boolean equals(Object o) {
         if (o instanceof Hash) {

@@ -16,26 +16,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.rabbitframework.commons.crypto.hash.format;
-
-import com.rabbitframework.commons.crypto.hash.Hash;
+package com.rabbitframework.security.crypto;
 
 /**
- * {@code HashFormat} that outputs <em>only</em> the hash's digest bytes in Base64 format.  It does not print out
- * anything else (salt, iterations, etc).  This implementation is mostly provided as a convenience for
- * command-line hashing.
- *
  * @since 1.2
  */
-public class Base64Format implements HashFormat {
+public interface HashFormatFactory {
 
-    /**
-     * Returns {@code hash != null ? hash.toBase64() : null}.
-     *
-     * @param hash the hash instance to format into a String.
-     * @return {@code hash != null ? hash.toBase64() : null}.
-     */
-    public String format(Hash hash) {
-        return hash != null ? hash.toBase64() : null;
-    }
+    HashFormat getInstance(String token);
 }

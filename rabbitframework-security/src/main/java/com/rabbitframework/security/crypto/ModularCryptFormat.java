@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.rabbitframework.commons.crypto.hash.format;
+package com.rabbitframework.security.crypto;
 
 /**
  * A {@code HashFormat} that supports
