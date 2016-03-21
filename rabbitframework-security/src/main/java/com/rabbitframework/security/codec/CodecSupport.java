@@ -36,9 +36,9 @@ public abstract class CodecSupport {
      * Converts the specified character array to a byte array using the Shiro's preferred encoding (UTF-8).
      * <p/>
      * This is a convenience method equivalent to calling the {@link #toBytes(String,String)} method with a
-     * a wrapping String and {@link com.rabbitframework.commons.codec.CodecSupport#PREFERRED_ENCODING PREFERRED_ENCODING}, i.e.
+     * a wrapping String and {@link CodecSupport#PREFERRED_ENCODING PREFERRED_ENCODING}, i.e.
      * <p/>
-     * <code>toBytes( new String(chars), {@link com.rabbitframework.commons.codec.CodecSupport#PREFERRED_ENCODING PREFERRED_ENCODING} );</code>
+     * <code>toBytes( new String(chars), {@link CodecSupport#PREFERRED_ENCODING PREFERRED_ENCODING} );</code>
      *
      * @param chars the character array to be converted to a byte array.
      * @return the byte array of the UTF-8 encoded character array.
@@ -66,10 +66,10 @@ public abstract class CodecSupport {
 
     /**
      * Converts the specified source argument to a byte array with Shiro's
-     * {@link com.rabbitframework.commons.codec.CodecSupport#PREFERRED_ENCODING PREFERRED_ENCODING}.
+     * {@link CodecSupport#PREFERRED_ENCODING PREFERRED_ENCODING}.
      *
      * @param source the string to convert to a byte array.
-     * @return the bytes representing the specified string under the {@link com.rabbitframework.commons.codec.CodecSupport#PREFERRED_ENCODING PREFERRED_ENCODING}.
+     * @return the bytes representing the specified string under the {@link CodecSupport#PREFERRED_ENCODING PREFERRED_ENCODING}.
      * @see #toBytes(String, String)
      */
     public static byte[] toBytes(String source) {
@@ -96,10 +96,10 @@ public abstract class CodecSupport {
     }
 
     /**
-     * Converts the specified byte array to a String using the {@link com.rabbitframework.commons.codec.CodecSupport#PREFERRED_ENCODING PREFERRED_ENCODING}.
+     * Converts the specified byte array to a String using the {@link CodecSupport#PREFERRED_ENCODING PREFERRED_ENCODING}.
      *
      * @param bytes the byte array to turn into a String.
-     * @return the specified byte array as an encoded String ({@link com.rabbitframework.commons.codec.CodecSupport#PREFERRED_ENCODING PREFERRED_ENCODING}).
+     * @return the specified byte array as an encoded String ({@link CodecSupport#PREFERRED_ENCODING PREFERRED_ENCODING}).
      * @see #toString(byte[], String)
      */
     public static String toString(byte[] bytes) {
@@ -128,10 +128,10 @@ public abstract class CodecSupport {
 
     /**
      * Returns the specified byte array as a character array using the
-     * {@link com.rabbitframework.commons.codec.CodecSupport#PREFERRED_ENCODING PREFERRED_ENCODING}.
+     * {@link CodecSupport#PREFERRED_ENCODING PREFERRED_ENCODING}.
      *
      * @param bytes the byte array to convert to a char array
-     * @return the specified byte array encoded as a character array ({@link com.rabbitframework.commons.codec.CodecSupport#PREFERRED_ENCODING PREFERRED_ENCODING}).
+     * @return the specified byte array encoded as a character array ({@link CodecSupport#PREFERRED_ENCODING PREFERRED_ENCODING}).
      * @see #toChars(byte[], String)
      */
     public static char[] toChars(byte[] bytes) {
