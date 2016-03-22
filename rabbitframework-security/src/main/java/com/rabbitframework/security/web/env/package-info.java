@@ -19,7 +19,7 @@
 /**
  * Web-specific {@link com.rabbitframework.security.env.Environment Environment} implementation and support.  The most important
  * components are the {@link EnvironmentLoader} and {@link EnvironmentLoaderListener}, which are used in conjunction
- * with the {@link com.rabbitframework.security.web.servlet.ShiroFilter ShiroFilter} to enable Shiro in a web application.
+ * with the {@link com.rabbitframework.security.web.servlet.SecurityFilter SecurityFilter} to enable Shiro in a web application.
  *
  * @see EnvironmentLoaderListener
  * @see EnvironmentLoader

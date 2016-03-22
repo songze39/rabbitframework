@@ -18,6 +18,7 @@
  */
 package com.rabbitframework.security.spring.web;
 
+import com.rabbitframework.security.web.servlet.AbstractSecurityFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -39,7 +40,6 @@ import com.rabbitframework.security.web.filter.mgt.FilterChainManager;
 import com.rabbitframework.security.web.filter.mgt.FilterChainResolver;
 import com.rabbitframework.security.web.filter.mgt.PathMatchingFilterChainResolver;
 import com.rabbitframework.security.web.mgt.WebSecurityManager;
-import com.rabbitframework.security.web.servlet.AbstractShiroFilter;
 
 import javax.servlet.Filter;
 import java.util.LinkedHashMap;
@@ -62,7 +62,7 @@ import java.util.Map;
  * </pre>
  * Then, in your spring XML file that defines your web ApplicationContext:
  * <pre>
- * &lt;bean id="<b>shiroFilter</b>" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean"&gt;
+ * &lt;bean id="<b>shiroFilter</b>" class="org.apache.shiro.spring.web.SecurityFilterFactoryBean"&gt;
  *    &lt;property name="securityManager" ref="securityManager"/&gt;
  *    &lt;!-- other properties as necessary ... --&gt;
  * &lt;/bean&gt;
@@ -76,11 +76,11 @@ import java.util.Map;
  * any {@link Filter Filter} beans defined independently in your Spring application context.  Upon
  * discovery, they will be automatically added to the {@link #setFilters(Map) map} keyed by the bean ID.
  * That ID can then be used in the filter chain definitions, for example:
- *
+ * <p/>
  * <pre>
  * &lt;bean id="<b>myCustomFilter</b>" class="com.class.that.implements.javax.servlet.Filter"/&gt;
  * ...
- * &lt;bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean"&gt;
+ * &lt;bean id="shiroFilter" class="org.apache.shiro.spring.web.SecurityFilterFactoryBean"&gt;
  *    ...
  *    &lt;property name="filterChainDefinitions"&gt;
  *        &lt;value&gt;
@@ -105,18 +105,19 @@ import java.util.Map;
  * <li>{@link #setSuccessUrl(String)}</li>
  * <li>{@link #setUnauthorizedUrl(String)}</li>
  * </ul>
- *
+ * <p/>
  * Then at startup, any values specified via these 3 properties will be applied to all configured
  * Filter instances so you don't have to specify them individually on each filter instance.  To ensure your own custom
  * filters benefit from this convenience, your filter implementation should subclass one of the 3 mentioned
  * earlier.
+ * <p/>
+ * // * @see org.springframework.web.filter.DelegatingFilterProxy DelegatingFilterProxy
  *
- * @see org.springframework.web.filter.DelegatingFilterProxy DelegatingFilterProxy
  * @since 1.0
  */
-public class ShiroFilterFactoryBean implements FactoryBean, BeanPostProcessor {
+public class SecurityFilterFactoryBean implements FactoryBean, BeanPostProcessor {
 
-    private static transient final Logger log = LoggerFactory.getLogger(ShiroFilterFactoryBean.class);
+    private static transient final Logger log = LoggerFactory.getLogger(SecurityFilterFactoryBean.class);
 
     private SecurityManager securityManager;
 
@@ -128,9 +129,9 @@ public class ShiroFilterFactoryBean implements FactoryBean, BeanPostProcessor {
     private String successUrl;
     private String unauthorizedUrl;
 
-    private AbstractShiroFilter instance;
+    private AbstractSecurityFilter instance;
 
-    public ShiroFilterFactoryBean() {
+    public SecurityFilterFactoryBean() {
         this.filters = new LinkedHashMap<String, Filter>();
         this.filterChainDefinitionMap = new LinkedHashMap<String, String>(); //order matters!
     }
@@ -161,7 +162,7 @@ public class ShiroFilterFactoryBean implements FactoryBean, BeanPostProcessor {
      * is {@code null}.
      *
      * @return the application's login URL to be assigned to all acquired Filters that subclass
-     *         {@link AccessControlFilter} or {@code null} if no value should be assigned globally.
+     * {@link AccessControlFilter} or {@code null} if no value should be assigned globally.
      * @see #setLoginUrl
      */
     public String getLoginUrl() {
@@ -193,7 +194,7 @@ public class ShiroFilterFactoryBean implements FactoryBean, BeanPostProcessor {
      * is {@code null}.
      *
      * @return the application's after-login success URL to be assigned to all acquired Filters that subclass
-     *         {@link AuthenticationFilter} or {@code null} if no value should be assigned globally.
+     * {@link AuthenticationFilter} or {@code null} if no value should be assigned globally.
      * @see #setSuccessUrl
      */
     public String getSuccessUrl() {
@@ -225,7 +226,7 @@ public class ShiroFilterFactoryBean implements FactoryBean, BeanPostProcessor {
      * is {@code null}.
      *
      * @return the application's after-login success URL to be assigned to all acquired Filters that subclass
-     *         {@link AuthenticationFilter} or {@code null} if no value should be assigned globally.
+     * {@link AuthenticationFilter} or {@code null} if no value should be assigned globally.
      * @see #setSuccessUrl
      */
     public String getUnauthorizedUrl() {
@@ -290,7 +291,7 @@ public class ShiroFilterFactoryBean implements FactoryBean, BeanPostProcessor {
      * path expression) and the map value is the comma-delimited string chain definition.
      *
      * @return he chainName-to-chainDefinition map of chain definitions to use for creating filter chains intercepted
-     *         by the Shiro Filter.
+     * by the Shiro Filter.
      */
     public Map<String, String> getFilterChainDefinitionMap() {
         return filterChainDefinitionMap;
@@ -313,7 +314,7 @@ public class ShiroFilterFactoryBean implements FactoryBean, BeanPostProcessor {
      * A convenience method that sets the {@link #setFilterChainDefinitionMap(Map) filterChainDefinitionMap}
      * property by accepting a {@link java.util.Properties Properties}-compatible string (multi-line key/value pairs).
      * Each key/value pair must conform to the format defined by the
-     * {@link FilterChainManager#createChain(String,String)} JavaDoc - each property key is an ant URL
+     * {@link FilterChainManager#createChain(String, String)} JavaDoc - each property key is an ant URL
      * path expression and the value is the comma-delimited chain definition.
      *
      * @param definitions a {@link java.util.Properties Properties}-compatible string (multi-line key/value pairs)
@@ -333,7 +334,7 @@ public class ShiroFilterFactoryBean implements FactoryBean, BeanPostProcessor {
     }
 
     /**
-     * Lazily creates and returns a {@link AbstractShiroFilter} concrete instance via the
+     * Lazily creates and returns a {@link AbstractSecurityFilter} concrete instance via the
      * {@link #createInstance} method.
      *
      * @return the application's Shiro Filter instance used to filter incoming web requests.
@@ -347,12 +348,12 @@ public class ShiroFilterFactoryBean implements FactoryBean, BeanPostProcessor {
     }
 
     /**
-     * Returns <code>{@link AbstractShiroFilter}.class</code>
+     * Returns <code>{@link AbstractSecurityFilter}.class</code>
      *
-     * @return <code>{@link AbstractShiroFilter}.class</code>
+     * @return <code>{@link AbstractSecurityFilter}.class</code>
      */
     public Class getObjectType() {
-        return SpringShiroFilter.class;
+        return SpringSecurityFilter.class;
     }
 
     /**
@@ -418,9 +419,9 @@ public class ShiroFilterFactoryBean implements FactoryBean, BeanPostProcessor {
      * </ol>
      *
      * @return a new Shiro Filter reflecting any configured filters and filter chain definitions.
-     * @throws Exception if there is a problem creating the AbstractShiroFilter instance.
+     * @throws Exception if there is a problem creating the AbstractSecurityFilter instance.
      */
-    protected AbstractShiroFilter createInstance() throws Exception {
+    protected AbstractSecurityFilter createInstance() throws Exception {
 
         log.debug("Creating Shiro Filter instance.");
 
@@ -438,16 +439,16 @@ public class ShiroFilterFactoryBean implements FactoryBean, BeanPostProcessor {
         FilterChainManager manager = createFilterChainManager();
 
         //Expose the constructed FilterChainManager by first wrapping it in a
-        // FilterChainResolver implementation. The AbstractShiroFilter implementations
+        // FilterChainResolver implementation. The AbstractSecurityFilter implementations
         // do not know about FilterChainManagers - only resolvers:
         PathMatchingFilterChainResolver chainResolver = new PathMatchingFilterChainResolver();
         chainResolver.setFilterChainManager(manager);
 
-        //Now create a concrete ShiroFilter instance and apply the acquired SecurityManager and built
+        //Now create a concrete SecurityFilter instance and apply the acquired SecurityManager and built
         //FilterChainResolver.  It doesn't matter that the instance is an anonymous inner class
-        //here - we're just using it because it is a concrete AbstractShiroFilter instance that accepts
+        //here - we're just using it because it is a concrete AbstractSecurityFilter instance that accepts
         //injection of the SecurityManager and FilterChainResolver:
-        return new SpringShiroFilter((WebSecurityManager) securityManager, chainResolver);
+        return new SpringSecurityFilter((WebSecurityManager) securityManager, chainResolver);
     }
 
     private void applyLoginUrlIfNecessary(Filter filter) {
@@ -518,17 +519,17 @@ public class ShiroFilterFactoryBean implements FactoryBean, BeanPostProcessor {
     }
 
     /**
-     * Ordinarily the {@code AbstractShiroFilter} must be subclassed to additionally perform configuration
+     * Ordinarily the {@code AbstractSecurityFilter} must be subclassed to additionally perform configuration
      * and initialization behavior.  Because this {@code FactoryBean} implementation manually builds the
-     * {@link AbstractShiroFilter}'s
-     * {@link AbstractShiroFilter#setSecurityManager(WebSecurityManager) securityManager} and
-     * {@link AbstractShiroFilter#setFilterChainResolver(FilterChainResolver) filterChainResolver}
+     * {@link AbstractSecurityFilter}'s
+     * {@link AbstractSecurityFilter#setSecurityManager(WebSecurityManager) securityManager} and
+     * {@link AbstractSecurityFilter#setFilterChainResolver(FilterChainResolver) filterChainResolver}
      * properties, the only thing left to do is set those properties explicitly.  We do that in a simple
      * concrete subclass in the constructor.
      */
-    private static final class SpringShiroFilter extends AbstractShiroFilter {
+    private static final class SpringSecurityFilter extends AbstractSecurityFilter {
 
-        protected SpringShiroFilter(WebSecurityManager webSecurityManager, FilterChainResolver resolver) {
+        protected SpringSecurityFilter(WebSecurityManager webSecurityManager, FilterChainResolver resolver) {
             super();
             if (webSecurityManager == null) {
                 throw new IllegalArgumentException("WebSecurityManager property cannot be null.");

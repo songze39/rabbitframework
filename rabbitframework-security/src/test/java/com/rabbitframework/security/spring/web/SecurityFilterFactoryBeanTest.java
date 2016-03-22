@@ -18,6 +18,7 @@
  */
 package com.rabbitframework.security.spring.web;
 
+import com.rabbitframework.security.web.servlet.AbstractSecurityFilter;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -25,7 +26,6 @@ import com.rabbitframework.security.web.filter.authc.FormAuthenticationFilter;
 import com.rabbitframework.security.web.filter.mgt.DefaultFilterChainManager;
 import com.rabbitframework.security.web.filter.mgt.NamedFilterList;
 import com.rabbitframework.security.web.filter.mgt.PathMatchingFilterChainResolver;
-import com.rabbitframework.security.web.servlet.AbstractShiroFilter;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -36,13 +36,13 @@ import static org.easymock.EasyMock.*;
 import static org.junit.Assert.*;
 
 /**
- * Unit tests for the {@link ShiroFilterFactoryBean} implementation.
+ * Unit tests for the {@link SecurityFilterFactoryBean} implementation.
  *
  * @since 1.0
  */
 //@RunWith(SpringJUnit4ClassRunner.class)
-//@ContextConfiguration(locations = {"/org/apache/shiro/spring/web/ShiroFilterFactoryBeanTest.xml"})
-public class ShiroFilterFactoryBeanTest {
+//@ContextConfiguration(locations = {"/org/apache/shiro/spring/web/SecurityFilterFactoryBeanTest.xml"})
+public class SecurityFilterFactoryBeanTest {
 
     @Test
     public void testFilterDefinition() {
@@ -50,7 +50,7 @@ public class ShiroFilterFactoryBeanTest {
         ClassPathXmlApplicationContext context =
                 new ClassPathXmlApplicationContext("com/rabbitframework/security/spring/web/ShiroFilterFactoryBeanTest.xml");
 
-        AbstractShiroFilter shiroFilter = (AbstractShiroFilter) context.getBean("shiroFilter");
+        AbstractSecurityFilter shiroFilter = (AbstractSecurityFilter) context.getBean("shiroFilter");
 
         PathMatchingFilterChainResolver resolver = (PathMatchingFilterChainResolver) shiroFilter.getFilterChainResolver();
         DefaultFilterChainManager fcManager = (DefaultFilterChainManager) resolver.getFilterChainManager();
@@ -74,7 +74,7 @@ public class ShiroFilterFactoryBeanTest {
         ClassPathXmlApplicationContext context =
                 new ClassPathXmlApplicationContext("com/rabbitframework/security/spring/web/ShiroFilterFactoryBeanTest.xml");
 
-        AbstractShiroFilter shiroFilter = (AbstractShiroFilter) context.getBean("shiroFilter");
+        AbstractSecurityFilter shiroFilter = (AbstractSecurityFilter) context.getBean("shiroFilter");
 
         FilterConfig mockFilterConfig = createNiceMock(FilterConfig.class);
         ServletContext mockServletContext = createNiceMock(ServletContext.class);

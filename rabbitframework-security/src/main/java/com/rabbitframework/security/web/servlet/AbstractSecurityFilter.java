@@ -72,9 +72,9 @@ import java.util.concurrent.Callable;
  * @since 1.0
  * @see <a href="http://shiro.apache.org/subject.html">Subject documentation</a>
  */
-public abstract class AbstractShiroFilter extends OncePerRequestFilter {
+public abstract class AbstractSecurityFilter extends OncePerRequestFilter {
 
-    private static final Logger log = LoggerFactory.getLogger(AbstractShiroFilter.class);
+    private static final Logger log = LoggerFactory.getLogger(AbstractSecurityFilter.class);
 
     private static final String STATIC_INIT_PARAM_NAME = "staticSecurityManagerEnabled";
 
@@ -91,7 +91,7 @@ public abstract class AbstractShiroFilter extends OncePerRequestFilter {
      */
     private boolean staticSecurityManagerEnabled;
 
-    protected AbstractShiroFilter() {
+    protected AbstractSecurityFilter() {
         this.staticSecurityManagerEnabled = false;
     }
 
