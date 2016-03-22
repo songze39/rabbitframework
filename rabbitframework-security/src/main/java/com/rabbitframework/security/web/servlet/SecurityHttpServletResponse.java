@@ -91,10 +91,10 @@ public class SecurityHttpServletResponse extends HttpServletResponseWrapper {
         }
     }
 
-
-    public String encodeRedirectUrl(String s) {
-        return encodeRedirectURL(s);
-    }
+//
+//    public String encodeRedirectUrl(String s) {
+//        return encodeRedirectURL(s);
+//    }
 
 
     /**
@@ -115,10 +115,10 @@ public class SecurityHttpServletResponse extends HttpServletResponseWrapper {
             return url;
         }
     }
-
-    public String encodeUrl(String s) {
-        return encodeURL(s);
-    }
+//
+//    public String encodeUrl(String s) {
+//        return encodeURL(s);
+//    }
 
     /**
      * Return <code>true</code> if the specified URL should be encoded with
