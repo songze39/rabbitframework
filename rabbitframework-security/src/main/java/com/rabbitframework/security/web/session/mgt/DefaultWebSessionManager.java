@@ -18,6 +18,8 @@
  */
 package com.rabbitframework.security.web.session.mgt;
 
+import com.rabbitframework.security.web.servlet.SecurityHttpServletRequest;
+import com.rabbitframework.security.web.servlet.SecurityHttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,8 +31,6 @@ import com.rabbitframework.security.session.mgt.DelegatingSession;
 import com.rabbitframework.security.session.mgt.SessionContext;
 import com.rabbitframework.security.session.mgt.SessionKey;
 import com.rabbitframework.security.web.servlet.Cookie;
-import com.rabbitframework.security.web.servlet.ShiroHttpServletRequest;
-import com.rabbitframework.security.web.servlet.ShiroHttpSession;
 import com.rabbitframework.security.web.servlet.SimpleCookie;
 import com.rabbitframework.security.web.util.WebUtils;
 
@@ -54,7 +54,7 @@ public class DefaultWebSessionManager extends DefaultSessionManager implements W
     private boolean sessionIdCookieEnabled;
 
     public DefaultWebSessionManager() {
-        Cookie cookie = new SimpleCookie(ShiroHttpSession.DEFAULT_SESSION_ID_NAME);
+        Cookie cookie = new SimpleCookie(SecurityHttpSession.DEFAULT_SESSION_ID_NAME);
         cookie.setHttpOnly(true); //more secure, protects against XSS attacks
         this.sessionIdCookie = cookie;
         this.sessionIdCookieEnabled = true;
@@ -112,13 +112,13 @@ public class DefaultWebSessionManager extends DefaultSessionManager implements W
 
         String id = getSessionIdCookieValue(request, response);
         if (id != null) {
-            request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_SOURCE,
-                    ShiroHttpServletRequest.COOKIE_SESSION_ID_SOURCE);
+            request.setAttribute(SecurityHttpServletRequest.REFERENCED_SESSION_ID_SOURCE,
+                    SecurityHttpServletRequest.COOKIE_SESSION_ID_SOURCE);
         } else {
             //not in a cookie, or cookie is disabled - try the request URI as a fallback (i.e. due to URL rewriting):
 
             //try the URI path segment parameters first:
-            id = getUriPathSegmentParamValue(request, ShiroHttpSession.DEFAULT_SESSION_ID_NAME);
+            id = getUriPathSegmentParamValue(request, SecurityHttpSession.DEFAULT_SESSION_ID_NAME);
 
             if (id == null) {
                 //not a URI path segment parameter, try the query parameters:
@@ -130,15 +130,15 @@ public class DefaultWebSessionManager extends DefaultSessionManager implements W
                 }
             }
             if (id != null) {
-                request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_SOURCE,
-                        ShiroHttpServletRequest.URL_SESSION_ID_SOURCE);
+                request.setAttribute(SecurityHttpServletRequest.REFERENCED_SESSION_ID_SOURCE,
+                        SecurityHttpServletRequest.URL_SESSION_ID_SOURCE);
             }
         }
         if (id != null) {
-            request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID, id);
+            request.setAttribute(SecurityHttpServletRequest.REFERENCED_SESSION_ID, id);
             //automatically mark it valid here.  If it is invalid, the
             //onUnknownSession method below will be invoked and we'll remove the attribute at that time.
-            request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_IS_VALID, Boolean.TRUE);
+            request.setAttribute(SecurityHttpServletRequest.REFERENCED_SESSION_ID_IS_VALID, Boolean.TRUE);
         }
         return id;
     }
@@ -195,7 +195,7 @@ public class DefaultWebSessionManager extends DefaultSessionManager implements W
     private String getSessionIdName() {
         String name = this.sessionIdCookie != null ? this.sessionIdCookie.getName() : null;
         if (name == null) {
-            name = ShiroHttpSession.DEFAULT_SESSION_ID_NAME;
+            name = SecurityHttpSession.DEFAULT_SESSION_ID_NAME;
         }
         return name;
     }
@@ -246,8 +246,8 @@ public class DefaultWebSessionManager extends DefaultSessionManager implements W
             log.debug("Session ID cookie is disabled.  No cookie has been set for new session with id {}", session.getId());
         }
 
-        request.removeAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_SOURCE);
-        request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_IS_NEW, Boolean.TRUE);
+        request.removeAttribute(SecurityHttpServletRequest.REFERENCED_SESSION_ID_SOURCE);
+        request.setAttribute(SecurityHttpServletRequest.REFERENCED_SESSION_IS_NEW, Boolean.TRUE);
     }
 
     @Override
@@ -280,7 +280,7 @@ public class DefaultWebSessionManager extends DefaultSessionManager implements W
     private void onInvalidation(SessionKey key) {
         ServletRequest request = WebUtils.getRequest(key);
         if (request != null) {
-            request.removeAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_IS_VALID);
+            request.removeAttribute(SecurityHttpServletRequest.REFERENCED_SESSION_ID_IS_VALID);
         }
         if (WebUtils.isHttp(key)) {
             log.debug("Referenced session was invalid.  Removing session ID cookie.");

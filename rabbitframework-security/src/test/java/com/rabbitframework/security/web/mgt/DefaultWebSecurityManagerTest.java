@@ -18,13 +18,13 @@
  */
 package com.rabbitframework.security.web.mgt;
 
+import com.rabbitframework.security.web.servlet.SecurityHttpSession;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.rabbitframework.security.authc.UsernamePasswordToken;
 import com.rabbitframework.security.config.Ini;
-import com.rabbitframework.security.config.IniSecurityManagerFactory;
 import com.rabbitframework.security.realm.text.IniRealm;
 import com.rabbitframework.security.session.ExpiredSessionException;
 import com.rabbitframework.security.session.Session;
@@ -32,11 +32,7 @@ import com.rabbitframework.security.session.mgt.AbstractSessionManager;
 import com.rabbitframework.security.subject.PrincipalCollection;
 import com.rabbitframework.security.subject.SimplePrincipalCollection;
 import com.rabbitframework.security.subject.Subject;
-import com.rabbitframework.security.util.LifecycleUtils;
 import com.rabbitframework.security.web.config.WebIniSecurityManagerFactory;
-import com.rabbitframework.security.web.mgt.DefaultWebSecurityManager;
-import com.rabbitframework.security.web.mgt.WebSecurityManager;
-import com.rabbitframework.security.web.servlet.ShiroHttpSession;
 import com.rabbitframework.security.web.session.mgt.WebSessionManager;
 import com.rabbitframework.security.web.subject.WebSubject;
 
@@ -202,7 +198,7 @@ public class DefaultWebSecurityManagerTest extends AbstractWebSecurityManagerTes
         mockRequest = createNiceMock(HttpServletRequest.class);
         mockResponse = createNiceMock(HttpServletResponse.class);
         //now simulate the cookie going with the request and the Subject should be acquired based on that:
-        Cookie[] cookies = new Cookie[]{new Cookie(ShiroHttpSession.DEFAULT_SESSION_ID_NAME, sessionId.toString())};
+        Cookie[] cookies = new Cookie[]{new Cookie(SecurityHttpSession.DEFAULT_SESSION_ID_NAME, sessionId.toString())};
         expect(mockRequest.getCookies()).andReturn(cookies).anyTimes();
         expect(mockRequest.getParameter(isA(String.class))).andReturn(null).anyTimes();
 

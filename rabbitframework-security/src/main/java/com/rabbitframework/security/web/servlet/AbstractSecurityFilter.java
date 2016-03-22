@@ -201,15 +201,15 @@ public abstract class AbstractSecurityFilter extends OncePerRequestFilter {
     }
 
     /**
-     * Wraps the original HttpServletRequest in a {@link ShiroHttpServletRequest}, which is required for supporting
+     * Wraps the original HttpServletRequest in a {@link SecurityHttpServletRequest}, which is required for supporting
      * Servlet Specification behavior backed by a {@link com.rabbitframework.security.subject.Subject Subject} instance.
      *
      * @param orig the original Servlet Container-provided incoming {@code HttpServletRequest} instance.
-     * @return {@link ShiroHttpServletRequest ShiroHttpServletRequest} instance wrapping the original.
+     * @return {@link SecurityHttpServletRequest SecurityHttpServletRequest} instance wrapping the original.
      * @since 1.0
      */
     protected ServletRequest wrapServletRequest(HttpServletRequest orig) {
-        return new ShiroHttpServletRequest(orig, getServletContext(), isHttpSessions());
+        return new SecurityHttpServletRequest(orig, getServletContext(), isHttpSessions());
     }
 
     /**
@@ -237,17 +237,17 @@ public abstract class AbstractSecurityFilter extends OncePerRequestFilter {
     }
 
     /**
-     * Returns a new {@link ShiroHttpServletResponse} instance, wrapping the {@code orig} argument, in order to provide
+     * Returns a new {@link SecurityHttpServletResponse} instance, wrapping the {@code orig} argument, in order to provide
      * correct URL rewriting behavior required by the Servlet Specification when using Shiro-based sessions (and not
      * Servlet Container HTTP-based sessions).
      *
      * @param orig    the original {@code HttpServletResponse} instance provided by the Servlet Container.
-     * @param request the {@code ShiroHttpServletRequest} instance wrapping the original request.
+     * @param request the {@code SecurityHttpServletRequest} instance wrapping the original request.
      * @return the wrapped ServletResponse instance to use during {@link FilterChain} execution.
      * @since 1.0
      */
-    protected ServletResponse wrapServletResponse(HttpServletResponse orig, ShiroHttpServletRequest request) {
-        return new ShiroHttpServletResponse(orig, getServletContext(), request);
+    protected ServletResponse wrapServletResponse(HttpServletResponse orig, SecurityHttpServletRequest request) {
+        return new SecurityHttpServletResponse(orig, getServletContext(), request);
     }
 
     /**
@@ -256,7 +256,7 @@ public abstract class AbstractSecurityFilter extends OncePerRequestFilter {
      * <p/>
      * This implementation delegates to {@link #wrapServletRequest(HttpServletRequest)}
      * only if Shiro-based sessions are enabled (that is, !{@link #isHttpSessions()}) and the request instance is a
-     * {@link ShiroHttpServletRequest}.  This ensures that any URL rewriting that occurs is handled correctly using the
+     * {@link SecurityHttpServletRequest}.  This ensures that any URL rewriting that occurs is handled correctly using the
      * Shiro-managed Session's sessionId and not a servlet container session ID.
      * <p/>
      * If HTTP-based sessions are enabled (the default), then this method does nothing and just returns the
@@ -271,11 +271,11 @@ public abstract class AbstractSecurityFilter extends OncePerRequestFilter {
     @SuppressWarnings({"UnusedDeclaration"})
     protected ServletResponse prepareServletResponse(ServletRequest request, ServletResponse response, FilterChain chain) {
         ServletResponse toUse = response;
-        if (!isHttpSessions() && (request instanceof ShiroHttpServletRequest) &&
+        if (!isHttpSessions() && (request instanceof SecurityHttpServletRequest) &&
                 (response instanceof HttpServletResponse)) {
-            //the ShiroHttpServletResponse exists to support URL rewriting for session ids.  This is only needed if
+            //the SecurityHttpServletResponse exists to support URL rewriting for session ids.  This is only needed if
             //using Shiro sessions (i.e. not simple HttpSession based sessions):
-            toUse = wrapServletResponse((HttpServletResponse) response, (ShiroHttpServletRequest) request);
+            toUse = wrapServletResponse((HttpServletResponse) response, (SecurityHttpServletRequest) request);
         }
         return toUse;
     }

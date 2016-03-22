@@ -32,6 +32,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.rabbitframework.security.web.servlet.SecurityHttpServletRequest;
 import org.junit.Test;
 
 import com.rabbitframework.commons.crypto.CryptoException;
@@ -39,7 +40,6 @@ import com.rabbitframework.security.authc.AuthenticationInfo;
 import com.rabbitframework.security.authc.SimpleAuthenticationInfo;
 import com.rabbitframework.security.authc.UsernamePasswordToken;
 import com.rabbitframework.security.subject.PrincipalCollection;
-import com.rabbitframework.security.web.servlet.ShiroHttpServletRequest;
 import com.rabbitframework.security.web.servlet.SimpleCookie;
 import com.rabbitframework.security.web.subject.WebSubject;
 import com.rabbitframework.security.web.subject.WebSubjectContext;
@@ -103,7 +103,7 @@ public class CookieRememberMeManagerTest {
         context.setServletRequest(mockRequest);
         context.setServletResponse(mockResponse);
 
-        expect(mockRequest.getAttribute(ShiroHttpServletRequest.IDENTITY_REMOVED_KEY)).andReturn(null);
+        expect(mockRequest.getAttribute(SecurityHttpServletRequest.IDENTITY_REMOVED_KEY)).andReturn(null);
 
         Cookie[] cookies = new Cookie[]{
                 new Cookie(CookieRememberMeManager.DEFAULT_REMEMBER_ME_COOKIE_NAME, com.rabbitframework.security.web.servlet.Cookie.DELETED_COOKIE_VALUE)
@@ -126,7 +126,7 @@ public class CookieRememberMeManagerTest {
         context.setServletRequest(mockRequest);
         context.setServletResponse(mockResponse);
 
-        expect(mockRequest.getAttribute(ShiroHttpServletRequest.IDENTITY_REMOVED_KEY)).andReturn(null);
+        expect(mockRequest.getAttribute(SecurityHttpServletRequest.IDENTITY_REMOVED_KEY)).andReturn(null);
 
         //The following base64 string was determined from the log output of the above 'onSuccessfulLogin' test.
         //This will have to change any time the PrincipalCollection implementation changes:
@@ -166,7 +166,7 @@ public class CookieRememberMeManagerTest {
         context.setServletRequest(mockRequest);
         context.setServletResponse(mockResponse);
 
-        expect(mockRequest.getAttribute(ShiroHttpServletRequest.IDENTITY_REMOVED_KEY)).andReturn(null);
+        expect(mockRequest.getAttribute(SecurityHttpServletRequest.IDENTITY_REMOVED_KEY)).andReturn(null);
 
         // Simulate a bad return value here (for example if this was encrypted with a different key
         final String userPCAesBase64 = "garbage";

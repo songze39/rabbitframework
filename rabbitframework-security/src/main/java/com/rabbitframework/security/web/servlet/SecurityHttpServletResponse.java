@@ -42,17 +42,17 @@ import java.net.URLEncoder;
  *
  * @since 0.2
  */
-public class ShiroHttpServletResponse extends HttpServletResponseWrapper {
+public class SecurityHttpServletResponse extends HttpServletResponseWrapper {
 
     //TODO - complete JavaDoc
 
-    private static final String DEFAULT_SESSION_ID_PARAMETER_NAME = ShiroHttpSession.DEFAULT_SESSION_ID_NAME;
+    private static final String DEFAULT_SESSION_ID_PARAMETER_NAME = SecurityHttpSession.DEFAULT_SESSION_ID_NAME;
 
     private ServletContext context = null;
     //the associated request
-    private ShiroHttpServletRequest request = null;
+    private SecurityHttpServletRequest request = null;
 
-    public ShiroHttpServletResponse(HttpServletResponse wrapped, ServletContext context, ShiroHttpServletRequest request) {
+    public SecurityHttpServletResponse(HttpServletResponse wrapped, ServletContext context, SecurityHttpServletRequest request) {
         super(wrapped);
         this.context = context;
         this.request = request;
@@ -68,12 +68,12 @@ public class ShiroHttpServletResponse extends HttpServletResponseWrapper {
         this.context = context;
     }
 
-    public ShiroHttpServletRequest getRequest() {
+    public SecurityHttpServletRequest getRequest() {
         return request;
     }
 
     @SuppressWarnings({"UnusedDeclaration"})
-    public void setRequest(ShiroHttpServletRequest request) {
+    public void setRequest(SecurityHttpServletRequest request) {
         this.request = request;
     }
 
