@@ -302,7 +302,7 @@ public interface Subject {
     void checkRoles(Collection<String> roleIdentifiers) throws AuthorizationException;
 
     /**
-     * Same as {@link #checkRoles(Collection<String> roleIdentifiers) checkRoles(Collection<String> roleIdentifiers)} but
+     * Same as {@link #checkRoles(Collection<String>) checkRoles(Collection<String> roleIdentifiers)} but
      * doesn't require a collection as a an argument.
      * Asserts this Subject has all of the specified roles by returning quietly if they do or throwing an
      * {@link AuthorizationException} if they do not.

@@ -52,7 +52,7 @@ import java.util.Map;
  * Declare a DelegatingFilterProxy in {@code web.xml}, matching the filter name to the bean id:
  * <pre>
  * &lt;filter&gt;
- *   &lt;filter-name&gt;<b>shiroFilter</b>&lt;/filter-name&gt;
+ *   &lt;filter-name&gt;<b>securityFilter</b>&lt;/filter-name&gt;
  *   &lt;filter-class&gt;org.springframework.web.filter.DelegatingFilterProxy&lt;filter-class&gt;
  *   &lt;init-param&gt;
  *    &lt;param-name&gt;targetFilterLifecycle&lt;/param-name&gt;
@@ -62,7 +62,7 @@ import java.util.Map;
  * </pre>
  * Then, in your spring XML file that defines your web ApplicationContext:
  * <pre>
- * &lt;bean id="<b>shiroFilter</b>" class="org.apache.shiro.spring.web.SecurityFilterFactoryBean"&gt;
+ * &lt;bean id="<b>securityFilter</b>" class="com.rabbitframework.security.spring.web.SecurityFilterFactoryBean"&gt;
  *    &lt;property name="securityManager" ref="securityManager"/&gt;
  *    &lt;!-- other properties as necessary ... --&gt;
  * &lt;/bean&gt;
