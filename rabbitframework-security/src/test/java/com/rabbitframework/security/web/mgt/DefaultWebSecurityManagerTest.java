@@ -56,7 +56,7 @@ public class DefaultWebSecurityManagerTest extends AbstractWebSecurityManagerTes
     @Before
     public void setup() {
         sm = new DefaultWebSecurityManager();
-        sm.setSessionMode(DefaultWebSecurityManager.NATIVE_SESSION_MODE);
+      //  sm.setSessionMode(DefaultWebSecurityManager.NATIVE_SESSION_MODE);
         Ini ini = new Ini();
         Ini.Section section = ini.addSection(IniRealm.USERS_SECTION_NAME);
         section.put("lonestarr", "vespa");
@@ -75,7 +75,7 @@ public class DefaultWebSecurityManagerTest extends AbstractWebSecurityManagerTes
 
 	@Test
 	public void checkSessionManagerDeterminesContainerSessionMode() {
-		sm.setSessionMode(DefaultWebSecurityManager.NATIVE_SESSION_MODE);
+	//	sm.setSessionMode(DefaultWebSecurityManager.NATIVE_SESSION_MODE);
 		WebSessionManager sessionManager = createMock(WebSessionManager.class);
 
 		expect(sessionManager.isServletContainerSessions()).andReturn(true).anyTimes();
@@ -91,7 +91,7 @@ public class DefaultWebSecurityManagerTest extends AbstractWebSecurityManagerTes
 
     @Test
     public void shiroSessionModeInit() {
-        sm.setSessionMode(DefaultWebSecurityManager.NATIVE_SESSION_MODE);
+        //sm.setSessionMode(DefaultWebSecurityManager.NATIVE_SESSION_MODE);
     }
 
     protected void sleep(long millis) {

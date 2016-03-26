@@ -423,7 +423,7 @@ public class SecurityFilterFactoryBean implements FactoryBean, BeanPostProcessor
      */
     protected AbstractSecurityFilter createInstance() throws Exception {
 
-        log.debug("Creating Shiro Filter instance.");
+        log.debug("Creating Security Filter instance.");
 
         SecurityManager securityManager = getSecurityManager();
         if (securityManager == null) {

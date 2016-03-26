@@ -18,7 +18,7 @@
  */
 package com.rabbitframework.security.authc;
 
-import com.rabbitframework.commons.codec.ByteSource;
+import com.rabbitframework.security.codec.ByteSource;
 import com.rabbitframework.security.subject.MutablePrincipalCollection;
 import com.rabbitframework.security.subject.PrincipalCollection;
 import com.rabbitframework.security.subject.SimplePrincipalCollection;

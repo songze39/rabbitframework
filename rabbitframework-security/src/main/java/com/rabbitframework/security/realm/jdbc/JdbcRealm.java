@@ -18,7 +18,7 @@
  */
 package com.rabbitframework.security.realm.jdbc;
 
-import com.rabbitframework.commons.codec.ByteSource;
+import com.rabbitframework.security.codec.ByteSource;
 import com.rabbitframework.security.authc.*;
 import com.rabbitframework.security.authz.AuthorizationException;
 import com.rabbitframework.security.authz.AuthorizationInfo;

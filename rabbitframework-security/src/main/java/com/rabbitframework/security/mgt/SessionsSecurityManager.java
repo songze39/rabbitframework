@@ -28,9 +28,10 @@ import com.rabbitframework.security.session.mgt.SessionKey;
 import com.rabbitframework.security.session.mgt.SessionManager;
 import com.rabbitframework.security.util.LifecycleUtils;
 
-
 /**
- * Shiro support of a {@link SecurityManager} class hierarchy that delegates all
+ * 会话安全管理
+ * <p/>
+ * Security support of a {@link SecurityManager} class hierarchy that delegates all
  * {@link com.rabbitframework.security.session.Session session} operations to a wrapped
  * {@link com.rabbitframework.security.session.mgt.SessionManager SessionManager} instance.  That is, this class implements the
  * methods in the {@link SessionManager SessionManager} interface, but in reality, those methods are merely
@@ -39,7 +40,7 @@ import com.rabbitframework.security.util.LifecycleUtils;
  * The remaining {@code SecurityManager} methods not implemented by this class or its parents are left to be
  * implemented by subclasses.
  * <p/>
- * In keeping with the other classes in this hierarchy and Shiro's desire to minimize configuration whenever
+ * In keeping with the other classes in this hierarchy and Security's desire to minimize configuration whenever
  * possible, suitable default instances for all dependencies will be created upon instantiation.
  *
  * @since 0.9

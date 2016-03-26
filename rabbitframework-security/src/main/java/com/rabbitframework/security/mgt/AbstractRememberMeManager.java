@@ -18,10 +18,10 @@
  */
 package com.rabbitframework.security.mgt;
 
-import com.rabbitframework.commons.codec.Base64;
-import com.rabbitframework.commons.codec.ByteSource;
-import com.rabbitframework.commons.crypto.AesCipherService;
-import com.rabbitframework.commons.crypto.CipherService;
+import com.rabbitframework.security.codec.Base64;
+import com.rabbitframework.security.codec.ByteSource;
+import com.rabbitframework.security.crypto.AesCipherService;
+import com.rabbitframework.security.crypto.CipherService;
 import com.rabbitframework.security.authc.AuthenticationException;
 import com.rabbitframework.security.authc.AuthenticationInfo;
 import com.rabbitframework.security.authc.AuthenticationToken;
@@ -238,7 +238,7 @@ public abstract class AbstractRememberMeManager implements RememberMeManager {
      * asymmetric CipherService?(such as a public/private key pair), you cannot use this method, and should instead use
      * the {@link #setEncryptionCipherKey(byte[])} and {@link #setDecryptionCipherKey(byte[])} methods individually.
      * <p/>
-     * The default {@link com.rabbitframework.commons.crypto.AesCipherService} instance is a symmetric CipherService, so this method can be used if you
+     * The default {@link AesCipherService} instance is a symmetric CipherService, so this method can be used if you
      * are using the default.
      *
      * @param cipherKey the symmetric cipher key to use for both encryption and decryption.

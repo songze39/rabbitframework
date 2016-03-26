@@ -18,10 +18,10 @@
  */
 package com.rabbitframework.security.authc.credential;
 
-import com.rabbitframework.commons.codec.Base64;
-import com.rabbitframework.commons.codec.Hex;
-import com.rabbitframework.commons.crypto.hash.Hash;
-import com.rabbitframework.commons.crypto.hash.SimpleHash;
+import com.rabbitframework.security.codec.Base64;
+import com.rabbitframework.security.codec.Hex;
+import com.rabbitframework.security.crypto.hash.Hash;
+import com.rabbitframework.security.crypto.hash.SimpleHash;
 import com.rabbitframework.security.authc.AuthenticationInfo;
 import com.rabbitframework.security.authc.AuthenticationToken;
 import com.rabbitframework.security.authc.SaltedAuthenticationInfo;
@@ -49,8 +49,8 @@ import com.rabbitframework.security.util.StringUtils;
  * <a href="http://www.owasp.org/index.php/Hashing_Java" _target="blank">Hashing Java article</a> to learn about
  * salting and multiple iterations and why you might want to use them. (Note of sections 5
  * &quot;Why add salt?&quot; and 6 "Hardening against the attacker's attack").   We should also note here that all of
- * Shiro's Hash implementations (for example, {@link com.rabbitframework.commons.crypto.hash.Md5Hash Md5Hash},
- * {@link com.rabbitframework.commons.crypto.hash.Sha1Hash Sha1Hash}, etc) support salting and multiple hash iterations via
+ * Shiro's Hash implementations (for example, {@link com.rabbitframework.security.crypto.hash.Md5Hash Md5Hash},
+ * {@link com.rabbitframework.security.crypto.hash.Sha1Hash Sha1Hash}, etc) support salting and multiple hash iterations via
  * overloaded constructors.
  * <h4>Real World Case Study</h4>
  * In April 2010, some public Atlassian Jira and Confluence
@@ -111,9 +111,9 @@ import com.rabbitframework.security.util.StringUtils;
  * two, if your application mandates high security, use the SHA-256 (or higher) hashing algorithms and their
  * supporting {@code CredentialsMatcher} implementations.
  *
- * @see com.rabbitframework.commons.crypto.hash.Md5Hash
- * @see com.rabbitframework.commons.crypto.hash.Sha1Hash
- * @see com.rabbitframework.commons.crypto.hash.Sha256Hash
+ * @see com.rabbitframework.security.crypto.hash.Md5Hash
+ * @see com.rabbitframework.security.crypto.hash.Sha1Hash
+ * @see com.rabbitframework.security.crypto.hash.Sha256Hash
  * @since 0.9
  */
 public class HashedCredentialsMatcher extends SimpleCredentialsMatcher {

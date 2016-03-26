@@ -40,7 +40,7 @@ import java.io.Serializable;
 import java.util.Collection;
 
 /**
- * The Shiro framework's default concrete implementation of the {@link SecurityManager} interface,
+ * The Security framework's default concrete implementation of the {@link SecurityManager} interface,
  * based around a collection of {@link com.rabbitframework.security.realm.Realm}s.  This implementation delegates its
  * authentication, authorization, and session operations to wrapped {@link Authenticator}, {@link Authorizer}, and
  * {@link com.rabbitframework.security.session.mgt.SessionManager SessionManager} instances respectively via superclass
@@ -130,7 +130,7 @@ public class DefaultSecurityManager extends SessionsSecurityManager {
      * implementation is a {@link DefaultSubjectDAO}.
      *
      * @return the {@code SubjectDAO} responsible for persisting Subject state, typically used after login or when an
-     *         Subject identity is discovered (eg after RememberMe services).
+     * Subject identity is discovered (eg after RememberMe services).
      * @see DefaultSubjectDAO
      * @since 1.2
      */
@@ -171,7 +171,7 @@ public class DefaultSecurityManager extends SessionsSecurityManager {
      * @param info     the {@code AuthenticationInfo} of a newly authenticated user.
      * @param existing the existing {@code Subject} instance that initiated the authentication attempt
      * @return the {@code Subject} instance that represents the context and session data for the newly
-     *         authenticated subject.
+     * authenticated subject.
      */
     protected Subject createSubject(AuthenticationToken token, AuthenticationInfo info, Subject existing) {
         SubjectContext context = createSubjectContext();
@@ -583,20 +583,20 @@ public class DefaultSecurityManager extends SessionsSecurityManager {
         }
     }
 
-    /**
-     * Unbinds or removes the Subject's state from the application, typically called during {@link #logout}.
-     * <p/>
-     * This has been deprecated in Shiro 1.2 in favor of the {@link #delete(com.rabbitframework.security.subject.Subject) delete}
-     * method.  The implementation has been updated to invoke that method.
-     *
-     * @param subject the subject to unbind from the application as it will no longer be used.
-     * @deprecated in Shiro 1.2 in favor of {@link #delete(com.rabbitframework.security.subject.Subject)}
-     */
-    @Deprecated
-    @SuppressWarnings({"UnusedDeclaration"})
-    protected void unbind(Subject subject) {
-        delete(subject);
-    }
+//    /**
+//     * Unbinds or removes the Subject's state from the application, typically called during {@link #logout}.
+//     * <p/>
+//     * This has been deprecated in Shiro 1.2 in favor of the {@link #delete(com.rabbitframework.security.subject.Subject) delete}
+//     * method.  The implementation has been updated to invoke that method.
+//     *
+//     * @param subject the subject to unbind from the application as it will no longer be used.
+//     * @deprecated in Shiro 1.2 in favor of {@link #delete(com.rabbitframework.security.subject.Subject)}
+//     */
+//    @Deprecated
+//    @SuppressWarnings({"UnusedDeclaration"})
+//    protected void unbind(Subject subject) {
+//        delete(subject);
+//    }
 
     protected PrincipalCollection getRememberedIdentity(SubjectContext subjectContext) {
         RememberMeManager rmm = getRememberMeManager();

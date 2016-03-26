@@ -20,7 +20,7 @@ package com.rabbitframework.security.authc.credential;
 
 import org.junit.Test;
 
-import com.rabbitframework.commons.crypto.hash.SimpleHash;
+import com.rabbitframework.security.crypto.hash.SimpleHash;
 import com.rabbitframework.security.authc.AuthenticationInfo;
 import com.rabbitframework.security.authc.AuthenticationToken;
 import com.rabbitframework.security.authc.SimpleAuthenticationInfo;

@@ -30,17 +30,14 @@ import com.rabbitframework.security.web.mgt.DefaultWebSecurityManager;
 import com.rabbitframework.security.web.mgt.WebSecurityManager;
 import com.rabbitframework.security.web.subject.WebSubject;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.concurrent.Callable;
 
 /**
- * Abstract base class that provides all standard Shiro request filtering behavior and expects
+ * Abstract base class that provides all standard Security request filtering behavior and expects
  * subclasses to implement configuration-specific logic (INI, XML, .properties, etc).
  * <p/>
  * Subclasses should perform configuration and construction logic in an overridden
@@ -69,8 +66,8 @@ import java.util.concurrent.Callable;
  * See the Shiro <a href="http://shiro.apache.org/subject.html">Subject documentation</a> for more information as to
  * if you would do this, particularly the sections on the {@code Subject.Builder} and Thread Association.
  *
- * @since 1.0
  * @see <a href="http://shiro.apache.org/subject.html">Subject documentation</a>
+ * @since 1.0
  */
 public abstract class AbstractSecurityFilter extends OncePerRequestFilter {
 
@@ -87,6 +84,7 @@ public abstract class AbstractSecurityFilter extends OncePerRequestFilter {
     /**
      * Whether or not to bind the constructed SecurityManager instance to static memory (via
      * SecurityUtils.setSecurityManager).  This was added to support https://issues.apache.org/jira/browse/SHIRO-287
+     *
      * @since 1.2
      */
     private boolean staticSecurityManagerEnabled;
@@ -120,12 +118,11 @@ public abstract class AbstractSecurityFilter extends OncePerRequestFilter {
      * The default value is {@code false}.
      * <p/>
      *
-     *
      * @return {@code true} if the constructed {@link #getSecurityManager() securityManager} reference should be bound
-     *         to static memory (via {@code SecurityUtils.}{@link SecurityUtils#setSecurityManager(com.rabbitframework.security.mgt.SecurityManager) setSecurityManager}),
-     *         {@code false} otherwise.
-     * @since 1.2
+     * to static memory (via {@code SecurityUtils.}{@link SecurityUtils#setSecurityManager(com.rabbitframework.security.mgt.SecurityManager) setSecurityManager}),
+     * {@code false} otherwise.
      * @see <a href="https://issues.apache.org/jira/browse/SHIRO-287">SHIRO-287</a>
+     * @since 1.2
      */
     public boolean isStaticSecurityManagerEnabled() {
         return staticSecurityManagerEnabled;
@@ -138,21 +135,25 @@ public abstract class AbstractSecurityFilter extends OncePerRequestFilter {
      * The default value is {@code false}.
      *
      * @param staticSecurityManagerEnabled if the constructed {@link #getSecurityManager() securityManager} reference
-     *                                       should be bound to static memory (via
-     *                                       {@code SecurityUtils.}{@link SecurityUtils#setSecurityManager(com.rabbitframework.security.mgt.SecurityManager) setSecurityManager}).
-     * @since 1.2
+     *                                     should be bound to static memory (via
+     *                                     {@code SecurityUtils.}{@link SecurityUtils#setSecurityManager(com.rabbitframework.security.mgt.SecurityManager) setSecurityManager}).
      * @see <a href="https://issues.apache.org/jira/browse/SHIRO-287">SHIRO-287</a>
+     * @since 1.2
      */
     public void setStaticSecurityManagerEnabled(boolean staticSecurityManagerEnabled) {
         this.staticSecurityManagerEnabled = staticSecurityManagerEnabled;
     }
 
+    /**
+     * Filter的初始化方法
+     *
+     * @throws Exception
+     * @see AbstractFilter#init(FilterConfig)
+     */
     protected final void onFilterConfigSet() throws Exception {
-        //added in 1.2 for SHIRO-287:
         applyStaticSecurityManagerEnabledConfig();
         init();
         ensureSecurityManager();
-        //added in 1.2 for SHIRO-287:
         if (isStaticSecurityManagerEnabled()) {
             SecurityUtils.setSecurityManager(getSecurityManager());
         }
@@ -162,8 +163,8 @@ public abstract class AbstractSecurityFilter extends OncePerRequestFilter {
      * Checks if the init-param that configures the filter to use static memory has been configured, and if so,
      * sets the {@link #setStaticSecurityManagerEnabled(boolean)} attribute with the configured value.
      *
-     * @since 1.2
      * @see <a href="https://issues.apache.org/jira/browse/SHIRO-287">SHIRO-287</a>
+     * @since 1.2
      */
     private void applyStaticSecurityManagerEnabledConfig() {
         String value = getInitParam(STATIC_INIT_PARAM_NAME);
@@ -345,7 +346,7 @@ public abstract class AbstractSecurityFilter extends OncePerRequestFilter {
      * @param servletRequest  the incoming {@code ServletRequest}
      * @param servletResponse the outgoing {@code ServletResponse}
      * @param chain           the container-provided {@code FilterChain} to execute
-     * @throws IOException                    if an IO error occurs
+     * @throws IOException      if an IO error occurs
      * @throws ServletException if an Throwable other than an IOException
      */
     protected void doFilterInternal(ServletRequest servletRequest, ServletResponse servletResponse, final FilterChain chain)

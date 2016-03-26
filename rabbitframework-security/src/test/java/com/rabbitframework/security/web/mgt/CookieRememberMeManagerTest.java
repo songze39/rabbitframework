@@ -35,7 +35,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.rabbitframework.security.web.servlet.SecurityHttpServletRequest;
 import org.junit.Test;
 
-import com.rabbitframework.commons.crypto.CryptoException;
+import com.rabbitframework.security.crypto.CryptoException;
 import com.rabbitframework.security.authc.AuthenticationInfo;
 import com.rabbitframework.security.authc.SimpleAuthenticationInfo;
 import com.rabbitframework.security.authc.UsernamePasswordToken;

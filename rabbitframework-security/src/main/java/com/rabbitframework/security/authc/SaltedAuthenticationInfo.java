@@ -18,7 +18,7 @@
  */
 package com.rabbitframework.security.authc;
 
-import com.rabbitframework.commons.codec.ByteSource;
+import com.rabbitframework.security.codec.ByteSource;
 
 /**
  * Interface representing account information that may use a salt when hashing credentials.  This interface

@@ -18,7 +18,7 @@
  */
 package com.rabbitframework.security.web.mgt;
 
-import com.rabbitframework.commons.codec.Base64;
+import com.rabbitframework.security.codec.Base64;
 import com.rabbitframework.security.mgt.AbstractRememberMeManager;
 import com.rabbitframework.security.subject.Subject;
 import com.rabbitframework.security.subject.SubjectContext;

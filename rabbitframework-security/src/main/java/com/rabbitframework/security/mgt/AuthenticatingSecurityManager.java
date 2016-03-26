@@ -27,18 +27,18 @@ import com.rabbitframework.security.util.LifecycleUtils;
 
 
 /**
- * Shiro support of a {@link SecurityManager} class hierarchy that delegates all
+ * 认证安全管理
+ * <p/>
+ * Security support of a {@link SecurityManager} class hierarchy that delegates all
  * authentication operations to a wrapped {@link Authenticator Authenticator} instance.  That is, this class
  * implements all the <tt>Authenticator</tt> methods in the {@link SecurityManager SecurityManager}
  * interface, but in reality, those methods are merely passthrough calls to the underlying 'real'
  * <tt>Authenticator</tt> instance.
- *
+ * <p/>
  * <p>All other <tt>SecurityManager</tt> (authorization, session, etc) methods are left to be implemented by subclasses.
- *
+ * <p/>
  * <p>In keeping with the other classes in this hierarchy and Shiro's desire to minimize configuration whenever
  * possible, suitable default instances for all dependencies are created upon instantiation.
- *
- * @since 0.9
  */
 public abstract class AuthenticatingSecurityManager extends RealmSecurityManager {
 
@@ -65,7 +65,7 @@ public abstract class AuthenticatingSecurityManager extends RealmSecurityManager
      * {@link com.rabbitframework.security.authc.pam.ModularRealmAuthenticator ModularRealmAuthenticator}.
      *
      * @return the delegate <code>Authenticator</code> instance that this SecurityManager uses to perform all
-     *         authentication operations.
+     * authentication operations.
      */
     public Authenticator getAuthenticator() {
         return authenticator;

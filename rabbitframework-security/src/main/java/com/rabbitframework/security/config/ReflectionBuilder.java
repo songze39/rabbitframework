@@ -18,9 +18,9 @@
  */
 package com.rabbitframework.security.config;
 
-import com.rabbitframework.commons.codec.Base64;
-import com.rabbitframework.commons.codec.ByteSource;
-import com.rabbitframework.commons.codec.Hex;
+import com.rabbitframework.security.codec.Base64;
+import com.rabbitframework.security.codec.ByteSource;
+import com.rabbitframework.security.codec.Hex;
 import com.rabbitframework.security.util.*;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;

@@ -127,6 +127,4 @@ public abstract class AbstractFilter extends ServletContextSupport implements Fi
      */
     public void destroy() {
     }
-
-
 }

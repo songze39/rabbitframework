@@ -33,7 +33,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestName;
 
-import com.rabbitframework.commons.crypto.hash.Sha256Hash;
+import com.rabbitframework.security.crypto.hash.Sha256Hash;
 import com.rabbitframework.security.SecurityUtils;
 import com.rabbitframework.security.authc.AuthenticationException;
 import com.rabbitframework.security.authc.IncorrectCredentialsException;

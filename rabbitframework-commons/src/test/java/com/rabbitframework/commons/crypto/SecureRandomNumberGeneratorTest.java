@@ -18,7 +18,7 @@
  */
 package com.rabbitframework.commons.crypto;
 
-import com.rabbitframework.commons.codec.ByteSource;
+import com.rabbitframework.security.codec.ByteSource;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
