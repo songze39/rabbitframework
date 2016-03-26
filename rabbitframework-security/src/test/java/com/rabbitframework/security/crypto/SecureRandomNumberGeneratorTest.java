@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.rabbitframework.commons.crypto;
+package com.rabbitframework.security.crypto;
 
 import com.rabbitframework.security.codec.ByteSource;
 import org.junit.Test;

@@ -25,7 +25,7 @@ import com.rabbitframework.security.crypto.hash.SimpleHash;
 import com.rabbitframework.security.util.StringUtils;
 
 /**
- * The {@code Shiro1CryptFormat} is a fully reversible
+ * The {@code SecurityCryptFormat} is a fully reversible
  * <a href="http://packages.python.org/passlib/modular_crypt_format.html">Modular Crypt Format</a> (MCF).  Because it is
  * fully reversible (i.e. Hash -&gt; String, String -&gt; Hash), it does NOT use the traditional MCF encoding alphabet
  * (the traditional MCF encoding, aka H64, is bit-destructive and cannot be reversed).  Instead, it uses fully
@@ -85,12 +85,12 @@ import com.rabbitframework.security.util.StringUtils;
  *
  * @since 1.2
  */
-public class Shiro1CryptFormat implements ModularCryptFormat, ParsableHashFormat {
+public class SecurityCryptFormat implements ModularCryptFormat, ParsableHashFormat {
 
     public static final String ID = "shiro1";
     public static final String MCF_PREFIX = TOKEN_DELIMITER + ID + TOKEN_DELIMITER;
 
-    public Shiro1CryptFormat() {
+    public SecurityCryptFormat() {
     }
 
     public String getId() {
