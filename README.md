@@ -1,4 +1,4 @@
-# rabbitframework整合框架 （）
+# rabbitframework整合框架
 rabbitframework框架利用第三方开源框架以及对maven的依赖而整合的基础框架，方便对新项目的开发环境能够快速搭建，后续将在实践中进行积累包装提取慢慢形成一套方便于项目开发的基础框架。目前框架主要划分为以下模块：
 
 一、rabbitframework-commons:公共模块，包括对xml解释，反射机制通用类。
