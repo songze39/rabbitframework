@@ -36,7 +36,7 @@ import com.rabbitframework.security.util.CollectionUtils;
  * consulted realm and want to ignore all subsequent realms, use the
  * {@link FirstSuccessfulStrategy FirstSuccessfulAuthenticationStrategy} instead.
  * <p/>
- * 只要有一个 Realm 验证成功即可,和 FirstSuccessfulStrategy 不同,返回所有 Realm 身份验证成功的认证信息
+ * 只要有一个 Realm 验证成功即可,和{@link FirstSuccessfulStrategy}不同,返回所有{@links Realm}身份验证成功的认证信息
  *
  * @see FirstSuccessfulStrategy FirstSuccessfulAuthenticationStrategy
  * @since 0.2
