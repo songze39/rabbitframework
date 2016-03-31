@@ -23,6 +23,7 @@ import java.util.Collection;
 
 /**
  * A {@link PrincipalCollection} that allows modification.
+ * 是一个可变的{@link PrincipalCollection}接口
  *
  * @since 0.9
  */

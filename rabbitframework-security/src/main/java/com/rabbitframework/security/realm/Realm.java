@@ -96,6 +96,8 @@ public interface Realm {
      * Most implementations merely just need to lookup and return the account data only (as the method name implies)
      * and let Shiro do the rest, but implementations may of course perform eis specific login operations if so
      * desired.
+     * <p/>
+     * 获取身份验证相关信息
      *
      * @param token the application-specific representation of an account principal and credentials.
      * @return the authentication information for the account associated with the specified <tt>token</tt>,

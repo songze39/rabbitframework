@@ -51,6 +51,8 @@ import java.io.Serializable;
  * (<tt>Callback</tt> is just a marker interface, and of little use).  We
  * also think the name <em>AuthenticationToken</em> more accurately reflects its true purpose
  * in a login framework, whereas <em>Callback</em> is less obvious.
+ * <p/>
+ * 用于收集用户提交的身份(如用户名)及凭据(如密码)
  *
  * @see RememberMeAuthenticationToken
  * @see HostAuthenticationToken
@@ -69,6 +71,8 @@ public interface AuthenticationToken extends Serializable {
      * <p/>
      * <p>Ultimately, the object returned is application specific and can represent
      * any account identity (user id, X.509 certificate, etc).
+     * <p/>
+     * 身份
      *
      * @return the account identity submitted during the authentication process.
      * @see UsernamePasswordToken
@@ -86,6 +90,8 @@ public interface AuthenticationToken extends Serializable {
      * <p/>
      * <p>Ultimately, the credentials Object returned is application specific and can represent
      * any credential mechanism.
+     * <p/>
+     * 凭据
      *
      * @return the credential submitted by the user during the authentication process.
      */

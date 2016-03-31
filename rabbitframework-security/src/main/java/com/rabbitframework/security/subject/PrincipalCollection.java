@@ -31,6 +31,7 @@ import java.util.Set;
  * A PrincipalCollection organizes its internal principals based on the {@code Realm} where they came from when the
  * Subject was first created.  To obtain the principal(s) for a specific Realm, see the {@link #fromRealm} method.  You
  * can also see which realms contributed to this collection via the {@link #getRealmNames() getRealmNames()} method.
+ * 身份集合
  *
  * @see #getPrimaryPrincipal()
  * @see #fromRealm(String realmName)
@@ -70,6 +71,8 @@ public interface PrincipalCollection extends Iterable, Serializable {
      * over the {@link PrincipalCollection} returned at the end of an authentication attempt via the
      * <code>AuthenticationStrategy#{@link com.rabbitframework.security.authc.pam.AuthenticationStrategy#afterAllAttempts(com.rabbitframework.security.authc.AuthenticationToken, com.rabbitframework.security.authc.AuthenticationInfo) afterAllAttempts}</code>
      * implementation.
+     * <p/>
+     * 得到主要的身份
      *
      * @return the primary principal used to uniquely identify the owning account/Subject
      * @since 1.0
@@ -95,7 +98,7 @@ public interface PrincipalCollection extends Iterable, Serializable {
      *
      * @param type the type of the principals that should be returned.
      * @return a Collection of principals that are assignable from the specified type, or
-     *         an empty Collection if no principals of this type are associated.
+     * an empty Collection if no principals of this type are associated.
      */
     <T> Collection<T> byType(Class<T> type);
 
@@ -127,12 +130,14 @@ public interface PrincipalCollection extends Iterable, Serializable {
      *
      * @param realmName the name of the Realm from which the principals were retrieved.
      * @return the Subject's principals from the specified Realm only as a Collection or an empty Collection if there
-     *         are not any principals from that realm.
+     * are not any principals from that realm.
      */
     Collection fromRealm(String realmName);
 
     /**
      * Returns the realm names that this collection has principals for.
+     * <p/>
+     * 获取所有身份验证通过的 Realm 名字
      *
      * @return the names of realms that this collection has one or more principals for.
      */

@@ -25,7 +25,6 @@ package com.rabbitframework.security.authc;
  * remembered, but they are <em>NOT</em> considered authenticated.  Please see the
  * {@link com.rabbitframework.security.subject.Subject#isRemembered()} JavaDoc for an in-depth explanation of the semantic
  * differences of what it means to be remembered vs. authenticated.
- *
  * @see com.rabbitframework.security.subject.Subject#isRemembered()
  * @since 0.9
  */
@@ -36,7 +35,7 @@ public interface RememberMeAuthenticationToken extends AuthenticationToken {
      * across sessions, {@code false} otherwise.
      *
      * @return {@code true} if the submitting user wishes their identity (principal(s)) to be remembered
-     *         across sessions, {@code false} otherwise.
+     * across sessions, {@code false} otherwise.
      */
     boolean isRememberMe();
 
