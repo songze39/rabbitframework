@@ -31,7 +31,7 @@ import java.util.Collection;
  * the first successfully consulted Realm and ignores all subsequent realms.  This is slightly
  * different behavior than {@link AtLeastOneSuccessfulStrategy}, so please review both to see
  * which one meets your needs better.
- *
+ * 只要有一个 Realm 验证成功即可,只返回第一个 Realm 身份验证 成功的认证信息,其他的忽略
  * @see AtLeastOneSuccessfulStrategy AtLeastOneSuccessfulAuthenticationStrategy
  * @since 0.9
  */

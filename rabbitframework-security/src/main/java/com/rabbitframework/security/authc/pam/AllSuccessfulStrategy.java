@@ -35,12 +35,15 @@ import com.rabbitframework.security.realm.Realm;
  * <p>If one or more realms do not support the submitted token, or one or more are unable to acquire
  * <tt>AuthenticationInfo</tt> for the token, this implementation will immediately fail the log-in attempt for the
  * associated subject (user).
+ * 所有 Realm 验证成功才算成功,且返回所有 Realm 身份验证成功的 认证信息,如果有一个失败就失败了
  *
  * @since 0.2
  */
 public class AllSuccessfulStrategy extends AbstractAuthenticationStrategy {
 
-    /** Private class log instance. */
+    /**
+     * Private class log instance.
+     */
     private static final Logger log = LoggerFactory.getLogger(AllSuccessfulStrategy.class);
 
     /**

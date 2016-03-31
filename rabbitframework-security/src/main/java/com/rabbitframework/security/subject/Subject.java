@@ -36,7 +36,7 @@ import java.util.List;
 import java.util.concurrent.Callable;
 
 /**
- * A {@code Subject} represents state and security operations for a <em>single</em> application user.
+ * A {@code Subject} represents state and SECURITY operations for a <em>single</em> application user.
  * These operations include authentication (login/logout), authorization (access control), and
  * session access. It is Shiro's primary mechanism for single-user security functionality.
  * <h3>Acquiring a Subject</h3>
@@ -52,11 +52,11 @@ import java.util.concurrent.Callable;
  * simply convert these String values to {@link Permission Permission} instances and then just call the corresponding
  * type-safe method.  (Shiro's default implementations do String-to-Permission conversion for these methods using
  * {@link com.rabbitframework.security.authz.permission.PermissionResolver PermissionResolver}s.)
- * <p/>
+ *
  * These overloaded *Permission methods forgo type-saftey for the benefit of convenience and simplicity,
  * so you should choose which ones to use based on your preferences and needs.
  *
- * @since 0.1
+ * 主体接口，表示访问用户所有{@link Subject}都绑定到{@link SecurityManager}中
  */
 public interface Subject {
 
@@ -141,9 +141,9 @@ public interface Subject {
      *
      * @param permissions the String representations of the Permissions that are being checked.
      * @return a boolean array where indices correspond to the index of the
-     *         permissions in the given list.  A true value at an index indicates this Subject is permitted for
-     *         for the associated {@code Permission} string in the list.  A false value at an index
-     *         indicates otherwise.
+     * permissions in the given list.  A true value at an index indicates this Subject is permitted for
+     * for the associated {@code Permission} string in the list.  A false value at an index
+     * indicates otherwise.
      * @since 0.9
      */
     boolean[] isPermitted(String... permissions);
@@ -161,9 +161,9 @@ public interface Subject {
      *
      * @param permissions the permissions that are being checked.
      * @return a boolean array where indices correspond to the index of the
-     *         permissions in the given list.  A true value at an index indicates this Subject is permitted for
-     *         for the associated {@code Permission} object in the list.  A false value at an index
-     *         indicates otherwise.
+     * permissions in the given list.  A true value at an index indicates this Subject is permitted for
+     * for the associated {@code Permission} object in the list.  A false value at an index
+     * indicates otherwise.
      */
     boolean[] isPermitted(List<Permission> permissions);
 
@@ -201,8 +201,7 @@ public interface Subject {
      * Please see the class-level JavaDoc for more information on these String-based permission methods.
      *
      * @param permission the String representation of the Permission to check.
-     * @throws AuthorizationException
-     *          if the user does not have the permission.
+     * @throws AuthorizationException if the user does not have the permission.
      * @since 0.9
      */
     void checkPermission(String permission) throws AuthorizationException;
@@ -214,8 +213,7 @@ public interface Subject {
      * the given permission, an {@link AuthorizationException} will be thrown.
      *
      * @param permission the Permission to check.
-     * @throws AuthorizationException
-     *          if this Subject does not have the permission.
+     * @throws AuthorizationException if this Subject does not have the permission.
      */
     void checkPermission(Permission permission) throws AuthorizationException;
 
@@ -268,8 +266,8 @@ public interface Subject {
      *
      * @param roleIdentifiers the application-specific role identifiers to check (usually role ids or role names).
      * @return a boolean array where indices correspond to the index of the
-     *         roles in the given identifiers.  A true value indicates this Subject has the
-     *         role at that index.  False indicates this Subject does not have the role at that index.
+     * roles in the given identifiers.  A true value indicates this Subject has the
+     * role at that index.  False indicates this Subject does not have the role at that index.
      */
     boolean[] hasRoles(List<String> roleIdentifiers);
 
@@ -286,8 +284,7 @@ public interface Subject {
      * {@link AuthorizationException} if they do not.
      *
      * @param roleIdentifier the application-specific role identifier (usually a role id or role name ).
-     * @throws AuthorizationException
-     *          if this Subject does not have the role.
+     * @throws AuthorizationException if this Subject does not have the role.
      */
     void checkRole(String roleIdentifier) throws AuthorizationException;
 
@@ -296,8 +293,7 @@ public interface Subject {
      * {@link AuthorizationException} if they do not.
      *
      * @param roleIdentifiers the application-specific role identifiers to check (usually role ids or role names).
-     * @throws AuthorizationException
-     *          if this Subject does not have all of the specified roles.
+     * @throws AuthorizationException if this Subject does not have all of the specified roles.
      */
     void checkRoles(Collection<String> roleIdentifiers) throws AuthorizationException;
 
@@ -309,7 +305,7 @@ public interface Subject {
      *
      * @param roleIdentifiers roleIdentifiers the application-specific role identifiers to check (usually role ids or role names).
      * @throws AuthorizationException org.apache.shiro.authz.AuthorizationException
-     *          if this Subject does not have all of the specified roles.
+     *                                if this Subject does not have all of the specified roles.
      * @since 1.1.0
      */
     void checkRoles(String... roleIdentifiers) throws AuthorizationException;
@@ -326,8 +322,7 @@ public interface Subject {
      *
      * @param token the token encapsulating the subject's principals and credentials to be passed to the
      *              Authentication subsystem for verification.
-     * @throws AuthenticationException
-     *          if the authentication attempt fails.
+     * @throws AuthenticationException if the authentication attempt fails.
      * @since 0.9
      */
     void login(AuthenticationToken token) throws AuthenticationException;
@@ -341,7 +336,7 @@ public interface Subject {
      * current session</em>.  See the {@link #isRemembered() isRemembered()} method JavaDoc for more.
      *
      * @return {@code true} if this Subject proved their identity during their current session
-     *         by providing valid credentials matching those known to the system, {@code false} otherwise.
+     * by providing valid credentials matching those known to the system, {@code false} otherwise.
      * @since 0.9
      */
     boolean isAuthenticated();
@@ -356,13 +351,13 @@ public interface Subject {
      * this method act as the logical equivalent to this code:
      * <pre>
      * {@link #getPrincipal() getPrincipal()} != null && !{@link #isAuthenticated() isAuthenticated()}</pre>
-     * <p/>
+     *
      * Note as indicated by the above code example, if a {@code Subject} is remembered, they are
      * <em>NOT</em> considered authenticated.  A check against {@link #isAuthenticated() isAuthenticated()} is a more
      * strict check than that reflected by this method.  For example, a check to see if a subject can access financial
      * information should almost always depend on {@link #isAuthenticated() isAuthenticated()} to <em>guarantee</em> a
      * verified identity, and not this method.
-     * <p/>
+     *
      * Once the subject is authenticated, they are no longer considered only remembered because their identity would
      * have been verified during the current session.
      * <h4>Remembered vs Authenticated</h4>
@@ -370,30 +365,30 @@ public interface Subject {
      * the remembered identity gives the system an idea who that user probably is, but in reality, has no way of
      * absolutely <em>guaranteeing</em> if the remembered {@code Subject} represents the user currently
      * using the application.
-     * <p/>
+     *
      * So although many parts of the application can still perform user-specific logic based on the remembered
      * {@link #getPrincipals() principals}, such as customized views, it should never perform highly-sensitive
      * operations until the user has legitimately verified their identity by executing a successful authentication
      * attempt.
-     * <p/>
+     *
      * We see this paradigm all over the web, and we will use <a href="http://www.amazon.com">Amazon.com</a> as an
      * example:
-     * <p/>
+     *
      * When you visit Amazon.com and perform a login and ask it to 'remember me', it will set a cookie with your
      * identity.  If you don't log out and your session expires, and you come back, say the next day, Amazon still knows
      * who you <em>probably</em> are: you still see all of your book and movie recommendations and similar user-specific
      * features since these are based on your (remembered) user id.
-     * <p/>
+     *
      * BUT, if you try to do something sensitive, such as access your account's billing data, Amazon forces you
      * to do an actual log-in, requiring your username and password.
-     * <p/>
+     *
      * This is because although amazon.com assumed your identity from 'remember me', it recognized that you were not
      * actually authenticated.  The only way to really guarantee you are who you say you are, and therefore allow you
      * access to sensitive account data, is to force you to perform an actual successful authentication.  You can
      * check this guarantee via the {@link #isAuthenticated() isAuthenticated()} method and not via this method.
      *
      * @return {@code true} if this {@code Subject}'s identity (aka {@link #getPrincipals() principals}) is
-     *         remembered from a successful authentication during a previous session, {@code false} otherwise.
+     * remembered from a successful authentication during a previous session, {@code false} otherwise.
      * @since 1.0
      */
     boolean isRemembered();
@@ -421,7 +416,7 @@ public interface Subject {
      *
      * @param create boolean argument determining if a new session should be created or not if there is no existing session.
      * @return the application {@code Session} associated with this {@code Subject} or {@code null} based
-     *         on the above described logic.
+     * on the above described logic.
      * @since 0.2
      */
     Session getSession(boolean create);
@@ -535,7 +530,7 @@ public interface Subject {
      * information.
      *
      * @return {@code true} if this {@code Subject} is 'running as' another identity other than its original one or
-     *         {@code false} otherwise (normal {@code Subject} state).
+     * {@code false} otherwise (normal {@code Subject} state).
      * @see #runAs
      * @since 1.0
      */
@@ -547,8 +542,8 @@ public interface Subject {
      * identity (normal state). See the {@link #runAs runAs} method for more information.
      *
      * @return the previous 'pre run as' identity of this {@code Subject} before assuming the current
-     *         {@link #runAs runAs} identity, or {@code null} if this {@code Subject} is not operating under an assumed
-     *         identity (normal state).
+     * {@link #runAs runAs} identity, or {@code null} if this {@code Subject} is not operating under an assumed
+     * identity (normal state).
      * @see #runAs
      * @since 1.0
      */
@@ -562,7 +557,7 @@ public interface Subject {
      * operating under an assumed identity.
      *
      * @return the 'run as' (assumed) identity being released or {@code null} if this {@code Subject} is not operating
-     *         under an assumed identity.
+     * under an assumed identity.
      * @see #runAs
      * @since 1.0
      */
@@ -585,18 +580,18 @@ public interface Subject {
      * specify the exact {@code SecurityManager} instance to be used by the additional
      * <code>Subject.{@link #Builder(SecurityManager) Builder(securityManager)}</code>
      * constructor if desired.
-     * <p/>
+     *
      * All other methods may be called before the {@link #buildSubject() buildSubject()} method to
      * provide context on how to construct the {@code Subject} instance.  For example, if you have a session id and
      * want to acquire the {@code Subject} that 'owns' that session (assuming the session exists and is not expired):
      * <pre>
      * Subject subject = new Subject.Builder().sessionId(sessionId).buildSubject();</pre>
-     * <p/>
+     *
      * Similarly, if you want a {@code Subject} instance reflecting a certain identity:
      * <pre>
      * PrincipalCollection principals = new SimplePrincipalCollection("username", <em>yourRealmName</em>);
      * Subject subject = new Subject.Builder().principals(principals).build();</pre>
-     * <p/>
+     *
      * <b>Note*</b> that the returned {@code Subject} instance is <b>not</b> automatically bound to the application (thread)
      * for further use.  That is,
      * {@link com.rabbitframework.security.SecurityUtils SecurityUtils}.{@link com.rabbitframework.security.SecurityUtils#getSubject() getSubject()}
@@ -675,15 +670,15 @@ public interface Subject {
          * session alone.  In other words, this is almost always sufficient:
          * <pre>
          * new Subject.Builder().sessionId(sessionId).buildSubject();</pre>
-         * <p/>
+         *
          * <b>Although simple in concept, this method provides very powerful functionality previously absent in almost
          * all Java environments:</b>
-         * <p/>
+         *
          * The ability to reference a {@code Subject} and their server-side session
          * <em>across clients of different mediums</em> such as web applications, Java applets,
          * standalone C# clients over XML-RPC and/or SOAP, and many others. This is a <em>huge</em>
          * benefit in heterogeneous enterprise applications.
-         * <p/>
+         *
          * To maintain session integrity across client mediums, the {@code sessionId} <b>must</b> be transmitted
          * to all client mediums securely (e.g. over SSL) to prevent man-in-the-middle attacks.  This
          * is nothing new - all web applications are susceptible to the same problem when transmitting
@@ -740,7 +735,7 @@ public interface Subject {
          * <pre>
          * PrincipalCollection identity = new {@link com.rabbitframework.security.subject.SimplePrincipalCollection#SimplePrincipalCollection(Object, String) SimplePrincipalCollection}(&quot;jsmith&quot;, &quot;myRealm&quot;);
          * Subject jsmith = new Subject.Builder().principals(identity).buildSubject();</pre>
-         * <p/>
+         *
          * Similarly, if your application's unique identifier for users is a {@code long} value (such as might be used
          * as a primary key in a relational database) and you were using a {@code JDBC}
          * {@code Realm} named, (unimaginatively) &quot;jdbcRealm&quot;, you might create the Subject
@@ -840,7 +835,7 @@ public interface Subject {
          * framework developer to bind the returned {@code Subject} for continued use if desired.
          *
          * @return a new {@code Subject} instance reflecting the cumulative state acquired by the
-         *         other methods in this class.
+         * other methods in this class.
          */
         public Subject buildSubject() {
             return this.securityManager.createSubject(this.subjectContext);

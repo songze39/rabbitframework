@@ -34,7 +34,7 @@ package com.rabbitframework.security.authc;
  * @see com.rabbitframework.security.mgt.SecurityManager
  * @see AbstractAuthenticator AbstractAuthenticator
  * @see com.rabbitframework.security.authc.pam.ModularRealmAuthenticator ModularRealmAuthenticator
- * @since 0.1
+ * 身份验证者
  */
 public interface Authenticator {
 

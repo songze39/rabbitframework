@@ -52,7 +52,9 @@ import com.rabbitframework.security.subject.SubjectContext;
  * Framework developers on the other hand might find working with an actual SecurityManager useful.
  *
  * @see com.rabbitframework.security.mgt.DefaultSecurityManager
- * @since 0.2
+ * <p/>
+ * 安全管理器，;即所有与安全有关的操作都会与{@link SecurityManager}交互;且它管理着所有{@link Subject};
+ * 可以看出它是Shiro的核心,它负责与后边介绍的其他组件进行交互,如果学习过SpringMVC,你可以把它看成DispatcherServlet前端控制器
  */
 public interface SecurityManager extends Authenticator, Authorizer, SessionManager {
 

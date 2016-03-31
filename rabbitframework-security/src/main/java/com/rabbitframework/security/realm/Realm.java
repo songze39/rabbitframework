@@ -25,13 +25,13 @@ import com.rabbitframework.security.authc.AuthenticationToken;
 /**
  * A <tt>Realm</tt> is a security component that can access application-specific security entities
  * such as users, roles, and permissions to determine authentication and authorization operations.
- *
+ * <p/>
  * <p><tt>Realm</tt>s usually have a 1-to-1 correspondance with a datasource such as a relational database,
  * file sysetem, or other similar resource.  As such, implementations of this interface use datasource-specific APIs to
  * determine authorization data (roles, permissions, etc), such as JDBC, File IO, Hibernate or JPA, or any other
  * Data Access API.  They are essentially security-specific
  * <a href="http://en.wikipedia.org/wiki/Data_Access_Object" target="_blank">DAO</a>s.
- *
+ * <p/>
  * <p>Because most of these datasources usually contain Subject (a.k.a. User) information such as usernames and
  * passwords, a Realm can act as a pluggable authentication module in a
  * <a href="http://en.wikipedia.org/wiki/Pluggable_Authentication_Modules">PAM</a> configuration.  This allows a Realm to
@@ -39,26 +39,30 @@ import com.rabbitframework.security.authc.AuthenticationToken;
  * majority of applications.  If for some reason you don't want your Realm implementation to perform authentication
  * duties, you should override the {@link #supports(AuthenticationToken)} method to always
  * return <tt>false</tt>.
- *
+ * <p/>
  * <p>Because every application is different, security data such as users and roles can be
  * represented in any number of ways.  Shiro tries to maintain a non-intrusive development philosophy whenever
  * possible - it does not require you to implement or extend any <tt>User</tt>, <tt>Group</tt> or <tt>Role</tt>
  * interfaces or classes.
- *
+ * <p/>
  * <p>Instead, Shiro allows applications to implement this interface to access environment-specific datasources
  * and data model objects.  The implementation can then be plugged in to the application's Shiro configuration.
  * This modular technique abstracts away any environment/modeling details and allows Shiro to be deployed in
  * practically any application environment.
- *
+ * <p/>
  * <p>Most users will not implement the <tt>Realm</tt> interface directly, but will extend one of the subclasses,
  * {@link com.rabbitframework.security.realm.AuthenticatingRealm AuthenticatingRealm} or {@link com.rabbitframework.security.realm.AuthorizingRealm}, greatly reducing the effort requird
  * to implement a <tt>Realm</tt> from scratch.</p>
+ * <p/>
+ * 域,Security 从{@link Realm}获取安全数据(如用户、角色、权限),就是说{@link SecurityManager}要验证用户身份,
+ * 那么它需要从{@link Realm}获取相应的用户进行比较以确定用户身份是否合法;
+ * 也需要从{@link Realm}得到用户相应的角色/权限进行验证用户是否能进行操作;
+ * 可以把{@link Realm}看成DataSource ,即安全数据源
  *
  * @see com.rabbitframework.security.realm.CachingRealm CachingRealm
  * @see com.rabbitframework.security.realm.AuthenticatingRealm AuthenticatingRealm
  * @see com.rabbitframework.security.realm.AuthorizingRealm AuthorizingRealm
  * @see com.rabbitframework.security.authc.pam.ModularRealmAuthenticator ModularRealmAuthenticator
- * @since 0.1
  */
 public interface Realm {
 
@@ -73,21 +77,21 @@ public interface Realm {
     /**
      * Returns <tt>true</tt> if this realm wishes to authenticate the Subject represented by the given
      * {@link AuthenticationToken AuthenticationToken} instance, <tt>false</tt> otherwise.
-     *
+     * <p/>
      * <p>If this method returns <tt>false</tt>, it will not be called to authenticate the Subject represented by
      * the token - more specifically, a <tt>false</tt> return value means this Realm instance's
      * {@link #getAuthenticationInfo} method will not be invoked for that token.
      *
      * @param token the AuthenticationToken submitted for the authentication attempt
      * @return <tt>true</tt> if this realm can/will authenticate Subjects represented by specified token,
-     *         <tt>false</tt> otherwise.
+     * <tt>false</tt> otherwise.
      */
     boolean supports(AuthenticationToken token);
 
     /**
      * Returns an account's authentication-specific information for the specified <tt>token</tt>,
      * or <tt>null</tt> if no account could be found based on the <tt>token</tt>.
-     *
+     * <p/>
      * <p>This method effectively represents a login attempt for the corresponding user with the underlying EIS datasource.
      * Most implementations merely just need to lookup and return the account data only (as the method name implies)
      * and let Shiro do the rest, but implementations may of course perform eis specific login operations if so
@@ -95,10 +99,9 @@ public interface Realm {
      *
      * @param token the application-specific representation of an account principal and credentials.
      * @return the authentication information for the account associated with the specified <tt>token</tt>,
-     *         or <tt>null</tt> if no account could be found.
-     * @throws AuthenticationException
-     *          if there is an error obtaining or constructing an AuthenticationInfo object based on the
-     *          specified <tt>token</tt> or implementation-specifc login behavior fails.
+     * or <tt>null</tt> if no account could be found.
+     * @throws AuthenticationException if there is an error obtaining or constructing an AuthenticationInfo object based on the
+     *                                 specified <tt>token</tt> or implementation-specifc login behavior fails.
      */
     AuthenticationInfo getAuthenticationInfo(AuthenticationToken token) throws AuthenticationException;
 
