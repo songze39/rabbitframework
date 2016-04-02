@@ -18,7 +18,7 @@
  */
 package com.rabbitframework.security.authc;
 
-import com.rabbitframework.security.ShiroException;
+import com.rabbitframework.security.SecurityException;
 
 
 /**
@@ -26,7 +26,7 @@ import com.rabbitframework.security.ShiroException;
  *
  * @since 0.1
  */
-public class AuthenticationException extends ShiroException
+public class AuthenticationException extends SecurityException
 {
 
     /**

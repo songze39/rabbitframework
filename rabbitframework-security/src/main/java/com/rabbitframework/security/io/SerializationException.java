@@ -18,7 +18,7 @@
  */
 package com.rabbitframework.security.io;
 
-import com.rabbitframework.security.ShiroException;
+import com.rabbitframework.security.SecurityException;
 
 
 /**
@@ -26,7 +26,7 @@ import com.rabbitframework.security.ShiroException;
  *
  * @since Apr 23, 2008 8:58:22 AM
  */
-public class SerializationException extends ShiroException
+public class SerializationException extends SecurityException
 {
 
     /**

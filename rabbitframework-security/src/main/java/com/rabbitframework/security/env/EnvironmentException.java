@@ -18,14 +18,14 @@
  */
 package com.rabbitframework.security.env;
 
-import com.rabbitframework.security.ShiroException;
+import com.rabbitframework.security.SecurityException;
 
 /**
  * Exception thrown for errors related to {@link Environment} instances or configuration.
  *
  * @since 1.2
  */
-public class EnvironmentException extends ShiroException {
+public class EnvironmentException extends SecurityException {
 
     public EnvironmentException(String message) {
         super(message);

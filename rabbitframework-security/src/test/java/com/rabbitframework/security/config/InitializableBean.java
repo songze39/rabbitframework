@@ -18,7 +18,7 @@
  */
 package com.rabbitframework.security.config;
 
-import com.rabbitframework.security.ShiroException;
+import com.rabbitframework.security.SecurityException;
 import com.rabbitframework.security.util.Initializable;
 
 /**
@@ -28,7 +28,7 @@ public class InitializableBean implements Initializable {
 
     private volatile boolean initialized = false;
 
-    public void init() throws ShiroException {
+    public void init() throws SecurityException {
         initialized = true;
     }
 

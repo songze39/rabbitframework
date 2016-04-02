@@ -18,19 +18,22 @@
  */
 package com.rabbitframework.security;
 
-/**
- * Exception thrown when attempting to acquire the application's {@code SecurityManager} instance, but Shiro's
- * lookup heuristics cannot find one.  This typically indicates an invalid application configuration.
- *
- * @since 1.0
- */
-public class UnavailableSecurityManagerException extends SecurityException {
+public class SecurityException extends RuntimeException {
 
-    public UnavailableSecurityManagerException(String message) {
-        super(message);
-    }
+	public SecurityException() {
+		super();
+	}
 
-    public UnavailableSecurityManagerException(String message, Throwable cause) {
-        super(message, cause);
-    }
+	public SecurityException(String message) {
+		super(message);
+	}
+
+	public SecurityException(Throwable cause) {
+		super(cause);
+	}
+
+	public SecurityException(String message, Throwable cause) {
+		super(message, cause);
+	}
+
 }

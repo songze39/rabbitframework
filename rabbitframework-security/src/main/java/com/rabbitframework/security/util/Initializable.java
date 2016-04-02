@@ -18,7 +18,7 @@
  */
 package com.rabbitframework.security.util;
 
-import com.rabbitframework.security.ShiroException;
+import com.rabbitframework.security.SecurityException;
 
 /**
  * Shiro container-agnostic interface that indicates that this object requires initialization.
@@ -30,9 +30,9 @@ public interface Initializable {
     /**
      * Initializes this object.
      *
-     * @throws com.rabbitframework.security.ShiroException
+     * @throws com.rabbitframework.security.SecurityException
      *          if an exception occurs during initialization.
      */
-    void init() throws ShiroException;
+    void init() throws SecurityException;
 
 }

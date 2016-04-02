@@ -21,7 +21,7 @@ package com.rabbitframework.security.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.rabbitframework.security.ShiroException;
+import com.rabbitframework.security.SecurityException;
 
 import java.util.Collection;
 
@@ -36,13 +36,13 @@ public abstract class LifecycleUtils {
 
     private static final Logger log = LoggerFactory.getLogger(LifecycleUtils.class);
 
-    public static void init(Object o) throws ShiroException {
+    public static void init(Object o) throws SecurityException {
         if (o instanceof Initializable) {
             init((Initializable) o);
         }
     }
 
-    public static void init(Initializable initializable) throws ShiroException {
+    public static void init(Initializable initializable) throws SecurityException {
         initializable.init();
     }
 
@@ -51,10 +51,10 @@ public abstract class LifecycleUtils {
      * this method returns quietly.
      *
      * @param c the collection containing objects to {@link #init init}.
-     * @throws ShiroException if unable to initialize one or more instances.
+     * @throws SecurityException if unable to initialize one or more instances.
      * @since 0.9
      */
-    public static void init(Collection c) throws ShiroException {
+    public static void init(Collection c) throws SecurityException {
         if (c == null || c.isEmpty()) {
             return;
         }

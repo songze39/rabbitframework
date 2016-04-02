@@ -18,7 +18,7 @@
  */
 package com.rabbitframework.security.dao;
 
-import com.rabbitframework.security.ShiroException;
+import com.rabbitframework.security.SecurityException;
 
 /**
  * Generic exception representing a problem when attempting to access data.
@@ -28,7 +28,7 @@ import com.rabbitframework.security.ShiroException;
  *
  * @since 1.2
  */
-public abstract class DataAccessException extends ShiroException {
+public abstract class DataAccessException extends SecurityException {
 
     /**
      * Constructs a DataAccessException with a message explaining the cause of the exception.

@@ -21,7 +21,7 @@ package com.rabbitframework.security.realm.text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.rabbitframework.security.ShiroException;
+import com.rabbitframework.security.SecurityException;
 import com.rabbitframework.security.io.ResourceUtils;
 import com.rabbitframework.security.util.Destroyable;
 
@@ -244,7 +244,7 @@ public class PropertiesRealm extends TextConfigurationRealm implements Destroyab
             }
 
         } catch (IOException e) {
-            throw new ShiroException("Error reading properties path [" + resourcePath + "].  " +
+            throw new SecurityException("Error reading properties path [" + resourcePath + "].  " +
                     "Initializing of the realm from this file failed.", e);
         } finally {
             ResourceUtils.close(is);

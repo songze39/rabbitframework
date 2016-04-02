@@ -18,7 +18,7 @@
  */
 package com.rabbitframework.security.session;
 
-import com.rabbitframework.security.ShiroException;
+import com.rabbitframework.security.SecurityException;
 
 
 /**
@@ -27,7 +27,7 @@ import com.rabbitframework.security.ShiroException;
  *
  * @since 0.1
  */
-public class SessionException extends ShiroException {
+public class SessionException extends SecurityException {
 
     /**
      * Creates a new SessionException.

@@ -18,7 +18,7 @@
  */
 package com.rabbitframework.security.subject;
 
-import com.rabbitframework.security.ShiroException;
+import com.rabbitframework.security.SecurityException;
 
 /**
  * Exception wrapping any potential checked exception thrown when a {@code Subject} executes a
@@ -29,7 +29,7 @@ import com.rabbitframework.security.ShiroException;
  *
  * @since 1.0
  */
-public class ExecutionException extends ShiroException {
+public class ExecutionException extends SecurityException {
 
     public ExecutionException(Throwable cause) {
         super(cause);
