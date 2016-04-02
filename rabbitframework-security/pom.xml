@@ -13,11 +13,6 @@
             <artifactId>easymock</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.rabbitframework</groupId>
-            <artifactId>rabbitframework-commons</artifactId>
-            <version>${rabbitframework.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjrt</artifactId>
         </dependency>
@@ -58,6 +53,11 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
         </dependency>
+        <dependency>
+			<groupId>com.rabbitframework</groupId>
+			<artifactId>rabbitframework-commons</artifactId>
+			<version>${rabbitframework.version}</version>
+		</dependency>
         <!-- Test dependencies -->
 
         <dependency>

@@ -18,20 +18,22 @@
  */
 package com.rabbitframework.security.crypto;
 
-import com.rabbitframework.security.codec.ByteSource;
-import com.rabbitframework.commons.utils.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.crypto.CipherInputStream;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.security.Key;
 import java.security.SecureRandom;
 import java.security.spec.AlgorithmParameterSpec;
+
+import javax.crypto.CipherInputStream;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.rabbitframework.security.codec.ByteSource;
+import com.rabbitframework.security.util.StringUtils;
 
 /**
  * Abstract {@code CipherService} implementation utilizing Java's JCA APIs.

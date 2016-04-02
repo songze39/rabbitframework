@@ -18,14 +18,18 @@
  */
 package com.rabbitframework.security.crypto.hash;
 
-import com.rabbitframework.security.codec.*;
-import com.rabbitframework.security.crypto.UnknownAlgorithmException;
-import com.rabbitframework.commons.utils.StringUtils;
-
 import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+
+import com.rabbitframework.security.codec.Base64;
+import com.rabbitframework.security.codec.ByteSource;
+import com.rabbitframework.security.codec.CodecException;
+import com.rabbitframework.security.codec.CodecSupport;
+import com.rabbitframework.security.codec.Hex;
+import com.rabbitframework.security.crypto.UnknownAlgorithmException;
+import com.rabbitframework.security.util.StringUtils;
 /**
  * A {@code Hash} implementation that allows any {@link MessageDigest MessageDigest} algorithm name to
  * be used.  This class is a less type-safe variant than the other {@code AbstractHash} subclasses

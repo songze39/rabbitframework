@@ -18,7 +18,7 @@
  */
 package com.rabbitframework.security.crypto;
 
-import com.rabbitframework.commons.utils.StringUtils;
+import com.rabbitframework.security.util.StringUtils;
 
 /**
  * Base abstract class for block cipher algorithms.
