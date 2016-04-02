@@ -5,13 +5,12 @@
 	<parent>
 		<groupId>com.rabbitframework</groupId>
 		<artifactId>rabbitframework-root-pom</artifactId>
-		<version>1.1</version>
+		<version>${rabbitframework.version}</version>
 		<!-- <relativePath>../rabbit-root-pom/pom.xml</relativePath> -->
 	</parent>
 	<artifactId>rabbitframework-jadb</artifactId>
 	<packaging>jar</packaging>
 	<properties>
-		<rabbitframework-commons.version>1.1</rabbitframework-commons.version>
 		<mysql.version>5.1.36</mysql.version>
 		<c3po.version>0.9.1.2</c3po.version>
 	</properties>
@@ -62,7 +61,7 @@
 		<dependency>
 			<groupId>com.rabbitframework</groupId>
 			<artifactId>rabbitframework-commons</artifactId>
-			<version>${rabbitframework-commons.version}</version>
+			<version>${rabbitframework.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
