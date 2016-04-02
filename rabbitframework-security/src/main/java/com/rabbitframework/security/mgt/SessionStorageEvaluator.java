@@ -43,7 +43,6 @@ import com.rabbitframework.security.subject.Subject;
  * @see Subject#getSession()
  * @see Subject#getSession(boolean)
  * @see DefaultSessionStorageEvaluator
- * @since 1.2
  */
 public interface SessionStorageEvaluator {
 

@@ -47,14 +47,14 @@ public class DefaultSubjectFactory implements SubjectFactory {
         return new DelegatingSubject(principals, authenticated, host, session, sessionCreationEnabled, securityManager);
     }
 
-    /**
-     * @deprecated since 1.2 - override {@link #createSubject(com.rabbitframework.security.subject.SubjectContext)} directly if you
-     *             need to instantiate a custom {@link Subject} class.
-     */
-    @Deprecated
-    protected Subject newSubjectInstance(PrincipalCollection principals, boolean authenticated, String host,
-                                         Session session, SecurityManager securityManager) {
-        return new DelegatingSubject(principals, authenticated, host, session, true, securityManager);
-    }
+//    /**
+//     * @deprecated since 1.2 - override {@link #createSubject(com.rabbitframework.security.subject.SubjectContext)} directly if you
+//     *             need to instantiate a custom {@link Subject} class.
+//     */
+//    @Deprecated
+//    protected Subject newSubjectInstance(PrincipalCollection principals, boolean authenticated, String host,
+//                                         Session session, SecurityManager securityManager) {
+//        return new DelegatingSubject(principals, authenticated, host, session, true, securityManager);
+//    }
 
 }
