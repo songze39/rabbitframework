@@ -58,7 +58,7 @@ public class WebUtils {
     public static final String SERVLET_RESPONSE_KEY = ServletResponse.class.getName() + "_SHIRO_THREAD_CONTEXT_KEY";
 
     /**
-     * {@link com.rabbitframework.security.session.Session Session} key used to save a request and later restore it, for example when redirecting to a
+     * {@link Session Session} key used to save a request and later restore it, for example when redirecting to a
      * requested page after login, equal to {@code shiroSavedRequest}.
      */
     public static final String SAVED_REQUEST_KEY = "shiroSavedRequest";

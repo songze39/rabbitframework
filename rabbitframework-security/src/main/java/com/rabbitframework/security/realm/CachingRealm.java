@@ -36,14 +36,14 @@ import java.util.concurrent.atomic.AtomicInteger;
  * A very basic abstract extension point for the {@link Realm} interface that provides caching support for subclasses.
  * <p/>
  * It also provides a convenience method,
- * {@link #getAvailablePrincipal(com.rabbitframework.security.subject.PrincipalCollection)}, which is useful across all
+ * {@link #getAvailablePrincipal(PrincipalCollection)}, which is useful across all
  * realm subclasses for obtaining a realm-specific principal/identity.
  * <p/>
  * All actual Realm method implementations are left to subclasses.
  *
- * @see #clearCache(com.rabbitframework.security.subject.PrincipalCollection)
- * @see #onLogout(com.rabbitframework.security.subject.PrincipalCollection)
- * @see #getAvailablePrincipal(com.rabbitframework.security.subject.PrincipalCollection)
+ * @see #clearCache(PrincipalCollection)
+ * @see #onLogout(PrincipalCollection)
+ * @see #getAvailablePrincipal(PrincipalCollection)
  * @since 0.9
  */
 public abstract class CachingRealm implements Realm, Nameable, CacheManagerAware, LogoutAware {
@@ -142,11 +142,11 @@ public abstract class CachingRealm implements Realm, Nameable, CacheManagerAware
      * If caching is enabled, this will clear any cached data associated with the specified account identity.
      * Subclasses are free to override for additional behavior, but be sure to call {@code super.onLogout} first.
      * <p/>
-     * This default implementation merely calls {@link #clearCache(com.rabbitframework.security.subject.PrincipalCollection)}.
+     * This default implementation merely calls {@link #clearCache(PrincipalCollection)}.
      *
      * @param principals the application-specific Subject/user identifier that is logging out.
-     * @see #clearCache(com.rabbitframework.security.subject.PrincipalCollection)
-     * @see #getAvailablePrincipal(com.rabbitframework.security.subject.PrincipalCollection)
+     * @see #clearCache(PrincipalCollection)
+     * @see #getAvailablePrincipal(PrincipalCollection)
      * @since 1.2
      */
     public void onLogout(PrincipalCollection principals) {
@@ -157,7 +157,7 @@ public abstract class CachingRealm implements Realm, Nameable, CacheManagerAware
      * Clears out any cached data associated with the specified account identity/identities.
      * <p/>
      * This implementation will return quietly if the principals argument is null or empty.  Otherwise it delegates
-     * to {@link #doClearCache(com.rabbitframework.security.subject.PrincipalCollection)}.
+     * to {@link #doClearCache(PrincipalCollection)}.
      *
      * @param principals the principals of the account for which to clear any cached data.
      * @since 1.2
@@ -186,7 +186,7 @@ public abstract class CachingRealm implements Realm, Nameable, CacheManagerAware
      * <code>principals.{@link PrincipalCollection#fromRealm(String) fromRealm}({@link #getName() getName()})</code>
      * call.</li>
      * <li>If the previous call does not result in any principals, attempt to get the overall 'primary' principal
-     * from the PrincipalCollection via {@link com.rabbitframework.security.subject.PrincipalCollection#getPrimaryPrincipal()}.</li>
+     * from the PrincipalCollection via {@link PrincipalCollection#getPrimaryPrincipal()}.</li>
      * <li>If there are no principals from that call (or the PrincipalCollection argument was null to begin with),
      * return {@code null}</li>
      * </ul>

@@ -34,7 +34,7 @@ import java.io.Serializable;
  * This class also allows for plugging in a {@link SessionIdGenerator} for custom ID generation strategies.  This is
  * optional, as the default generator is probably sufficient for most cases.  Subclass implementations that do use a
  * generator (default or custom) will want to call the
- * {@link #generateSessionId(com.rabbitframework.security.session.Session)} method from within their {@link #doCreate}
+ * {@link #generateSessionId(Session)} method from within their {@link #doCreate}
  * implementations.
  * <p/>
  * Subclass implementations that rely on the EIS data store to generate the ID automatically (e.g. when the session
@@ -47,24 +47,24 @@ public abstract class AbstractSessionDAO implements SessionDAO {
 
     /**
      * Optional SessionIdGenerator instance available to subclasses via the
-     * {@link #generateSessionId(com.rabbitframework.security.session.Session)} method.
+     * {@link #generateSessionId(Session)} method.
      */
     private SessionIdGenerator sessionIdGenerator;
 
     /**
      * Default no-arg constructor that defaults the {@link #setSessionIdGenerator sessionIdGenerator} to be a
-     * {@link com.rabbitframework.security.session.mgt.eis.JavaUuidSessionIdGenerator}.
+     * {@link JavaUuidSessionIdGenerator}.
      */
     public AbstractSessionDAO() {
         this.sessionIdGenerator = new JavaUuidSessionIdGenerator();
     }
 
     /**
-     * Returns the {@code SessionIdGenerator} used by the {@link #generateSessionId(com.rabbitframework.security.session.Session)}
+     * Returns the {@code SessionIdGenerator} used by the {@link #generateSessionId(Session)}
      * method.  Unless overridden by the {@link #setSessionIdGenerator(SessionIdGenerator)} method, the default instance
      * is a {@link JavaUuidSessionIdGenerator}.
      *
-     * @return the {@code SessionIdGenerator} used by the {@link #generateSessionId(com.rabbitframework.security.session.Session)}
+     * @return the {@code SessionIdGenerator} used by the {@link #generateSessionId(Session)}
      *         method.
      */
     public SessionIdGenerator getSessionIdGenerator() {
@@ -72,11 +72,11 @@ public abstract class AbstractSessionDAO implements SessionDAO {
     }
 
     /**
-     * Sets the {@code SessionIdGenerator} used by the {@link #generateSessionId(com.rabbitframework.security.session.Session)}
+     * Sets the {@code SessionIdGenerator} used by the {@link #generateSessionId(Session)}
      * method.  Unless overridden by this method, the default instance ss a {@link JavaUuidSessionIdGenerator}.
      *
      * @param sessionIdGenerator the {@code SessionIdGenerator} to use in the
-     *                           {@link #generateSessionId(com.rabbitframework.security.session.Session)} method.
+     *                           {@link #generateSessionId(Session)} method.
      */
     public void setSessionIdGenerator(SessionIdGenerator sessionIdGenerator) {
         this.sessionIdGenerator = sessionIdGenerator;
@@ -151,7 +151,7 @@ public abstract class AbstractSessionDAO implements SessionDAO {
      *
      * @param session the Session instance to persist to the EIS.
      * @return the id of the session created in the EIS (i.e. this is almost always a primary key and should be the
-     *         value returned from {@link com.rabbitframework.security.session.Session#getId() Session.getId()}.
+     *         value returned from {@link Session#getId() Session.getId()}.
      */
     protected abstract Serializable doCreate(Session session);
 

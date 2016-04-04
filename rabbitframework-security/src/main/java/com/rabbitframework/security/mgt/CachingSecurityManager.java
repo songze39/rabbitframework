@@ -74,7 +74,7 @@ public abstract class CachingSecurityManager implements SecurityManager, Destroy
 
     /**
      * Template callback to notify subclasses that a
-     * {@link com.rabbitframework.security.cache.CacheManager CacheManager} has been set and is available for use via the
+     * {@link CacheManager CacheManager} has been set and is available for use via the
      * {@link #getCacheManager getCacheManager()} method.
      */
     protected void afterCacheManagerSet() {

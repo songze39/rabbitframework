@@ -32,8 +32,8 @@ import com.rabbitframework.security.util.LifecycleUtils;
  * 会话安全管理
  * <p/>
  * Security support of a {@link SecurityManager} class hierarchy that delegates all
- * {@link com.rabbitframework.security.session.Session session} operations to a wrapped
- * {@link com.rabbitframework.security.session.mgt.SessionManager SessionManager} instance.  That is, this class implements the
+ * {@link Session session} operations to a wrapped
+ * {@link SessionManager SessionManager} instance.  That is, this class implements the
  * methods in the {@link SessionManager SessionManager} interface, but in reality, those methods are merely
  * passthrough calls to the underlying 'real' {@code SessionManager} instance.
  * <p/>
@@ -89,14 +89,14 @@ public abstract class SessionsSecurityManager extends AuthorizingSecurityManager
      * Returns this security manager's internal delegate {@link SessionManager SessionManager}.
      *
      * @return this security manager's internal delegate {@link SessionManager SessionManager}.
-     * @see #setSessionManager(com.rabbitframework.security.session.mgt.SessionManager) setSessionManager
+     * @see #setSessionManager(SessionManager) setSessionManager
      */
     public SessionManager getSessionManager() {
         return this.sessionManager;
     }
 
     /**
-     * Calls {@link com.rabbitframework.security.mgt.AuthorizingSecurityManager#afterCacheManagerSet() super.afterCacheManagerSet()} and then immediately calls
+     * Calls {@link AuthorizingSecurityManager#afterCacheManagerSet() super.afterCacheManagerSet()} and then immediately calls
      * {@link #applyCacheManagerToSessionManager() applyCacheManagerToSessionManager()} to ensure the
      * <code>CacheManager</code> is applied to the SessionManager as necessary.
      */

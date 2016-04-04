@@ -26,7 +26,7 @@ import com.rabbitframework.security.authz.annotation.RequiresUser;
 
 
 /**
- * Checks to see if a @{@link com.rabbitframework.security.authz.annotation.RequiresUser RequiresUser} annotation
+ * Checks to see if a @{@link RequiresUser RequiresUser} annotation
  * is declared, and if so, ensures the calling <code>Subject</code> is <em>either</em>
  * {@link com.rabbitframework.security.subject.Subject#isAuthenticated() authenticated} <b><em>or</em></b> remembered via remember
  * me services before allowing access.
@@ -40,7 +40,7 @@ public class UserAnnotationHandler extends AuthorizingAnnotationHandler {
     /**
      * Default no-argument constructor that ensures this handler looks for
      *
-     * {@link com.rabbitframework.security.authz.annotation.RequiresUser RequiresUser} annotations.
+     * {@link RequiresUser RequiresUser} annotations.
      */
     public UserAnnotationHandler() {
         super(RequiresUser.class);
@@ -53,7 +53,7 @@ public class UserAnnotationHandler extends AuthorizingAnnotationHandler {
      * <code>AuthorizingException</code> indicating access is not allowed.
      *
      * @param a the RequiresUser annotation to check
-     * @throws com.rabbitframework.security.authz.AuthorizationException
+     * @throws AuthorizationException
      *         if the calling <code>Subject</code> is not authenticated or remembered via rememberMe services.
      */
     public void assertAuthorized(Annotation a) throws AuthorizationException {

@@ -265,7 +265,7 @@ public abstract class CachingSessionDAO extends AbstractSessionDAO implements Ca
 
     /**
      * Updates the state of the given session to the EIS by first delegating to
-     * {@link #doUpdate(com.rabbitframework.security.session.Session)}.  If the session is a {@link ValidatingSession}, it will
+     * {@link #doUpdate(Session)}.  If the session is a {@link ValidatingSession}, it will
      * be added to the cache only if it is {@link ValidatingSession#isValid()} and if invalid, will be removed from the
      * cache.  If it is not a {@code ValidatingSession} instance, it will be added to the cache in any event.
      *

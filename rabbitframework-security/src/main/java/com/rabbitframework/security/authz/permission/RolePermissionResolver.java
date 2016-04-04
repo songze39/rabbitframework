@@ -24,7 +24,7 @@ import com.rabbitframework.security.authz.Permission;
 
 /**
  * A RolePermissionResolver resolves a String value and converts it into a Collection of
- * {@link com.rabbitframework.security.authz.Permission} instances.
+ * {@link Permission} instances.
  * <p/>
  * In some cases a {@link com.rabbitframework.security.realm.Realm} my only be able to return a list of roles.  This
  * component allows an application to resolve the roles into permissions.

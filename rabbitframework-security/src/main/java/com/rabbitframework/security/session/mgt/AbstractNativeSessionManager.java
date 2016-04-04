@@ -148,7 +148,7 @@ public abstract class AbstractNativeSessionManager extends AbstractSessionManage
      *
      * @param session the session that has just started that will be delivered to any
      *                {@link #setSessionListeners(Collection) registered} session listeners.
-     * @see SessionListener#onStart(com.rabbitframework.security.session.Session)
+     * @see SessionListener#onStart(Session)
      */
     protected void notifyStart(Session session) {
         for (SessionListener listener : this.listeners) {

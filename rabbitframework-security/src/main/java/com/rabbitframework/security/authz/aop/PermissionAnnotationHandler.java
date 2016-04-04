@@ -27,7 +27,7 @@ import com.rabbitframework.security.subject.Subject;
 import java.lang.annotation.Annotation;
 
 /**
- * Checks to see if a @{@link com.rabbitframework.security.authz.annotation.RequiresPermissions RequiresPermissions} annotation is
+ * Checks to see if a @{@link RequiresPermissions RequiresPermissions} annotation is
  * declared, and if so, performs a permission check to see if the calling <code>Subject</code> is allowed continued
  * access.
  *
@@ -37,7 +37,7 @@ public class PermissionAnnotationHandler extends AuthorizingAnnotationHandler {
 
     /**
      * Default no-argument constructor that ensures this handler looks for
-     * {@link com.rabbitframework.security.authz.annotation.RequiresPermissions RequiresPermissions} annotations.
+     * {@link RequiresPermissions RequiresPermissions} annotations.
      */
     public PermissionAnnotationHandler() {
         super(RequiresPermissions.class);
@@ -59,7 +59,7 @@ public class PermissionAnnotationHandler extends AuthorizingAnnotationHandler {
      * <code>AuthorizingException</code> indicating access is denied.
      *
      * @param a the RequiresPermission annotation being inspected to check for one or more permissions
-     * @throws com.rabbitframework.security.authz.AuthorizationException
+     * @throws AuthorizationException
      *          if the calling <code>Subject</code> does not have the permission(s) necessary to
      *          continue access or execution.
      */

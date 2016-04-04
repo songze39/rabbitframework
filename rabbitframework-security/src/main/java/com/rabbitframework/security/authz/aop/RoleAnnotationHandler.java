@@ -26,7 +26,7 @@ import java.lang.annotation.Annotation;
 import java.util.Arrays;
 
 /**
- * Checks to see if a @{@link com.rabbitframework.security.authz.annotation.RequiresRoles RequiresRoles} annotation is declared, and if so, performs
+ * Checks to see if a @{@link RequiresRoles RequiresRoles} annotation is declared, and if so, performs
  * a role check to see if the calling <code>Subject</code> is allowed to proceed.
  *
  * @since 0.9.0
@@ -35,7 +35,7 @@ public class RoleAnnotationHandler extends AuthorizingAnnotationHandler {
 
     /**
      * Default no-argument constructor that ensures this handler looks for
-     * {@link com.rabbitframework.security.authz.annotation.RequiresRoles RequiresRoles} annotations.
+     * {@link RequiresRoles RequiresRoles} annotations.
      */
     public RoleAnnotationHandler() {
         super(RequiresRoles.class);
@@ -46,7 +46,7 @@ public class RoleAnnotationHandler extends AuthorizingAnnotationHandler {
      * <code>AuthorizingException</code> indicating that access is denied.
      *
      * @param a the RequiresRoles annotation to use to check for one or more roles
-     * @throws com.rabbitframework.security.authz.AuthorizationException
+     * @throws AuthorizationException
      *          if the calling <code>Subject</code> does not have the role(s) necessary to
      *          proceed.
      */

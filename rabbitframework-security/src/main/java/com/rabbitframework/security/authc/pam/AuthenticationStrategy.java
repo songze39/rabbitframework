@@ -71,7 +71,7 @@ public interface AuthenticationStrategy {
      * @param aggregate the aggregated AuthenticationInfo object being used across the multi-realm authentication attempt
      * @return the AuthenticationInfo object that will be presented to further realms in the authentication process - returning
      *         the {@code aggregate} method argument is the normal case if no special action needs to be taken.
-     * @throws com.rabbitframework.security.authc.AuthenticationException
+     * @throws AuthenticationException
      *          an exception thrown by the Strategy implementation if it wishes the login
      *          process for the associated subject (user) to stop immediately.
      */

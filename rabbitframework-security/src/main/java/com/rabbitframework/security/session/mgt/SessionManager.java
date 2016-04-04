@@ -23,7 +23,7 @@ import com.rabbitframework.security.session.SessionException;
 
 /**
  * A SessionManager manages the creation, maintenance, and clean-up of all application
- * {@link com.rabbitframework.security.session.Session Session}s.
+ * {@link Session Session}s.
  *
  * @since 0.1
  */
@@ -35,7 +35,7 @@ public interface SessionManager {
      * <p/>
      * This method is mainly used in framework development, as the implementation will often relay the argument
      * to an underlying {@link SessionFactory} which could use the context to construct the internal Session
-     * instance in a specific manner.  This allows pluggable {@link com.rabbitframework.security.session.Session Session} creation
+     * instance in a specific manner.  This allows pluggable {@link Session Session} creation
      * logic by simply injecting a {@code SessionFactory} into the {@code SessionManager} instance.
      *
      * @param context the contextual initialization data that can be used by the implementation or underlying

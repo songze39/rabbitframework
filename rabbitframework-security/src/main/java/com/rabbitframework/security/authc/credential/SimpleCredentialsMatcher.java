@@ -113,7 +113,7 @@ public class SimpleCredentialsMatcher extends CodecSupport implements Credential
      * This implementation acquires the {@code token}'s credentials
      * (via {@link #getCredentials(AuthenticationToken) getCredentials(token)})
      * and then the {@code account}'s credentials
-     * (via {@link #getCredentials(com.rabbitframework.security.authc.AuthenticationInfo) getCredentials(account)}) and then passes both of
+     * (via {@link #getCredentials(AuthenticationInfo) getCredentials(account)}) and then passes both of
      * them to the {@link #equals(Object,Object) equals(tokenCredentials, accountCredentials)} method for equality
      * comparison.
      *

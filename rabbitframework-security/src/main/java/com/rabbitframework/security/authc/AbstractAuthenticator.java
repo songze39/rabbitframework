@@ -144,7 +144,7 @@ public abstract class AbstractAuthenticator implements Authenticator, LogoutAwar
      * Notifies any registered {@link AuthenticationListener AuthenticationListener}s that a
      * {@code Subject} has logged-out.  This implementation merely
      * iterates over the internal {@code listeners} collection and calls
-     * {@link AuthenticationListener#onLogout(com.rabbitframework.security.subject.PrincipalCollection) onLogout}
+     * {@link AuthenticationListener#onLogout(PrincipalCollection) onLogout}
      * for each.
      *
      * @param principals the identifying principals of the {@code Subject}/account logging out.
@@ -157,7 +157,7 @@ public abstract class AbstractAuthenticator implements Authenticator, LogoutAwar
 
     /**
      * This implementation merely calls
-     * {@link #notifyLogout(com.rabbitframework.security.subject.PrincipalCollection) notifyLogout} to allow any registered listeners
+     * {@link #notifyLogout(PrincipalCollection) notifyLogout} to allow any registered listeners
      * to react to the logout.
      *
      * @param principals the identifying principals of the {@code Subject}/account logging out.

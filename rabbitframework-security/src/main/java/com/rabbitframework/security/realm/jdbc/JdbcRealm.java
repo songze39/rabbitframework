@@ -50,7 +50,7 @@ import java.util.Set;
  * appropriate methods overridden. (usually {@link #doGetAuthenticationInfo(AuthenticationToken)},
  * {@link #getRoleNamesForUser(Connection,String)}, and/or {@link #getPermissions(Connection,String,Collection)}
  * <p/>
- * This realm supports caching by extending from {@link com.rabbitframework.security.realm.AuthorizingRealm}.
+ * This realm supports caching by extending from {@link AuthorizingRealm}.
  *
  * @since 0.2
  */
@@ -158,7 +158,7 @@ public class JdbcRealm extends AuthorizingRealm {
      * implementation, this query must take a role name as the single parameter and return a row
      * per permission with three columns containing the fully qualified name of the permission class, the permission
      * name, and the permission actions (in that order).  If you require a solution that does not match this query
-     * structure, you can override {@link #doGetAuthorizationInfo(com.rabbitframework.security.subject.PrincipalCollection)} or just
+     * structure, you can override {@link #doGetAuthorizationInfo(PrincipalCollection)} or just
      * {@link #getPermissions(Connection,String,Collection)}</p>
      * <p/>
      * <b>Permissions are only retrieved if you set {@link #permissionsLookupEnabled} to true.  Otherwise,
@@ -311,7 +311,7 @@ public class JdbcRealm extends AuthorizingRealm {
      * This implementation of the interface expects the principals collection to return a String username keyed off of
      * this realm's {@link #getName() name}
      *
-     * @see #getAuthorizationInfo(com.rabbitframework.security.subject.PrincipalCollection)
+     * @see #getAuthorizationInfo(PrincipalCollection)
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {

@@ -72,7 +72,7 @@ public abstract class AuthenticationFilter extends AccessControlFilter {
      * <p/>
      * The default implementation {@link #getSubject(ServletRequest, ServletResponse) acquires}
      * the currently executing Subject and then returns
-     * {@link com.rabbitframework.security.subject.Subject#isAuthenticated() subject.isAuthenticated()};
+     * {@link Subject#isAuthenticated() subject.isAuthenticated()};
      *
      * @return true if the subject is authenticated; false if the subject is unauthenticated
      */

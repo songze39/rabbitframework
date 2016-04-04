@@ -28,8 +28,8 @@ import com.rabbitframework.security.session.UnknownSessionException;
 /**
  * Data Access Object design pattern specification to enable {@link Session} access to an
  * EIS (Enterprise Information System).  It provides your four typical CRUD methods:
- * {@link #create}, {@link #readSession(Serializable)}, {@link #update(com.rabbitframework.security.session.Session)},
- * and {@link #delete(com.rabbitframework.security.session.Session)}.
+ * {@link #create}, {@link #readSession(Serializable)}, {@link #update(Session)},
+ * and {@link #delete(Session)}.
  * <p/>
  * The remaining {@link #getActiveSessions()} method exists as a support mechanism to pre-emptively orphaned sessions,
  * typically by {@link com.rabbitframework.security.session.mgt.ValidatingSessionManager ValidatingSessionManager}s), and should
@@ -45,7 +45,7 @@ public interface SessionDAO {
      * Inserts a new Session record into the underling EIS (e.g. Relational database, file system, persistent cache,
      * etc, depending on the DAO implementation).
      * <p/>
-     * After this method is invoked, the {@link com.rabbitframework.security.session.Session#getId()}
+     * After this method is invoked, the {@link Session#getId()}
      * method executed on the argument must return a valid session identifier.  That is, the following should
      * always be true:
      * <pre>
@@ -55,7 +55,7 @@ public interface SessionDAO {
      * Implementations are free to throw any exceptions that might occur due to
      * integrity violation constraints or other EIS related errors.
      *
-     * @param session the {@link com.rabbitframework.security.session.Session} object to create in the EIS.
+     * @param session the {@link Session} object to create in the EIS.
      * @return the EIS id (e.g. primary key) of the created {@code Session} object.
      */
     Serializable create(Session session);
@@ -82,7 +82,7 @@ public interface SessionDAO {
      * errors.
      *
      * @param session the Session to update
-     * @throws com.rabbitframework.security.session.UnknownSessionException
+     * @throws UnknownSessionException
      *          if no existing EIS session record exists with the
      *          identifier of {@link Session#getId() session.getSessionId()}
      */
@@ -108,7 +108,7 @@ public interface SessionDAO {
      * implementations will often return a subset of the total active sessions and perform validation a little more
      * frequently, rather than return a massive set and validate infrequently.  If efficient and possible, it would
      * make sense to return the oldest unstopped sessions available, ordered by
-     * {@link com.rabbitframework.security.session.Session#getLastAccessTime() lastAccessTime}.
+     * {@link Session#getLastAccessTime() lastAccessTime}.
      * <h4>Smart Results</h4>
      * <em>Ideally</em> this method would only return active sessions that the EIS was certain should be invalided.
      * Typically that is any session that is not stopped and where its lastAccessTimestamp is older than the session

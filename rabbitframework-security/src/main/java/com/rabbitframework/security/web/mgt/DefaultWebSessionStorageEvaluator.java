@@ -39,7 +39,7 @@ import com.rabbitframework.security.web.util.WebUtils;
  * <p/>
  * This {@code DefaultWebSessionStorageEvaluator} will then inspect this
  * attribute, and if it has been set, will return {@code false} from
- * {@link #isSessionStorageEnabled(com.rabbitframework.security.subject.Subject)}
+ * {@link #isSessionStorageEnabled(Subject)}
  * method, thereby preventing Shiro from creating a session for the purpose of
  * storing subject state.
  * <p/>

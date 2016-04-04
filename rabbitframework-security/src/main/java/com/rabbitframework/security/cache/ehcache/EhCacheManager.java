@@ -192,7 +192,7 @@ public class EhCacheManager implements CacheManager, Initializable, Destroyable 
      * something not desirable for Shiro sessions), this class manages an internal default configuration for
      * this case.
      *
-     * @throws com.rabbitframework.security.cache.CacheException
+     * @throws CacheException
      *          if there are any CacheExceptions thrown by EhCache.
      * @see net.sf.ehcache.CacheManager#create
      */

@@ -51,7 +51,7 @@ public abstract class AuthenticatingSecurityManager extends RealmSecurityManager
     /**
      * Default no-arg constructor that initializes its internal
      * <code>authenticator</code> instance to a
-     * {@link com.rabbitframework.security.authc.pam.ModularRealmAuthenticator ModularRealmAuthenticator}.
+     * {@link ModularRealmAuthenticator ModularRealmAuthenticator}.
      */
     public AuthenticatingSecurityManager() {
         super();
@@ -61,8 +61,8 @@ public abstract class AuthenticatingSecurityManager extends RealmSecurityManager
     /**
      * Returns the delegate <code>Authenticator</code> instance that this SecurityManager uses to perform all
      * authentication operations.  Unless overridden by the
-     * {@link #setAuthenticator(com.rabbitframework.security.authc.Authenticator) setAuthenticator}, the default instance is a
-     * {@link com.rabbitframework.security.authc.pam.ModularRealmAuthenticator ModularRealmAuthenticator}.
+     * {@link #setAuthenticator(Authenticator) setAuthenticator}, the default instance is a
+     * {@link ModularRealmAuthenticator ModularRealmAuthenticator}.
      *
      * @return the delegate <code>Authenticator</code> instance that this SecurityManager uses to perform all
      * authentication operations.
@@ -74,7 +74,7 @@ public abstract class AuthenticatingSecurityManager extends RealmSecurityManager
     /**
      * Sets the delegate <code>Authenticator</code> instance that this SecurityManager uses to perform all
      * authentication operations.  Unless overridden by this method, the default instance is a
-     * {@link com.rabbitframework.security.authc.pam.ModularRealmAuthenticator ModularRealmAuthenticator}.
+     * {@link ModularRealmAuthenticator ModularRealmAuthenticator}.
      *
      * @param authenticator the delegate <code>Authenticator</code> instance that this SecurityManager will use to
      *                      perform all authentication operations.
@@ -100,7 +100,7 @@ public abstract class AuthenticatingSecurityManager extends RealmSecurityManager
     }
 
     /**
-     * Delegates to the wrapped {@link com.rabbitframework.security.authc.Authenticator Authenticator} for authentication.
+     * Delegates to the wrapped {@link Authenticator Authenticator} for authentication.
      */
     public AuthenticationInfo authenticate(AuthenticationToken token) throws AuthenticationException {
         return this.authenticator.authenticate(token);

@@ -34,7 +34,7 @@ import org.slf4j.LoggerFactory;
  * guarantees that the current user has logged in <em>during their current session</em>, proving they really are
  * who they say they are.
  *
- * <p>The logically opposite tag of this one is the {@link com.rabbitframework.security.web.tags.GuestTag}.
+ * <p>The logically opposite tag of this one is the {@link GuestTag}.
  *
  * @since 0.9
  */

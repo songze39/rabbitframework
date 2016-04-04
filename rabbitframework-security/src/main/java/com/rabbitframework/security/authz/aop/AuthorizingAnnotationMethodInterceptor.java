@@ -60,7 +60,7 @@ public abstract class AuthorizingAnnotationMethodInterceptor extends AnnotationM
      *
      * @param methodInvocation the method invocation to check for authorization prior to allowing it to proceed/execute.
      * @return the return value from the method invocation (the value of {@link MethodInvocation#proceed() MethodInvocation.proceed()}).
-     * @throws com.rabbitframework.security.authz.AuthorizationException if the <code>MethodInvocation</code> is not allowed to proceed.
+     * @throws AuthorizationException if the <code>MethodInvocation</code> is not allowed to proceed.
      * @throws Throwable if any other error occurs.
      */
     public Object invoke(MethodInvocation methodInvocation) throws Throwable {

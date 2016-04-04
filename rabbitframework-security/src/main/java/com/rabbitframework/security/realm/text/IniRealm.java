@@ -33,10 +33,10 @@ import com.rabbitframework.security.util.StringUtils;
  * This implementation looks for two {@link Ini.Section sections} in the {@code Ini} configuration:
  * <pre>
  * [users]
- * # One or more {@link com.rabbitframework.security.realm.text.TextConfigurationRealm#setUserDefinitions(String) user definitions}
+ * # One or more {@link TextConfigurationRealm#setUserDefinitions(String) user definitions}
  * ...
  * [roles]
- * # One or more {@link com.rabbitframework.security.realm.text.TextConfigurationRealm#setRoleDefinitions(String) role definitions}</pre>
+ * # One or more {@link TextConfigurationRealm#setRoleDefinitions(String) role definitions}</pre>
  * <p/>
  * This class also supports setting the {@link #setResourcePath(String) resourcePath} property to create account
  * data from an .ini resource.  This will only be used if there isn't already account data in the Realm.

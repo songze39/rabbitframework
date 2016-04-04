@@ -51,7 +51,7 @@ import com.rabbitframework.security.authc.AuthenticationToken;
  * practically any application environment.
  * <p/>
  * <p>Most users will not implement the <tt>Realm</tt> interface directly, but will extend one of the subclasses,
- * {@link com.rabbitframework.security.realm.AuthenticatingRealm AuthenticatingRealm} or {@link com.rabbitframework.security.realm.AuthorizingRealm}, greatly reducing the effort requird
+ * {@link AuthenticatingRealm AuthenticatingRealm} or {@link AuthorizingRealm}, greatly reducing the effort requird
  * to implement a <tt>Realm</tt> from scratch.</p>
  * <p/>
  * 域,Security 从{@link Realm}获取安全数据(如用户、角色、权限),就是说{@link SecurityManager}要验证用户身份,
@@ -59,9 +59,9 @@ import com.rabbitframework.security.authc.AuthenticationToken;
  * 也需要从{@link Realm}得到用户相应的角色/权限进行验证用户是否能进行操作;
  * 可以把{@link Realm}看成DataSource ,即安全数据源
  *
- * @see com.rabbitframework.security.realm.CachingRealm CachingRealm
- * @see com.rabbitframework.security.realm.AuthenticatingRealm AuthenticatingRealm
- * @see com.rabbitframework.security.realm.AuthorizingRealm AuthorizingRealm
+ * @see CachingRealm CachingRealm
+ * @see AuthenticatingRealm AuthenticatingRealm
+ * @see AuthorizingRealm AuthorizingRealm
  * @see com.rabbitframework.security.authc.pam.ModularRealmAuthenticator ModularRealmAuthenticator
  */
 public interface Realm {

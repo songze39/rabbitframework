@@ -31,7 +31,7 @@ import com.rabbitframework.security.subject.SubjectContext;
  * A {@code SecurityManager} executes all security operations for <em>all</em> Subjects (aka users) across a
  * single application.
  * <p/>
- * The interface itself primarily exists as a convenience - it extends the {@link com.rabbitframework.security.authc.Authenticator},
+ * The interface itself primarily exists as a convenience - it extends the {@link Authenticator},
  * {@link Authorizer}, and {@link SessionManager} interfaces, thereby consolidating
  * these behaviors into a single point of reference.  For most Shiro usages, this simplifies configuration and
  * tends to be a more convenient approach than referencing {@code Authenticator}, {@code Authorizer}, and
@@ -39,7 +39,7 @@ import com.rabbitframework.security.subject.SubjectContext;
  * {@code SecurityManager} instance.
  * <p/>
  * In addition to the above three interfaces, this interface provides a number of methods supporting
- * {@link Subject} behavior. A {@link com.rabbitframework.security.subject.Subject Subject} executes
+ * {@link Subject} behavior. A {@link Subject Subject} executes
  * authentication, authorization, and session operations for a <em>single</em> user, and as such can only be
  * managed by {@code A SecurityManager} which is aware of all three functions.  The three parent interfaces on the
  * other hand do not 'know' about {@code Subject}s to ensure a clean separation of concerns.
@@ -51,7 +51,7 @@ import com.rabbitframework.security.subject.SubjectContext;
  * <p/>
  * Framework developers on the other hand might find working with an actual SecurityManager useful.
  *
- * @see com.rabbitframework.security.mgt.DefaultSecurityManager
+ * @see DefaultSecurityManager
  * <p/>
  * 安全管理器，;即所有与安全有关的操作都会与{@link SecurityManager}交互;且它管理着所有{@link Subject};
  * 可以看出它是Shiro的核心,它负责与后边介绍的其他组件进行交互,如果学习过SpringMVC,你可以把它看成DispatcherServlet前端控制器
@@ -65,7 +65,7 @@ public interface SecurityManager extends Authenticator, Authorizer, SessionManag
      * <p/>
      * Note that most application developers should probably not call this method directly unless they have a good
      * reason for doing so.  The preferred way to log in a Subject is to call
-     * <code>subject.{@link com.rabbitframework.security.subject.Subject#login login(authenticationToken)}</code> (usually after
+     * <code>subject.{@link Subject#login login(authenticationToken)}</code> (usually after
      * acquiring the Subject by calling {@link com.rabbitframework.security.SecurityUtils#getSubject() SecurityUtils.getSubject()}).
      * <p/>
      * Framework developers on the other hand might find calling this method directly useful in certain cases.
@@ -83,7 +83,7 @@ public interface SecurityManager extends Authenticator, Authorizer, SessionManag
      * <p/>
      * Note that most application developers should not call this method unless they have a good reason for doing
      * so.  The preferred way to logout a Subject is to call
-     * <code>{@link com.rabbitframework.security.subject.Subject#logout Subject.logout()}</code>, not the
+     * <code>{@link Subject#logout Subject.logout()}</code>, not the
      * {@code SecurityManager} directly.
      * <p/>
      * Framework developers on the other hand might find calling this method directly useful in certain cases.

@@ -55,7 +55,7 @@ public abstract class AuthorizingSecurityManager extends AuthenticatingSecurityM
 
     /**
      * Default no-arg constructor that initializes an internal default
-     * {@link com.rabbitframework.security.authz.ModularRealmAuthorizer ModularRealmAuthorizer}.
+     * {@link ModularRealmAuthorizer ModularRealmAuthorizer}.
      */
     public AuthorizingSecurityManager() {
         super();
@@ -92,7 +92,7 @@ public abstract class AuthorizingSecurityManager extends AuthenticatingSecurityM
      * instance's wrapped {@link Authorizer Authorizer}.
      * <p/>
      * The setting of realms the Authorizer will only occur if it is an instance of
-     * {@link com.rabbitframework.security.authz.ModularRealmAuthorizer ModularRealmAuthorizer}, that is:
+     * {@link ModularRealmAuthorizer ModularRealmAuthorizer}, that is:
      * <pre>
      * if ( this.authorizer instanceof ModularRealmAuthorizer ) {
      *     ((ModularRealmAuthorizer)this.authorizer).setRealms(realms);

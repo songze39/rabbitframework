@@ -264,7 +264,7 @@ public abstract class AbstractRememberMeManager implements RememberMeManager {
      * <ol>
      * <li>The token is not {@code null} and</li>
      * <li>The token is an {@code instanceof} {@link RememberMeAuthenticationToken} and</li>
-     * <li>{@code token}.{@link com.rabbitframework.security.authc.RememberMeAuthenticationToken#isRememberMe() isRememberMe()} is
+     * <li>{@code token}.{@link RememberMeAuthenticationToken#isRememberMe() isRememberMe()} is
      * {@code true}</li>
      * </ol>
      *
@@ -279,8 +279,8 @@ public abstract class AbstractRememberMeManager implements RememberMeManager {
     /**
      * Reacts to the successful login attempt by first always {@link #forgetIdentity(Subject) forgetting} any previously
      * stored identity.  Then if the {@code token}
-     * {@link #isRememberMe(com.rabbitframework.security.authc.AuthenticationToken) is a RememberMe} token, the associated identity
-     * will be {@link #rememberIdentity(com.rabbitframework.security.subject.Subject, com.rabbitframework.security.authc.AuthenticationToken, com.rabbitframework.security.authc.AuthenticationInfo) remembered}
+     * {@link #isRememberMe(AuthenticationToken) is a RememberMe} token, the associated identity
+     * will be {@link #rememberIdentity(Subject, AuthenticationToken, AuthenticationInfo) remembered}
      * for later retrieval during a new user session.
      *
      * @param subject the subject for which the principals are being remembered.
@@ -306,7 +306,7 @@ public abstract class AbstractRememberMeManager implements RememberMeManager {
      * Remembers a subject-unique identity for retrieval later.  This implementation first
      * {@link #getIdentityToRemember resolves} the exact
      * {@link PrincipalCollection principals} to remember.  It then remembers the principals by calling
-     * {@link #rememberIdentity(com.rabbitframework.security.subject.Subject, com.rabbitframework.security.subject.PrincipalCollection)}.
+     * {@link #rememberIdentity(Subject, PrincipalCollection)}.
      * <p/>
      * This implementation ignores the {@link AuthenticationToken} argument, but it is available to subclasses if
      * necessary for custom logic.
@@ -321,7 +321,7 @@ public abstract class AbstractRememberMeManager implements RememberMeManager {
     }
 
     /**
-     * Returns {@code info}.{@link com.rabbitframework.security.authc.AuthenticationInfo#getPrincipals() getPrincipals()} and
+     * Returns {@code info}.{@link AuthenticationInfo#getPrincipals() getPrincipals()} and
      * ignores the {@link Subject} argument.
      *
      * @param subject the subject for which the principals are being remembered.
@@ -334,8 +334,8 @@ public abstract class AbstractRememberMeManager implements RememberMeManager {
 
     /**
      * Remembers the specified account principals by first
-     * {@link #convertPrincipalsToBytes(com.rabbitframework.security.subject.PrincipalCollection) converting} them to a byte
-     * array and then {@link #rememberSerializedIdentity(com.rabbitframework.security.subject.Subject, byte[]) remembers} that
+     * {@link #convertPrincipalsToBytes(PrincipalCollection) converting} them to a byte
+     * array and then {@link #rememberSerializedIdentity(Subject, byte[]) remembers} that
      * byte array.
      *
      * @param subject           the subject for which the principals are being remembered.
@@ -349,7 +349,7 @@ public abstract class AbstractRememberMeManager implements RememberMeManager {
     /**
      * Converts the given principal collection the byte array that will be persisted to be 'remembered' later.
      * <p/>
-     * This implementation first {@link #serialize(com.rabbitframework.security.subject.PrincipalCollection) serializes} the
+     * This implementation first {@link #serialize(PrincipalCollection) serializes} the
      * principals to a byte array and then {@link #encrypt(byte[]) encrypts} that byte array.
      *
      * @param principals the {@code PrincipalCollection} to convert to a byte array
@@ -514,7 +514,7 @@ public abstract class AbstractRememberMeManager implements RememberMeManager {
     }
 
     /**
-     * Reacts to a failed login by immediately {@link #forgetIdentity(com.rabbitframework.security.subject.Subject) forgetting} any
+     * Reacts to a failed login by immediately {@link #forgetIdentity(Subject) forgetting} any
      * previously remembered identity.  This is an additional security feature to prevent any remenant identity data
      * from being retained in case the authentication attempt is not being executed by the expected user.
      *
@@ -528,7 +528,7 @@ public abstract class AbstractRememberMeManager implements RememberMeManager {
 
     /**
      * Reacts to a subject logging out of the application and immediately
-     * {@link #forgetIdentity(com.rabbitframework.security.subject.Subject) forgets} any previously stored identity and returns.
+     * {@link #forgetIdentity(Subject) forgets} any previously stored identity and returns.
      *
      * @param subject the subject logging out.
      */

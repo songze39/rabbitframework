@@ -59,12 +59,12 @@ public interface NativeSessionManager extends SessionManager {
 
     /**
      * Returns quietly if the associated session is valid (it exists and is not stopped or expired) or throws
-     * an {@link com.rabbitframework.security.session.InvalidSessionException} indicating that the session id is invalid.  This
+     * an {@link InvalidSessionException} indicating that the session id is invalid.  This
      * might be preferred to be used instead of {@link #isValid} since any exception thrown will definitively explain
      * the reason for invalidation.
      *
      * @param key the session key to use to look up the target session.
-     * @throws com.rabbitframework.security.session.InvalidSessionException
+     * @throws InvalidSessionException
      *          if the session id is invalid (it does not exist or it is stopped or expired).
      */
     void checkValid(SessionKey key) throws InvalidSessionException;
@@ -79,7 +79,7 @@ public interface NativeSessionManager extends SessionManager {
      *
      * @param key the session key to use to look up the target session.
      * @return the time in milliseconds that the associated session may remain idle before expiring.
-     * @throws com.rabbitframework.security.session.InvalidSessionException
+     * @throws InvalidSessionException
      *          if the session has been stopped or expired prior to calling this method.
      */
     long getTimeout(SessionKey key) throws InvalidSessionException;
@@ -94,7 +94,7 @@ public interface NativeSessionManager extends SessionManager {
      *
      * @param key                 the session key to use to look up the target session.
      * @param maxIdleTimeInMillis the time in milliseconds that the associated session may remain idle before expiring.
-     * @throws com.rabbitframework.security.session.InvalidSessionException
+     * @throws InvalidSessionException
      *          if the session has been stopped or expired prior to calling this method.
      */
     void setTimeout(SessionKey key, long maxIdleTimeInMillis) throws InvalidSessionException;
@@ -104,7 +104,7 @@ public interface NativeSessionManager extends SessionManager {
      * can be used to explicitly ensure that a session does not time out.
      *
      * @param key the session key to use to look up the target session.
-     * @throws com.rabbitframework.security.session.InvalidSessionException
+     * @throws InvalidSessionException
      *          if the session has been stopped or expired prior to calling this method.
      * @see com.rabbitframework.security.session.Session#touch
      */

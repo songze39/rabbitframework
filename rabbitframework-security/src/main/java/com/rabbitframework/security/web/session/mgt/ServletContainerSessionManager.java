@@ -30,99 +30,102 @@ import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+
 /**
- * SessionManager implementation providing {@link Session} implementations that
- * are merely wrappers for the Servlet container's {@link HttpSession}.
+ * SessionManager implementation providing {@link Session} implementations that are merely wrappers for the
+ * Servlet container's {@link HttpSession}.
  * <p/>
- * Despite its name, this implementation <em>does not</em> itself manage
- * Sessions since the Servlet container provides the actual management support.
- * This class mainly exists to 'impersonate' a regular Shiro
- * {@code SessionManager} so it can be pluggable into a normal Shiro
- * configuration in a pure web application.
+ * Despite its name, this implementation <em>does not</em> itself manage Sessions since the Servlet container
+ * provides the actual management support.  This class mainly exists to 'impersonate' a regular Shiro
+ * {@code SessionManager} so it can be pluggable into a normal Shiro configuration in a pure web application.
  * <p/>
- * Note that because this implementation relies on the {@link HttpSession
- * HttpSession}, it is only functional in a servlet container - it is not
- * capable of supporting Sessions for any clients other than those using the
- * HTTP protocol.
- * 
- * @since 0.1
+ * Note that because this implementation relies on the {@link HttpSession HttpSession}, it is only functional in a
+ * servlet container - it is not capable of supporting Sessions for any clients other than those using the HTTP
+ * protocol.
+ * <p/>
+ * Therefore, if you need {@code Session} support for heterogeneous clients (e.g. web browsers,
+ * RMI clients, etc), use the {@link DefaultWebSessionManager DefaultWebSessionManager}
+ * instead.  The {@code DefaultWebSessionManager} supports both traditional web-based access as well as non web-based
+ * clients.
+ *
+ * @since 0.9
+ * @see DefaultWebSessionManager
  */
 public class ServletContainerSessionManager implements WebSessionManager {
 
-	// TODO - complete JavaDoc
+    //TODO - complete JavaDoc
 
-	// TODO - read session timeout value from web.xml
+    //TODO - read session timeout value from web.xml
 
-	public ServletContainerSessionManager() {
-	}
+    public ServletContainerSessionManager() {
+    }
 
-	public Session start(SessionContext context) throws AuthorizationException {
-		return createSession(context);
-	}
+    public Session start(SessionContext context) throws AuthorizationException {
+        return createSession(context);
+    }
 
-	public Session getSession(SessionKey key) throws SessionException {
-		if (!WebUtils.isHttp(key)) {
-			String msg = "SessionKey must be an HTTP compatible implementation.";
-			throw new IllegalArgumentException(msg);
-		}
+    public Session getSession(SessionKey key) throws SessionException {
+        if (!WebUtils.isHttp(key)) {
+            String msg = "SessionKey must be an HTTP compatible implementation.";
+            throw new IllegalArgumentException(msg);
+        }
 
-		HttpServletRequest request = WebUtils.getHttpRequest(key);
+        HttpServletRequest request = WebUtils.getHttpRequest(key);
 
-		Session session = null;
+        Session session = null;
 
-		HttpSession httpSession = request.getSession(false);
-		if (httpSession != null) {
-			session = createSession(httpSession, request.getRemoteHost());
-		}
+        HttpSession httpSession = request.getSession(false);
+        if (httpSession != null) {
+            session = createSession(httpSession, request.getRemoteHost());
+        }
 
-		return session;
-	}
+        return session;
+    }
 
-	private String getHost(SessionContext context) {
-		String host = context.getHost();
-		if (host == null) {
-			ServletRequest request = WebUtils.getRequest(context);
-			if (request != null) {
-				host = request.getRemoteHost();
-			}
-		}
-		return host;
+    private String getHost(SessionContext context) {
+        String host = context.getHost();
+        if (host == null) {
+            ServletRequest request = WebUtils.getRequest(context);
+            if (request != null) {
+                host = request.getRemoteHost();
+            }
+        }
+        return host;
 
-	}
+    }
 
-	/**
-	 * @since 1.0
-	 */
-	protected Session createSession(SessionContext sessionContext) throws AuthorizationException {
-		if (!WebUtils.isHttp(sessionContext)) {
-			String msg = "SessionContext must be an HTTP compatible implementation.";
-			throw new IllegalArgumentException(msg);
-		}
+    /**
+     * @since 1.0
+     */
+    protected Session createSession(SessionContext sessionContext) throws AuthorizationException {
+        if (!WebUtils.isHttp(sessionContext)) {
+            String msg = "SessionContext must be an HTTP compatible implementation.";
+            throw new IllegalArgumentException(msg);
+        }
 
-		HttpServletRequest request = WebUtils.getHttpRequest(sessionContext);
+        HttpServletRequest request = WebUtils.getHttpRequest(sessionContext);
 
-		HttpSession httpSession = request.getSession();
+        HttpSession httpSession = request.getSession();
 
-		// SHIRO-240: DO NOT use the 'globalSessionTimeout' value here on the
-		// acquired session.
-		// see: https://issues.apache.org/jira/browse/SHIRO-240
+        //SHIRO-240: DO NOT use the 'globalSessionTimeout' value here on the acquired session.
+        //see: https://issues.apache.org/jira/browse/SHIRO-240
 
-		String host = getHost(sessionContext);
+        String host = getHost(sessionContext);
 
-		return createSession(httpSession, host);
-	}
+        return createSession(httpSession, host);
+    }
 
-	protected Session createSession(HttpSession httpSession, String host) {
-		return new HttpServletSession(httpSession, host);
-	}
+    protected Session createSession(HttpSession httpSession, String host) {
+        return new HttpServletSession(httpSession, host);
+    }
 
-	/**
-	 * This implementation always delegates to the servlet container for
-	 * sessions, so this method returns {@code true} always.
-	 *
-	 * @return {@code true} always
-	 * @since 1.2
-	 */
+    /**
+     * This implementation always delegates to the servlet container for sessions, so this method returns
+     * {@code true} always.
+     *
+     * @return {@code true} always
+     * @since 1.2
+     */
 	public boolean isServletContainerSessions() {
 		return true;
 	}

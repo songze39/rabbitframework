@@ -26,7 +26,7 @@ import com.rabbitframework.security.authz.annotation.RequiresGuest;
 
 
 /**
- * Checks to see if a @{@link com.rabbitframework.security.authz.annotation.RequiresGuest RequiresGuest} annotation
+ * Checks to see if a @{@link RequiresGuest RequiresGuest} annotation
  * is declared, and if so, ensures the calling <code>Subject</code> does <em>not</em>
  * have an {@link com.rabbitframework.security.subject.Subject#getPrincipal() identity} before invoking the method.
  * <p>
@@ -39,7 +39,7 @@ public class GuestAnnotationHandler extends AuthorizingAnnotationHandler {
     /**
      * Default no-argument constructor that ensures this interceptor looks for
      *
-     * {@link com.rabbitframework.security.authz.annotation.RequiresGuest RequiresGuest} annotations in a method
+     * {@link RequiresGuest RequiresGuest} annotations in a method
      * declaration.
      */
     public GuestAnnotationHandler() {
@@ -53,7 +53,7 @@ public class GuestAnnotationHandler extends AuthorizingAnnotationHandler {
      * <code>AuthorizingException</code> will be thrown indicating that execution is not allowed to continue.
      *
      * @param a the annotation to check for one or more roles
-     * @throws com.rabbitframework.security.authz.AuthorizationException
+     * @throws AuthorizationException
      *          if the calling <code>Subject</code> is not a &quot;guest&quot;.
      */
     public void assertAuthorized(Annotation a) throws AuthorizationException {

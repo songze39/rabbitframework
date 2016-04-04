@@ -256,7 +256,7 @@ public interface Authorizer {
     void checkRoles(PrincipalCollection subjectPrincipal, Collection<String> roleIdentifiers) throws AuthorizationException;
 
     /**
-     * Same as {@link #checkRoles(com.rabbitframework.security.subject.PrincipalCollection, Collection)
+     * Same as {@link #checkRoles(PrincipalCollection, Collection)
      * checkRoles(PrincipalCollection subjectPrincipal, Collection&lt;String&gt; roleIdentifiers)} but doesn't require a collection
      * as an argument.
      * Asserts the corresponding Subject/user has all of the specified roles by returning quietly if they do or

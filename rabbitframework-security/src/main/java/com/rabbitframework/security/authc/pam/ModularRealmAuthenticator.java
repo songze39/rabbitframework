@@ -39,7 +39,7 @@ import java.util.Collection;
  * <p/>
  * If only one realm is configured (this is often the case for most applications), authentication success is naturally
  * only dependent upon invoking this one Realm's
- * {@link Realm#getAuthenticationInfo(com.rabbitframework.security.authc.AuthenticationToken)} method.
+ * {@link Realm#getAuthenticationInfo(AuthenticationToken)} method.
  * <p/>
  * But if two or more realms are configured, PAM behavior is implemented by iterating over the collection of realms
  * and interacting with each over the course of the authentication attempt.  As this is more complicated, this
@@ -79,7 +79,7 @@ public class ModularRealmAuthenticator extends AbstractAuthenticator {
 
     /**
      * The authentication strategy to use during authentication attempts, defaults to a
-     * {@link com.rabbitframework.security.authc.pam.AtLeastOneSuccessfulStrategy} instance.
+     * {@link AtLeastOneSuccessfulStrategy} instance.
      */
     private AuthenticationStrategy authenticationStrategy;
 
@@ -90,7 +90,7 @@ public class ModularRealmAuthenticator extends AbstractAuthenticator {
     /**
      * Default no-argument constructor which
      * {@link #setAuthenticationStrategy(AuthenticationStrategy) enables}  an
-     * {@link com.rabbitframework.security.authc.pam.AtLeastOneSuccessfulStrategy} by default.
+     * {@link AtLeastOneSuccessfulStrategy} by default.
      */
     public ModularRealmAuthenticator() {
         this.authenticationStrategy = new AtLeastOneSuccessfulStrategy();
@@ -124,7 +124,7 @@ public class ModularRealmAuthenticator extends AbstractAuthenticator {
      * <p/>
      * Unless overridden by
      * the {@link #setAuthenticationStrategy(AuthenticationStrategy)} method, the default implementation
-     * is the {@link com.rabbitframework.security.authc.pam.AtLeastOneSuccessfulStrategy}.
+     * is the {@link AtLeastOneSuccessfulStrategy}.
      *
      * @return the {@code AuthenticationStrategy} utilized by this modular authenticator during a log-in attempt.
      * @since 0.2
@@ -241,11 +241,11 @@ public class ModularRealmAuthenticator extends AbstractAuthenticator {
 
     /**
      * Attempts to authenticate the given token by iterating over the internal collection of
-     * {@link Realm}s.  For each realm, first the {@link Realm#supports(com.rabbitframework.security.authc.AuthenticationToken)}
+     * {@link Realm}s.  For each realm, first the {@link Realm#supports(AuthenticationToken)}
      * method will be called to determine if the realm supports the {@code authenticationToken} method argument.
      * <p/>
      * If a realm does support
-     * the token, its {@link Realm#getAuthenticationInfo(com.rabbitframework.security.authc.AuthenticationToken)}
+     * the token, its {@link Realm#getAuthenticationInfo(AuthenticationToken)}
      * method will be called.  If the realm returns a non-null account, the token will be
      * considered authenticated for that realm and the account data recorded.  If the realm returns {@code null},
      * the next realm will be consulted.  If no realms support the token or all supporting realms return null,

@@ -55,7 +55,7 @@ public class LogoutFilter extends AdviceFilter {
     /**
      * Acquires the currently executing {@link #getSubject(ServletRequest, ServletResponse) subject},
      * a potentially Subject or request-specific
-     * {@link #getRedirectUrl(ServletRequest, ServletResponse, com.rabbitframework.security.subject.Subject) redirectUrl},
+     * {@link #getRedirectUrl(ServletRequest, ServletResponse, Subject) redirectUrl},
      * and redirects the end-user to that redirect url.
      *
      * @param request  the incoming ServletRequest
@@ -79,7 +79,7 @@ public class LogoutFilter extends AdviceFilter {
 
     /**
      * Returns the currently executing {@link Subject}.  This implementation merely defaults to calling
-     * {@code SecurityUtils.}{@link com.rabbitframework.security.SecurityUtils#getSubject() getSubject()}, but can be overridden
+     * {@code SecurityUtils.}{@link SecurityUtils#getSubject() getSubject()}, but can be overridden
      * by subclasses for different retrieval strategies.
      *
      * @param request  the incoming Servlet request

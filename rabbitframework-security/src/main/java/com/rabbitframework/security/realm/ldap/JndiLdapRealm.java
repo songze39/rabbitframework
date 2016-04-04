@@ -56,7 +56,7 @@ import javax.naming.ldap.LdapContext;
  * environments (maybe Microsoft ActiveDirectory being the exception).
  * <h2>Authorization</h2>
  * By default, authorization is effectively disabled due to the default
- * {@link #doGetAuthorizationInfo(com.rabbitframework.security.subject.PrincipalCollection)} implementation returning {@code null}.
+ * {@link #doGetAuthorizationInfo(PrincipalCollection)} implementation returning {@code null}.
  * If you wish to perform authorization based on an LDAP schema, you must subclass this one
  * and override that method to reflect your organization's data model.
  * <h2>Configuration</h2>

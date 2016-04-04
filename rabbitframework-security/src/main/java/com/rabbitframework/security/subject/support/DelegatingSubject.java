@@ -431,7 +431,7 @@ public class DelegatingSubject implements Subject {
         if (!hasPrincipals()) {
             String msg = "This subject does not yet have an identity.  Assuming the identity of another " +
                     "Subject is only allowed for Subjects with an existing identity.  Try logging this subject in " +
-                    "first, or using the " + Subject.Builder.class.getName() + " to build ad hoc Subject instances " +
+                    "first, or using the " + Builder.class.getName() + " to build ad hoc Subject instances " +
                     "with identities as necessary.";
             throw new IllegalStateException(msg);
         }

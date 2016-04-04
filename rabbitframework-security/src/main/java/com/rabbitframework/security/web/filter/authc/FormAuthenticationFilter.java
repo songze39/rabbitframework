@@ -39,7 +39,7 @@ import javax.servlet.http.HttpServletRequest;
  * <p>This filter constructs a {@link UsernamePasswordToken UsernamePasswordToken} with the values found in
  * {@link #setUsernameParam(String) username}, {@link #setPasswordParam(String) password},
  * and {@link #setRememberMeParam(String) rememberMe} request parameters.  It then calls
- * {@link com.rabbitframework.security.subject.Subject#login(com.rabbitframework.security.authc.AuthenticationToken) Subject.login(usernamePasswordToken)},
+ * {@link Subject#login(AuthenticationToken) Subject.login(usernamePasswordToken)},
  * effectively automatically performing a login attempt.  Note that the login attempt will only occur when the
  * {@link #isLoginSubmission(ServletRequest, ServletResponse) isLoginSubmission(request,response)}
  * is <code>true</code>, which by default occurs when the request is for the {@link #setLoginUrl(String) loginUrl} and

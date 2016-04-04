@@ -37,8 +37,10 @@ import com.rabbitframework.security.session.mgt.SessionKey;
 import com.rabbitframework.security.session.mgt.SessionManager;
 import com.rabbitframework.security.subject.Subject;
 import com.rabbitframework.security.subject.SubjectContext;
+import com.rabbitframework.security.util.LifecycleUtils;
 import com.rabbitframework.security.web.servlet.SecurityHttpServletRequest;
 import com.rabbitframework.security.web.session.mgt.DefaultWebSessionContext;
+import com.rabbitframework.security.web.session.mgt.DefaultWebSessionManager;
 import com.rabbitframework.security.web.session.mgt.ServletContainerSessionManager;
 import com.rabbitframework.security.web.session.mgt.WebSessionKey;
 import com.rabbitframework.security.web.session.mgt.WebSessionManager;
@@ -56,10 +58,22 @@ import com.rabbitframework.security.web.util.WebUtils;
  */
 public class DefaultWebSecurityManager extends DefaultSecurityManager implements WebSecurityManager {
 	private static final Logger log = LoggerFactory.getLogger(DefaultWebSecurityManager.class);
+	@Deprecated
+	public static final String HTTP_SESSION_MODE = "http";
+	@Deprecated
+	public static final String NATIVE_SESSION_MODE = "native";
+
+	/**
+	 * @deprecated as of 1.2. This should NOT be used for anything other than
+	 *             determining if the sessionMode has changed.
+	 */
+	@Deprecated
+	private String sessionMode;
 
 	public DefaultWebSecurityManager() {
 		super();
 		((DefaultSubjectDAO) this.subjectDAO).setSessionStorageEvaluator(new DefaultWebSessionStorageEvaluator());
+		this.sessionMode = HTTP_SESSION_MODE;
 		setSubjectFactory(new DefaultWebSubjectFactory());
 		setRememberMeManager(new CookieRememberMeManager());
 		setSessionManager(new ServletContainerSessionManager());
@@ -113,6 +127,40 @@ public class DefaultWebSecurityManager extends DefaultSecurityManager implements
 		return super.copy(subjectContext);
 	}
 
+	@Deprecated
+	public String getSessionMode() {
+		return sessionMode;
+	}
+
+	/**
+	 * @param sessionMode
+	 * @deprecated since 1.2
+	 */
+	@Deprecated
+	public void setSessionMode(String sessionMode) {
+		log.warn("The 'sessionMode' property has been deprecated. Please configure an appropriate WebSessionManager "
+				+ "instance instead of using this property. This property/method will be removed in a later version.");
+		String mode = sessionMode;
+		if (mode == null) {
+			throw new IllegalArgumentException("sessionMode argument cannot be null.");
+		}
+		mode = sessionMode.toLowerCase();
+		if (!HTTP_SESSION_MODE.equals(mode) && !NATIVE_SESSION_MODE.equals(mode)) {
+			String msg = "Invalid sessionMode [" + sessionMode + "]. Allowed values are "
+					+ "public static final String constants in the " + getClass().getName() + " class: '"
+					+ HTTP_SESSION_MODE + "' or '" + NATIVE_SESSION_MODE + "', with '" + HTTP_SESSION_MODE
+					+ "' being the default.";
+			throw new IllegalArgumentException(msg);
+		}
+		boolean recreate = this.sessionMode == null || !this.sessionMode.equals(mode);
+		this.sessionMode = mode;
+		if (recreate) {
+			LifecycleUtils.destroy(getSessionManager());
+			SessionManager sessionManager = createSessionManager(mode);
+			this.setInternalSessionManager(sessionManager);
+		}
+	}
+
 	@Override
 	public void setSessionManager(SessionManager sessionManager) {
 		// this.sessionMode = null;
@@ -143,6 +191,16 @@ public class DefaultWebSecurityManager extends DefaultSecurityManager implements
 		SessionManager sessionManager = getSessionManager();
 		return sessionManager instanceof WebSessionManager
 				&& ((WebSessionManager) sessionManager).isServletContainerSessions();
+	}
+
+	protected SessionManager createSessionManager(String sessionMode) {
+		if (sessionMode == null || !sessionMode.equalsIgnoreCase(NATIVE_SESSION_MODE)) {
+			log.info("{} mode - enabling ServletContainerSessionManager (HTTP-only Sessions)", HTTP_SESSION_MODE);
+			return new ServletContainerSessionManager();
+		} else {
+			log.info("{} mode - enabling DefaultWebSessionManager (non-HTTP and HTTP Sessions)", NATIVE_SESSION_MODE);
+			return new DefaultWebSessionManager();
+		}
 	}
 
 	@Override

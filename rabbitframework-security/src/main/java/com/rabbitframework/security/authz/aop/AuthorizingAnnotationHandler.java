@@ -49,7 +49,7 @@ public abstract class AuthorizingAnnotationHandler extends AnnotationHandler {
      * and perform a corresponding authorization check based.
      *
      * @param a the <code>Annotation</code> to check for performing an authorization check.
-     * @throws com.rabbitframework.security.authz.AuthorizationException if the class/instance/method is not allowed to proceed/execute.
+     * @throws AuthorizationException if the class/instance/method is not allowed to proceed/execute.
      */
     public abstract void assertAuthorized(Annotation a) throws AuthorizationException;
 }

@@ -79,18 +79,18 @@ import java.util.concurrent.atomic.AtomicInteger;
  * If authentication caching is enabled, this implementation will attempt to evict (remove) cached authentication data
  * for an account during logout.  This can only occur if the
  * {@link #getAuthenticationCacheKey(AuthenticationToken)} and
- * {@link #getAuthenticationCacheKey(com.rabbitframework.security.subject.PrincipalCollection)} methods return the exact same value.
+ * {@link #getAuthenticationCacheKey(PrincipalCollection)} methods return the exact same value.
  * <p/>
  * The default implementations of these methods expect that the
  * {@link AuthenticationToken#getPrincipal()} (what the user submits during login) and
- * {@link #getAvailablePrincipal(com.rabbitframework.security.subject.PrincipalCollection) getAvailablePrincipal} (what is returned
+ * {@link #getAvailablePrincipal(PrincipalCollection) getAvailablePrincipal} (what is returned
  * by the realm after account lookup) return
  * the same exact value.  For example, the user submitted username is also the primary account identifier.
  * <p/>
  * However, if your application uses, say, a username for end-user login, but returns a primary key ID as the
  * primary principal after authentication, then you will need to override either
  * {@link #getAuthenticationCacheKey(AuthenticationToken) getAuthenticationCacheKey(token)} or
- * {@link #getAuthenticationCacheKey(com.rabbitframework.security.subject.PrincipalCollection) getAuthenticationCacheKey(principals)}
+ * {@link #getAuthenticationCacheKey(PrincipalCollection) getAuthenticationCacheKey(principals)}
  * (or both) to ensure that the same cache key can be used for either object.
  * <p/>
  * This guarantees that the same cache key used to cache the data during authentication (derived from the
@@ -98,7 +98,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * {@code PrincipalCollection}).
  * <h4>Unmatching Cache Key Values</h4>
  * If the return values from {@link #getAuthenticationCacheKey(AuthenticationToken)} and
- * {@link #getAuthenticationCacheKey(com.rabbitframework.security.subject.PrincipalCollection)} are not identical, cached
+ * {@link #getAuthenticationCacheKey(PrincipalCollection)} are not identical, cached
  * authentication data removal is at the mercy of your cache provider settings.  For example, often cache
  * implementations will evict cache entries based on a timeToIdle or timeToLive (TTL) value.
  * <p/>
@@ -614,7 +614,7 @@ public abstract class AuthenticatingRealm extends CachingRealm implements Initia
      * most applications.
      * <h3>Cache Invalidation on Logout</h3>
      * <b>NOTE:</b> If you want to be able to invalidate an account's cached {@code AuthenticationInfo} on logout, you
-     * must ensure the {@link #getAuthenticationCacheKey(com.rabbitframework.security.subject.PrincipalCollection)} method returns
+     * must ensure the {@link #getAuthenticationCacheKey(PrincipalCollection)} method returns
      * the same value as this method.
      *
      * @param token the authentication token for which any successful authentication will be cached.
@@ -628,7 +628,7 @@ public abstract class AuthenticatingRealm extends CachingRealm implements Initia
     /**
      * Returns the key under which {@link AuthenticationInfo} instances are cached if authentication caching is enabled.
      * This implementation delegates to
-     * {@link #getAvailablePrincipal(com.rabbitframework.security.subject.PrincipalCollection)}, which returns the primary principal
+     * {@link #getAvailablePrincipal(PrincipalCollection)}, which returns the primary principal
      * associated with this particular Realm.
      * <h3>Cache Invalidation on Logout</h3>
      * <b>NOTE:</b> If you want to be able to invalidate an account's cached {@code AuthenticationInfo} on logout, you
@@ -645,7 +645,7 @@ public abstract class AuthenticatingRealm extends CachingRealm implements Initia
 
     /**
      * This implementation clears out any cached authentication data by calling
-     * {@link #clearCachedAuthenticationInfo(com.rabbitframework.security.subject.PrincipalCollection)}.
+     * {@link #clearCachedAuthenticationInfo(PrincipalCollection)}.
      * If overriding in a subclass, be sure to call {@code super.doClearCache} to ensure this behavior is maintained.
      *
      * @param principals principals the principals of the account for which to clear any cached data.
@@ -670,11 +670,11 @@ public abstract class AuthenticatingRealm extends CachingRealm implements Initia
      * resulting return value will be cached before being returned so it can be reused for later authentications.
      * <p/>
      * If you wish to clear out all associated cached data (and not just authentication data), use the
-     * {@link #clearCache(com.rabbitframework.security.subject.PrincipalCollection)} method instead (which will in turn call this
+     * {@link #clearCache(PrincipalCollection)} method instead (which will in turn call this
      * method by default).
      *
      * @param principals the principals of the account for which to clear the cached AuthorizationInfo.
-     * @see #clearCache(com.rabbitframework.security.subject.PrincipalCollection)
+     * @see #clearCache(PrincipalCollection)
      * @since 1.2
      */
     protected void clearCachedAuthenticationInfo(PrincipalCollection principals) {

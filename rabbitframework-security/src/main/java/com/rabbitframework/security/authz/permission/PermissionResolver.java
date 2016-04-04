@@ -22,12 +22,12 @@ import com.rabbitframework.security.authz.Permission;
 
 /**
  * A {@code PermisisonResolver} resolves a String value and converts it into a
- * {@link com.rabbitframework.security.authz.Permission Permission} instance.
+ * {@link Permission Permission} instance.
  * <p/>
  * The default {@link WildcardPermissionResolver} should be
  * suitable for most purposes, which constructs {@link WildcardPermission} objects.
  * However, any resolver may be configured if an application wishes to use different
- * {@link com.rabbitframework.security.authz.Permission} implementations.
+ * {@link Permission} implementations.
  * <p/>
  * A {@code PermissionResolver} is used by many Shiro components such as annotations, property file
  * configuration, URL configuration, etc.  It is useful whenever a String representation of a permission is specified

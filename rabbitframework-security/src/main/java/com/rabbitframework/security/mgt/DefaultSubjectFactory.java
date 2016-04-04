@@ -26,7 +26,7 @@ import com.rabbitframework.security.subject.support.DelegatingSubject;
 
 
 /**
- * Default {@link SubjectFactory SubjectFactory} implementation that creates {@link com.rabbitframework.security.subject.support.DelegatingSubject DelegatingSubject}
+ * Default {@link SubjectFactory SubjectFactory} implementation that creates {@link DelegatingSubject DelegatingSubject}
  * instances.
  *
  * @since 1.0

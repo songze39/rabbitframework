@@ -34,8 +34,8 @@ import com.rabbitframework.security.session.Session;
  * However, if you want to customize how session IDs are created before persisting the Session record into the data
  * store, you can implement this interface and typically inject it into an {@link AbstractSessionDAO} instance.
  *
- * @see com.rabbitframework.security.session.mgt.eis.JavaUuidSessionIdGenerator JavaUuidSessionIdGenerator
- * @see com.rabbitframework.security.session.mgt.eis.RandomSessionIdGenerator RandomSessionIdGenerator
+ * @see JavaUuidSessionIdGenerator JavaUuidSessionIdGenerator
+ * @see RandomSessionIdGenerator RandomSessionIdGenerator
  * @since 1.0
  */
 public interface SessionIdGenerator {

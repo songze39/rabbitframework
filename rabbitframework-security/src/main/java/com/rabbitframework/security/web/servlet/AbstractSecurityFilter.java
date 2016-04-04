@@ -203,7 +203,7 @@ public abstract class AbstractSecurityFilter extends OncePerRequestFilter {
 
     /**
      * Wraps the original HttpServletRequest in a {@link SecurityHttpServletRequest}, which is required for supporting
-     * Servlet Specification behavior backed by a {@link com.rabbitframework.security.subject.Subject Subject} instance.
+     * Servlet Specification behavior backed by a {@link Subject Subject} instance.
      *
      * @param orig the original Servlet Container-provided incoming {@code HttpServletRequest} instance.
      * @return {@link SecurityHttpServletRequest SecurityHttpServletRequest} instance wrapping the original.
@@ -299,7 +299,7 @@ public abstract class AbstractSecurityFilter extends OncePerRequestFilter {
      * If native sessions are not enabled (that is, standard Servlet container sessions are being used) or there is no
      * session ({@code subject.getSession(false) == null}), this method does nothing.
      * <p/>This method implementation merely calls
-     * <code>Session.{@link com.rabbitframework.security.session.Session#touch() touch}()</code> on the session.
+     * <code>Session.{@link Session#touch() touch}()</code> on the session.
      *
      * @param request  incoming request - ignored, but available to subclasses that might wish to override this method
      * @param response outgoing response - ignored, but available to subclasses that might wish to override this method

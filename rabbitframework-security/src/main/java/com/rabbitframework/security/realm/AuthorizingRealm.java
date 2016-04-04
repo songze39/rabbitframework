@@ -40,7 +40,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * <p/>
  * This implementation will perform all role and permission checks automatically (and subclasses do not have to
  * write this logic) as long as the
- * {@link #getAuthorizationInfo(com.rabbitframework.security.subject.PrincipalCollection)} method returns an
+ * {@link #getAuthorizationInfo(PrincipalCollection)} method returns an
  * {@link AuthorizationInfo}.  Please see that method's JavaDoc for an in-depth explanation.
  * <p/>
  * If you find that you do not want to utilize the {@link AuthorizationInfo AuthorizationInfo} construct,
@@ -271,7 +271,7 @@ public abstract class AuthorizingRealm extends AuthenticatingRealm
      * <p/>
      * This implementation obtains the actual {@code AuthorizationInfo} object from the subclass's
      * implementation of
-     * {@link #doGetAuthorizationInfo(com.rabbitframework.security.subject.PrincipalCollection) doGetAuthorizationInfo}, and then
+     * {@link #doGetAuthorizationInfo(PrincipalCollection) doGetAuthorizationInfo}, and then
      * caches it for efficient reuse if caching is enabled (see below).
      * <p/>
      * Invocations of this method should be thought of as completely orthogonal to acquiring
@@ -292,13 +292,13 @@ public abstract class AuthorizingRealm extends AuthenticatingRealm
      * If caching is enabled, the authorization cache will be checked first and if found, will return the cached
      * {@code AuthorizationInfo} immediately.  If caching is disabled, or there is a cache miss, the authorization
      * info will be looked up from the underlying data store via the
-     * {@link #doGetAuthorizationInfo(com.rabbitframework.security.subject.PrincipalCollection)} method, which must be implemented
+     * {@link #doGetAuthorizationInfo(PrincipalCollection)} method, which must be implemented
      * by subclasses.
      * <h4>Changed Data</h4>
      * If caching is enabled and if any authorization data for an account is changed at
      * runtime, such as adding or removing roles and/or permissions, the subclass implementation should clear the
      * cached AuthorizationInfo for that account via the
-     * {@link #clearCachedAuthorizationInfo(com.rabbitframework.security.subject.PrincipalCollection) clearCachedAuthorizationInfo}
+     * {@link #clearCachedAuthorizationInfo(PrincipalCollection) clearCachedAuthorizationInfo}
      * method.  This ensures that the next call to {@code getAuthorizationInfo(PrincipalCollection)} will
      * acquire the account's fresh authorization data, where it will then be cached for efficient reuse.  This
      * ensures that stale authorization data will not be reused.
@@ -366,11 +366,11 @@ public abstract class AuthorizingRealm extends AuthenticatingRealm
      * subsequent authorization operations don't used the (old) cached value if account data changes.
      * <p/>
      * After this method is called, the next authorization check for that same account will result in a call to
-     * {@link #getAuthorizationInfo(com.rabbitframework.security.subject.PrincipalCollection) getAuthorizationInfo}, and the
+     * {@link #getAuthorizationInfo(PrincipalCollection) getAuthorizationInfo}, and the
      * resulting return value will be cached before being returned so it can be reused for later authorization checks.
      * <p/>
      * If you wish to clear out all associated cached data (and not just authorization data), use the
-     * {@link #clearCache(com.rabbitframework.security.subject.PrincipalCollection)} method instead (which will in turn call this
+     * {@link #clearCache(PrincipalCollection)} method instead (which will in turn call this
      * method by default).
      *
      * @param principals the principals of the account for which to clear the cached AuthorizationInfo.
@@ -651,7 +651,7 @@ public abstract class AuthorizingRealm extends AuthenticatingRealm
 
     /**
      * Calls {@code super.doClearCache} to ensure any cached authentication data is removed and then calls
-     * {@link #clearCachedAuthorizationInfo(com.rabbitframework.security.subject.PrincipalCollection)} to remove any cached
+     * {@link #clearCachedAuthorizationInfo(PrincipalCollection)} to remove any cached
      * authorization data.
      * <p/>
      * If overriding in a subclass, be sure to call {@code super.doClearCache} to ensure this behavior is maintained.

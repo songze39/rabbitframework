@@ -30,7 +30,7 @@ import com.rabbitframework.security.util.CollectionUtils;
 import java.util.*;
 
 /**
- * Shiro {@link com.rabbitframework.security.cache.Cache} implementation that wraps an {@link net.sf.ehcache.Ehcache} instance.
+ * Shiro {@link Cache} implementation that wraps an {@link net.sf.ehcache.Ehcache} instance.
  *
  * @since 0.2
  */

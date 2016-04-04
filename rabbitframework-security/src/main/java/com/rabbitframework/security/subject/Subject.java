@@ -43,7 +43,7 @@ import java.util.concurrent.Callable;
  * To acquire the currently-executing {@code Subject}, application developers will almost always use
  * {@code SecurityUtils}:
  * <pre>
- * {@link SecurityUtils SecurityUtils}.{@link com.rabbitframework.security.SecurityUtils#getSubject() getSubject()}</pre>
+ * {@link SecurityUtils SecurityUtils}.{@link SecurityUtils#getSubject() getSubject()}</pre>
  * Almost all security operations should be performed with the {@code Subject} returned from this method.
  * <h3>Permission methods</h3>
  * Note that there are many *Permission methods in this interface overloaded to accept String arguments instead of
@@ -84,10 +84,10 @@ public interface Subject {
      * or any other similar suitable unique mechanism valuable to your application.
      * <p/>
      * Most implementations will simply return
-     * <code>{@link #getPrincipals()}.{@link com.rabbitframework.security.subject.PrincipalCollection#getPrimaryPrincipal() getPrimaryPrincipal()}</code>
+     * <code>{@link #getPrincipals()}.{@link PrincipalCollection#getPrimaryPrincipal() getPrimaryPrincipal()}</code>
      *
      * @return this Subject's application-specific unique identity.
-     * @see com.rabbitframework.security.subject.PrincipalCollection#getPrimaryPrincipal()
+     * @see PrincipalCollection#getPrimaryPrincipal()
      */
     Object getPrincipal();
 
@@ -102,7 +102,7 @@ public interface Subject {
      *
      * @return all of this Subject's principals (identifying attributes).
      * @see #getPrincipal()
-     * @see com.rabbitframework.security.subject.PrincipalCollection#getPrimaryPrincipal()
+     * @see PrincipalCollection#getPrimaryPrincipal()
      */
     PrincipalCollection getPrincipals();
 
@@ -594,7 +594,7 @@ public interface Subject {
      *
      * <b>Note*</b> that the returned {@code Subject} instance is <b>not</b> automatically bound to the application (thread)
      * for further use.  That is,
-     * {@link com.rabbitframework.security.SecurityUtils SecurityUtils}.{@link com.rabbitframework.security.SecurityUtils#getSubject() getSubject()}
+     * {@link SecurityUtils SecurityUtils}.{@link SecurityUtils#getSubject() getSubject()}
      * will not automatically return the same instance as what is returned by the builder.  It is up to the framework
      * developer to bind the built {@code Subject} for continued use if desired.
      *
@@ -615,7 +615,7 @@ public interface Subject {
 
         /**
          * Constructs a new {@link Builder} instance, using the {@code SecurityManager} instance available
-         * to the calling code as determined by a call to {@link com.rabbitframework.security.SecurityUtils#getSecurityManager()}
+         * to the calling code as determined by a call to {@link SecurityUtils#getSecurityManager()}
          * to build the {@code Subject} instance.
          */
         public Builder() {
@@ -733,7 +733,7 @@ public interface Subject {
          * was named &quot;{@code myRealm}&quot;, you might create the '{@code jsmith} {@code Subject} instance this
          * way:
          * <pre>
-         * PrincipalCollection identity = new {@link com.rabbitframework.security.subject.SimplePrincipalCollection#SimplePrincipalCollection(Object, String) SimplePrincipalCollection}(&quot;jsmith&quot;, &quot;myRealm&quot;);
+         * PrincipalCollection identity = new {@link SimplePrincipalCollection#SimplePrincipalCollection(Object, String) SimplePrincipalCollection}(&quot;jsmith&quot;, &quot;myRealm&quot;);
          * Subject jsmith = new Subject.Builder().principals(identity).buildSubject();</pre>
          *
          * Similarly, if your application's unique identifier for users is a {@code long} value (such as might be used
@@ -742,7 +742,7 @@ public interface Subject {
          * instance this way:
          * <pre>
          * long userId = //get user ID from somewhere
-         * PrincipalCollection userIdentity = new {@link com.rabbitframework.security.subject.SimplePrincipalCollection#SimplePrincipalCollection(Object, String) SimplePrincipalCollection}(<em>userId</em>, &quot;jdbcRealm&quot;);
+         * PrincipalCollection userIdentity = new {@link SimplePrincipalCollection#SimplePrincipalCollection(Object, String) SimplePrincipalCollection}(<em>userId</em>, &quot;jdbcRealm&quot;);
          * Subject user = new Subject.Builder().principals(identity).buildSubject();</pre>
          *
          * @param principals the principals to use as the {@code Subject}'s identity.
@@ -830,7 +830,7 @@ public interface Subject {
          * <p/>
          * <b>Note</b> that the returned {@code Subject} instance is <b>not</b> automatically bound to the application
          * (thread) for further use.  That is,
-         * {@link com.rabbitframework.security.SecurityUtils SecurityUtils}.{@link com.rabbitframework.security.SecurityUtils#getSubject() getSubject()}
+         * {@link SecurityUtils SecurityUtils}.{@link SecurityUtils#getSubject() getSubject()}
          * will not automatically return the same instance as what is returned by the builder.  It is up to the
          * framework developer to bind the returned {@code Subject} for continued use if desired.
          *

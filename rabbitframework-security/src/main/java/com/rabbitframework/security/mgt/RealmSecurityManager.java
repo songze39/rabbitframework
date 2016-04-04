@@ -29,7 +29,7 @@ import java.util.Collection;
 
 /**
  * Shiro support of a {@link SecurityManager} class hierarchy based around a collection of
- * {@link com.rabbitframework.security.realm.Realm}s.  All actual {@code SecurityManager} method implementations are left to
+ * {@link Realm}s.  All actual {@code SecurityManager} method implementations are left to
  * subclasses.
  *
  * @since 0.9
@@ -96,10 +96,10 @@ public abstract class RealmSecurityManager extends CachingSecurityManager {
 
     /**
      * Sets the internal {@link #getCacheManager CacheManager} on any internal configured
-     * {@link #getRealms Realms} that implement the {@link com.rabbitframework.security.cache.CacheManagerAware CacheManagerAware} interface.
+     * {@link #getRealms Realms} that implement the {@link CacheManagerAware CacheManagerAware} interface.
      * <p/>
      * This method is called after setting a cacheManager on this securityManager via the
-     * {@link #setCacheManager(com.rabbitframework.security.cache.CacheManager) setCacheManager} method to allow it to be propagated
+     * {@link #setCacheManager(CacheManager) setCacheManager} method to allow it to be propagated
      * down to all the internal Realms that would need to use it.
      * <p/>
      * It is also called after setting one or more realms via the {@link #setRealm setRealm} or
@@ -120,7 +120,7 @@ public abstract class RealmSecurityManager extends CachingSecurityManager {
 
     /**
      * Simply calls {@link #applyCacheManagerToRealms() applyCacheManagerToRealms()} to allow the
-     * newly set {@link com.rabbitframework.security.cache.CacheManager CacheManager} to be propagated to the internal collection of <code>Realm</code>
+     * newly set {@link CacheManager CacheManager} to be propagated to the internal collection of <code>Realm</code>
      * that would need to use it.
      */
     protected void afterCacheManagerSet() {

@@ -87,7 +87,7 @@ public abstract class AccessControlFilter extends PathMatchingFilter {
      * Convenience method that acquires the Subject associated with the request.
      * <p/>
      * The default implementation simply returns
-     * {@link com.rabbitframework.security.SecurityUtils#getSubject() SecurityUtils.getSubject()}.
+     * {@link SecurityUtils#getSubject() SecurityUtils.getSubject()}.
      *
      * @param request  the incoming <code>ServletRequest</code>
      * @param response the outgoing <code>ServletResponse</code>

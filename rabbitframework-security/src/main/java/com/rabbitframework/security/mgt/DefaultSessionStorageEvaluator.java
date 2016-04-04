@@ -22,7 +22,7 @@ import com.rabbitframework.security.subject.Subject;
 
 /**
  * A Default {@code SessionStorageEvaluator} that provides reasonable control over if and how Sessions may be used for
- * storing Subject state.  See the {@link #isSessionStorageEnabled(com.rabbitframework.security.subject.Subject)}
+ * storing Subject state.  See the {@link #isSessionStorageEnabled(Subject)}
  * method for exact behavior.
  *
  * @since 1.2

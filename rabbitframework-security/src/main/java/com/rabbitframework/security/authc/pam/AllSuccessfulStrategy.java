@@ -48,7 +48,7 @@ public class AllSuccessfulStrategy extends AbstractAuthenticationStrategy {
 
     /**
      * Because all realms in this strategy must complete successfully, this implementation ensures that the given
-     * <code>Realm</code> {@link com.rabbitframework.security.realm.Realm#supports(com.rabbitframework.security.authc.AuthenticationToken) supports} the given
+     * <code>Realm</code> {@link Realm#supports(AuthenticationToken) supports} the given
      * <code>token</code> argument.  If it does not, this method throws an
      * {@link UnsupportedTokenException UnsupportedTokenException} to end the authentication
      * process immediately. If the realm does support the token, the <code>info</code> argument is returned immediately.

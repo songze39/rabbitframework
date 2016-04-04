@@ -75,7 +75,7 @@ import java.lang.reflect.Field;
  * Unless overridden, the default evaluator is a {@link DefaultSessionStorageEvaluator}, which enables session usage for
  * Subject state by default.
  *
- * @see #isSessionStorageEnabled(com.rabbitframework.security.subject.Subject)
+ * @see #isSessionStorageEnabled(Subject)
  * @see SessionStorageEvaluator
  * @see DefaultSessionStorageEvaluator
  * @since 1.2
@@ -134,7 +134,7 @@ public class DefaultSubjectDAO implements SubjectDAO {
     }
 
     /**
-     * Saves the subject's state to the subject's {@link com.rabbitframework.security.subject.Subject#getSession() session} only
+     * Saves the subject's state to the subject's {@link Subject#getSession() session} only
      * if {@link #isSessionStorageEnabled(Subject) sessionStorageEnabled(subject)}.  If session storage is not enabled
      * for the specific {@code Subject}, this method does nothing.
      * <p/>
@@ -156,7 +156,7 @@ public class DefaultSubjectDAO implements SubjectDAO {
 
     /**
      * Saves the subject's state (it's principals and authentication state) to its
-     * {@link com.rabbitframework.security.subject.Subject#getSession() session}.  The session can be retrieved at a later time
+     * {@link Subject#getSession() session}.  The session can be retrieved at a later time
      * (typically from a {@link com.rabbitframework.security.session.mgt.SessionManager SessionManager} to be used to recreate
      * the {@code Subject} instance.
      *
@@ -169,7 +169,7 @@ public class DefaultSubjectDAO implements SubjectDAO {
     }
 
     /**
-     * Merges the Subject's current {@link com.rabbitframework.security.subject.Subject#getPrincipals()} with whatever may be in
+     * Merges the Subject's current {@link Subject#getPrincipals()} with whatever may be in
      * any available session.  Only updates the Subject's session if the session does not match the current principals
      * state.
      *

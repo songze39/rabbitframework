@@ -34,7 +34,7 @@ public class AuthenticatedAnnotationHandler extends AuthorizingAnnotationHandler
 
     /**
      * Default no-argument constructor that ensures this handler to process
-     * {@link com.rabbitframework.security.authz.annotation.RequiresAuthentication RequiresAuthentication} annotations.
+     * {@link RequiresAuthentication RequiresAuthentication} annotations.
      */
     public AuthenticatedAnnotationHandler() {
         super(RequiresAuthentication.class);
@@ -42,10 +42,10 @@ public class AuthenticatedAnnotationHandler extends AuthorizingAnnotationHandler
 
     /**
      * Ensures that the calling <code>Subject</code> is authenticated, and if not, throws an
-     * {@link com.rabbitframework.security.authz.UnauthenticatedException UnauthenticatedException} indicating the method is not allowed to be executed.
+     * {@link UnauthenticatedException UnauthenticatedException} indicating the method is not allowed to be executed.
      *
      * @param a the annotation to inspect
-     * @throws com.rabbitframework.security.authz.UnauthenticatedException if the calling <code>Subject</code> has not yet
+     * @throws UnauthenticatedException if the calling <code>Subject</code> has not yet
      * authenticated.
      */
     public void assertAuthorized(Annotation a) throws UnauthenticatedException {

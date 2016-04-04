@@ -29,7 +29,7 @@ import java.util.Set;
 
 
 /**
- * Simple implementation of the {@link com.rabbitframework.security.authc.MergableAuthenticationInfo} interface that holds the principals and
+ * Simple implementation of the {@link MergableAuthenticationInfo} interface that holds the principals and
  * credentials.
  *
  * @see com.rabbitframework.security.realm.AuthenticatingRealm

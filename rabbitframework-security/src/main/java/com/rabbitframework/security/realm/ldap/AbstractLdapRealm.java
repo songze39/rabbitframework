@@ -39,7 +39,7 @@ import javax.naming.NamingException;
  *
  * <p>Implementations would need to implement the
  * {@link #queryForAuthenticationInfo(AuthenticationToken ,LdapContextFactory)} and
- * {@link #queryForAuthorizationInfo(com.rabbitframework.security.subject.PrincipalCollection ,LdapContextFactory)} abstract methods.</p>
+ * {@link #queryForAuthorizationInfo(PrincipalCollection ,LdapContextFactory)} abstract methods.</p>
  *
  * <p>By default, this implementation will create an instance of {@link DefaultLdapContextFactory} to use for
  * creating LDAP connections using the principalSuffix, searchBase, url, systemUsername, and systemPassword properties
@@ -48,7 +48,7 @@ import javax.naming.NamingException;
  * will cause these properties specified on the realm to be ignored.</p>
  *
  * @see #queryForAuthenticationInfo(AuthenticationToken , LdapContextFactory)
- * @see #queryForAuthorizationInfo(com.rabbitframework.security.subject.PrincipalCollection , LdapContextFactory)
+ * @see #queryForAuthorizationInfo(PrincipalCollection , LdapContextFactory)
  * @since 0.1
  */
 public abstract class AbstractLdapRealm extends AuthorizingRealm {

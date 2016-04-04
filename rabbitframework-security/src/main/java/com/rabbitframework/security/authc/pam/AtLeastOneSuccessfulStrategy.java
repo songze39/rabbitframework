@@ -45,7 +45,7 @@ public class AtLeastOneSuccessfulStrategy extends AbstractAuthenticationStrategy
 
     /**
      * Ensures that the <code>aggregate</code> method argument is not <code>null</code> and
-     * <code>aggregate.{@link com.rabbitframework.security.authc.AuthenticationInfo#getPrincipals() getPrincipals()}</code>
+     * <code>aggregate.{@link AuthenticationInfo#getPrincipals() getPrincipals()}</code>
      * is not <code>null</code>, and if either is <code>null</code>, throws an AuthenticationException to indicate
      * that none of the realms authenticated successfully.
      */

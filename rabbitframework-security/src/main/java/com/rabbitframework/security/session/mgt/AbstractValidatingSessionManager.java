@@ -196,9 +196,9 @@ public abstract class AbstractValidatingSessionManager extends AbstractNativeSes
 
     /**
      * Subclass template hook in case per-session timeout is not based on
-     * {@link com.rabbitframework.security.session.Session#getTimeout()}.
+     * {@link Session#getTimeout()}.
      * <p/>
-     * <p>This implementation merely returns {@link com.rabbitframework.security.session.Session#getTimeout()}</p>
+     * <p>This implementation merely returns {@link Session#getTimeout()}</p>
      *
      * @param session the session for which to determine session timeout.
      * @return the time in milliseconds the specified session may remain idle before expiring.

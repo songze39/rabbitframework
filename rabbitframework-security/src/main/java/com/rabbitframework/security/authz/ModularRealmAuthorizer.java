@@ -213,7 +213,7 @@ public class ModularRealmAuthorizer implements Authorizer, PermissionResolverAwa
 
     /**
      * Returns <code>true</code> if any of the configured realms'
-     * {@link #isPermitted(com.rabbitframework.security.subject.PrincipalCollection, String)} returns <code>true</code>,
+     * {@link #isPermitted(PrincipalCollection, String)} returns <code>true</code>,
      * <code>false</code> otherwise.
      */
     public boolean isPermitted(PrincipalCollection principals, String permission) {
@@ -229,7 +229,7 @@ public class ModularRealmAuthorizer implements Authorizer, PermissionResolverAwa
 
     /**
      * Returns <code>true</code> if any of the configured realms'
-     * {@link #isPermitted(com.rabbitframework.security.subject.PrincipalCollection, Permission)} call returns <code>true</code>,
+     * {@link #isPermitted(PrincipalCollection, Permission)} call returns <code>true</code>,
      * <code>false</code> otherwise.
      */
     public boolean isPermitted(PrincipalCollection principals, Permission permission) {
@@ -245,7 +245,7 @@ public class ModularRealmAuthorizer implements Authorizer, PermissionResolverAwa
 
     /**
      * Returns <code>true</code> if any of the configured realms'
-     * {@link #isPermittedAll(com.rabbitframework.security.subject.PrincipalCollection, String...)} call returns
+     * {@link #isPermittedAll(PrincipalCollection, String...)} call returns
      * <code>true</code>, <code>false</code> otherwise.
      */
     public boolean[] isPermitted(PrincipalCollection principals, String... permissions) {
@@ -262,7 +262,7 @@ public class ModularRealmAuthorizer implements Authorizer, PermissionResolverAwa
 
     /**
      * Returns <code>true</code> if any of the configured realms'
-     * {@link #isPermitted(com.rabbitframework.security.subject.PrincipalCollection, List)} call returns <code>true</code>,
+     * {@link #isPermitted(PrincipalCollection, List)} call returns <code>true</code>,
      * <code>false</code> otherwise.
      */
     public boolean[] isPermitted(PrincipalCollection principals, List<Permission> permissions) {
@@ -281,7 +281,7 @@ public class ModularRealmAuthorizer implements Authorizer, PermissionResolverAwa
 
     /**
      * Returns <code>true</code> if any of the configured realms'
-     * {@link #isPermitted(com.rabbitframework.security.subject.PrincipalCollection, String)} call returns <code>true</code>
+     * {@link #isPermitted(PrincipalCollection, String)} call returns <code>true</code>
      * for <em>all</em> of the specified string permissions, <code>false</code> otherwise.
      */
     public boolean isPermittedAll(PrincipalCollection principals, String... permissions) {
@@ -298,7 +298,7 @@ public class ModularRealmAuthorizer implements Authorizer, PermissionResolverAwa
 
     /**
      * Returns <code>true</code> if any of the configured realms'
-     * {@link #isPermitted(com.rabbitframework.security.subject.PrincipalCollection, Permission)} call returns <code>true</code>
+     * {@link #isPermitted(PrincipalCollection, Permission)} call returns <code>true</code>
      * for <em>all</em> of the specified Permissions, <code>false</code> otherwise.
      */
     public boolean isPermittedAll(PrincipalCollection principals, Collection<Permission> permissions) {
@@ -314,7 +314,7 @@ public class ModularRealmAuthorizer implements Authorizer, PermissionResolverAwa
     }
 
     /**
-     * If !{@link #isPermitted(com.rabbitframework.security.subject.PrincipalCollection, String) isPermitted(permission)}, throws
+     * If !{@link #isPermitted(PrincipalCollection, String) isPermitted(permission)}, throws
      * an <code>UnauthorizedException</code> otherwise returns quietly.
      */
     public void checkPermission(PrincipalCollection principals, String permission) throws AuthorizationException {
@@ -325,7 +325,7 @@ public class ModularRealmAuthorizer implements Authorizer, PermissionResolverAwa
     }
 
     /**
-     * If !{@link #isPermitted(com.rabbitframework.security.subject.PrincipalCollection, Permission) isPermitted(permission)}, throws
+     * If !{@link #isPermitted(PrincipalCollection, Permission) isPermitted(permission)}, throws
      * an <code>UnauthorizedException</code> otherwise returns quietly.
      */
     public void checkPermission(PrincipalCollection principals, Permission permission) throws AuthorizationException {
@@ -336,7 +336,7 @@ public class ModularRealmAuthorizer implements Authorizer, PermissionResolverAwa
     }
 
     /**
-     * If !{@link #isPermitted(com.rabbitframework.security.subject.PrincipalCollection, String...) isPermitted(permission)},
+     * If !{@link #isPermitted(PrincipalCollection, String...) isPermitted(permission)},
      * throws an <code>UnauthorizedException</code> otherwise returns quietly.
      */
     public void checkPermissions(PrincipalCollection principals, String... permissions) throws AuthorizationException {
@@ -349,7 +349,7 @@ public class ModularRealmAuthorizer implements Authorizer, PermissionResolverAwa
     }
 
     /**
-     * If !{@link #isPermitted(com.rabbitframework.security.subject.PrincipalCollection, Permission) isPermitted(permission)} for
+     * If !{@link #isPermitted(PrincipalCollection, Permission) isPermitted(permission)} for
      * <em>all</em> the given Permissions, throws
      * an <code>UnauthorizedException</code> otherwise returns quietly.
      */
@@ -364,7 +364,7 @@ public class ModularRealmAuthorizer implements Authorizer, PermissionResolverAwa
 
     /**
      * Returns <code>true</code> if any of the configured realms'
-     * {@link #hasRole(com.rabbitframework.security.subject.PrincipalCollection, String)} call returns <code>true</code>,
+     * {@link #hasRole(PrincipalCollection, String)} call returns <code>true</code>,
      * <code>false</code> otherwise.
      */
     public boolean hasRole(PrincipalCollection principals, String roleIdentifier) {
@@ -379,7 +379,7 @@ public class ModularRealmAuthorizer implements Authorizer, PermissionResolverAwa
     }
 
     /**
-     * Calls {@link #hasRole(com.rabbitframework.security.subject.PrincipalCollection, String)} for each role name in the specified
+     * Calls {@link #hasRole(PrincipalCollection, String)} for each role name in the specified
      * collection and places the return value from each call at the respective location in the returned array.
      */
     public boolean[] hasRoles(PrincipalCollection principals, List<String> roleIdentifiers) {
@@ -398,7 +398,7 @@ public class ModularRealmAuthorizer implements Authorizer, PermissionResolverAwa
 
     /**
      * Returns <code>true</code> iff any of the configured realms'
-     * {@link #hasRole(com.rabbitframework.security.subject.PrincipalCollection, String)} call returns <code>true</code> for
+     * {@link #hasRole(PrincipalCollection, String)} call returns <code>true</code> for
      * <em>all</em> roles specified, <code>false</code> otherwise.
      */
     public boolean hasAllRoles(PrincipalCollection principals, Collection<String> roleIdentifiers) {
@@ -412,7 +412,7 @@ public class ModularRealmAuthorizer implements Authorizer, PermissionResolverAwa
     }
 
     /**
-     * If !{@link #hasRole(com.rabbitframework.security.subject.PrincipalCollection, String) hasRole(role)}, throws
+     * If !{@link #hasRole(PrincipalCollection, String) hasRole(role)}, throws
      * an <code>UnauthorizedException</code> otherwise returns quietly.
      */
     public void checkRole(PrincipalCollection principals, String role) throws AuthorizationException {
@@ -431,7 +431,7 @@ public class ModularRealmAuthorizer implements Authorizer, PermissionResolverAwa
     }
 
     /**
-     * Calls {@link #checkRole(com.rabbitframework.security.subject.PrincipalCollection, String) checkRole} for each role specified.
+     * Calls {@link #checkRole(PrincipalCollection, String) checkRole} for each role specified.
      */
     public void checkRoles(PrincipalCollection principals, String... roles) throws AuthorizationException {
         assertRealmsConfigured();

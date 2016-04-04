@@ -94,7 +94,7 @@ public abstract class AuthorizationFilter extends AccessControlFilter {
      * URL.  Otherwise the 401 response is rendered normally</li>
      * </ul>
      * <code><a name="known">[1]</a></code>: A {@code Subject} is 'known' when
-     * <code>subject.{@link com.rabbitframework.security.subject.Subject#getPrincipal() getPrincipal()}</code> is not {@code null},
+     * <code>subject.{@link Subject#getPrincipal() getPrincipal()}</code> is not {@code null},
      * which implicitly means that the subject is either currently authenticated or they have been remembered via
      * 'remember me' services.
      *

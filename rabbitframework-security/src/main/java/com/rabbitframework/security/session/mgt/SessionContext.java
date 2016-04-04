@@ -35,8 +35,8 @@ import java.util.Map;
  * will usually use {@code SessionContext} instances to start a session with the application's
  * {@link SessionManager SessionManager}.
  *
- * @see com.rabbitframework.security.session.mgt.SessionManager#start SessionManager.start(SessionContext)
- * @see com.rabbitframework.security.session.mgt.SessionFactory SessionFactory
+ * @see SessionManager#start SessionManager.start(SessionContext)
+ * @see SessionFactory SessionFactory
  * @since 1.0
  */
 public interface SessionContext extends Map<String, Object> {

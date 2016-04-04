@@ -33,7 +33,7 @@ import java.util.Collection;
 public abstract class AbstractAuthenticationStrategy implements AuthenticationStrategy {
 
     /**
-     * Simply returns <code>new {@link com.rabbitframework.security.authc.SimpleAuthenticationInfo SimpleAuthenticationInfo}();</code>, which supports
+     * Simply returns <code>new {@link SimpleAuthenticationInfo SimpleAuthenticationInfo}();</code>, which supports
      * aggregating account data across realms.
      */
     public AuthenticationInfo beforeAllAttempts(Collection<? extends Realm> realms, AuthenticationToken token) throws AuthenticationException {
@@ -71,11 +71,11 @@ public abstract class AbstractAuthenticationStrategy implements AuthenticationSt
      * aggregate for continued use throughout the login process.
      * <p/>
      * This implementation merely checks to see if the specified <code>aggregate</code> argument is an instance of
-     * {@link com.rabbitframework.security.authc.MergableAuthenticationInfo MergableAuthenticationInfo}, and if so, calls
+     * {@link MergableAuthenticationInfo MergableAuthenticationInfo}, and if so, calls
      * <code>aggregate.merge(info)</code>  If it is <em>not</em> an instance of
      * <code>MergableAuthenticationInfo</code>, an {@link IllegalArgumentException IllegalArgumentException} is thrown.
      * Can be overridden by subclasses for custom merging behavior if implementing the
-     * {@link com.rabbitframework.security.authc.MergableAuthenticationInfo MergableAuthenticationInfo} is not desired for some reason.
+     * {@link MergableAuthenticationInfo MergableAuthenticationInfo} is not desired for some reason.
      */
     protected AuthenticationInfo merge(AuthenticationInfo info, AuthenticationInfo aggregate) {
         if( aggregate instanceof MergableAuthenticationInfo ) {

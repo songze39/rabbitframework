@@ -27,7 +27,7 @@ import com.rabbitframework.security.session.Session;
 
 /**
  * A DelegatingSession is a client-tier representation of a server side
- * {@link com.rabbitframework.security.session.Session Session}.
+ * {@link Session Session}.
  * This implementation is basically a proxy to a server-side {@link NativeSessionManager NativeSessionManager},
  * which will return the proper results for each method call.
  * <p/>
@@ -74,14 +74,14 @@ public class DelegatingSession implements Session, Serializable {
     }
 
     /**
-     * @see com.rabbitframework.security.session.Session#getId()
+     * @see Session#getId()
      */
     public Serializable getId() {
         return key.getSessionId();
     }
 
     /**
-     * @see com.rabbitframework.security.session.Session#getStartTimestamp()
+     * @see Session#getStartTimestamp()
      */
     public Date getStartTimestamp() {
         if (startTimestamp == null) {
@@ -91,7 +91,7 @@ public class DelegatingSession implements Session, Serializable {
     }
 
     /**
-     * @see com.rabbitframework.security.session.Session#getLastAccessTime()
+     * @see Session#getLastAccessTime()
      */
     public Date getLastAccessTime() {
         //can't cache - only business pojo knows the accurate time:
@@ -114,28 +114,28 @@ public class DelegatingSession implements Session, Serializable {
     }
 
     /**
-     * @see com.rabbitframework.security.session.Session#touch()
+     * @see Session#touch()
      */
     public void touch() throws InvalidSessionException {
         sessionManager.touch(key);
     }
 
     /**
-     * @see com.rabbitframework.security.session.Session#stop()
+     * @see Session#stop()
      */
     public void stop() throws InvalidSessionException {
         sessionManager.stop(key);
     }
 
     /**
-     * @see com.rabbitframework.security.session.Session#getAttributeKeys
+     * @see Session#getAttributeKeys
      */
     public Collection<Object> getAttributeKeys() throws InvalidSessionException {
         return sessionManager.getAttributeKeys(key);
     }
 
     /**
-     * @see com.rabbitframework.security.session.Session#getAttribute(Object key)
+     * @see Session#getAttribute(Object key)
      */
     public Object getAttribute(Object attributeKey) throws InvalidSessionException {
         return sessionManager.getAttribute(this.key, attributeKey);

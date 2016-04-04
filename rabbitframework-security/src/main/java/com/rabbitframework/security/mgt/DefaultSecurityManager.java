@@ -42,7 +42,7 @@ import java.util.Collection;
 /**
  * The Security framework's default concrete implementation of the
  * {@link SecurityManager} interface, based around a collection of
- * {@link com.rabbitframework.security.realm.Realm}s. This implementation
+ * {@link Realm}s. This implementation
  * delegates its authentication, authorization, and session operations to
  * wrapped {@link Authenticator}, {@link Authorizer}, and
  * {@link com.rabbitframework.security.session.mgt.SessionManager
@@ -253,7 +253,7 @@ public class DefaultSecurityManager extends SessionsSecurityManager {
 	 * successful, constructs a {@code Subject} instance representing the
 	 * authenticated account's identity.
 	 * <p/>
-	 * Once constructed, the {@code Subject} instance is then {@link #bind
+	 * Once constructed, the {@code Subject} instance is then {@link #save
 	 * bound} to the application for subsequent access before being returned to
 	 * the caller.
 	 *
@@ -311,9 +311,9 @@ public class DefaultSecurityManager extends SessionsSecurityManager {
 	 * using heuristics to acquire data that may not have already been available
 	 * to it (such as a referenced session or remembered principals).</li>
 	 * <li>Calls
-	 * {@link #doCreateSubject(com.rabbitframework.security.subject.SubjectContext)}
+	 * {@link #doCreateSubject(SubjectContext)}
 	 * to actually perform the {@code Subject} instance creation.</li>
-	 * <li>calls {@link #save(com.rabbitframework.security.subject.Subject)
+	 * <li>calls {@link #save(Subject)
 	 * save(subject)} to ensure the constructed {@code Subject}'s state is
 	 * accessible for future requests/invocations if necessary.</li>
 	 * <li>returns the constructed {@code Subject} instance.</li>
@@ -324,11 +324,11 @@ public class DefaultSecurityManager extends SessionsSecurityManager {
 	 *            constructed.
 	 * @return the {@code Subject} instance reflecting the specified contextual
 	 *         data.
-	 * @see #ensureSecurityManager(com.rabbitframework.security.subject.SubjectContext)
-	 * @see #resolveSession(com.rabbitframework.security.subject.SubjectContext)
-	 * @see #resolvePrincipals(com.rabbitframework.security.subject.SubjectContext)
-	 * @see #doCreateSubject(com.rabbitframework.security.subject.SubjectContext)
-	 * @see #save(com.rabbitframework.security.subject.Subject)
+	 * @see #ensureSecurityManager(SubjectContext)
+	 * @see #resolveSession(SubjectContext)
+	 * @see #resolvePrincipals(SubjectContext)
+	 * @see #doCreateSubject(SubjectContext)
+	 * @see #save(Subject)
 	 * @since 1.0
 	 */
 	public Subject createSubject(SubjectContext subjectContext) {
@@ -380,7 +380,7 @@ public class DefaultSecurityManager extends SessionsSecurityManager {
 	 * @return a {@code Subject} instance reflecting the data in the specified
 	 *         {@code SubjectContext} data map.
 	 * @see #getSubjectFactory()
-	 * @see SubjectFactory#createSubject(com.rabbitframework.security.subject.SubjectContext)
+	 * @see SubjectFactory#createSubject(SubjectContext)
 	 * @since 1.2
 	 */
 	protected Subject doCreateSubject(SubjectContext context) {
@@ -393,12 +393,12 @@ public class DefaultSecurityManager extends SessionsSecurityManager {
 	 * <p/>
 	 * This implementation merely delegates to the internal
 	 * {@link #setSubjectDAO(SubjectDAO) subjectDAO} and calls
-	 * {@link SubjectDAO#save(com.rabbitframework.security.subject.Subject)
+	 * {@link SubjectDAO#save(Subject)
 	 * subjectDAO.save(subject)}.
 	 *
 	 * @param subject
 	 *            the subject for which state will potentially be persisted
-	 * @see SubjectDAO#save(com.rabbitframework.security.subject.Subject)
+	 * @see SubjectDAO#save(Subject)
 	 * @since 1.2
 	 */
 	protected void save(Subject subject) {
@@ -411,12 +411,12 @@ public class DefaultSecurityManager extends SessionsSecurityManager {
 	 * <p/>
 	 * This implementation merely delegates to the internal
 	 * {@link #setSubjectDAO(SubjectDAO) subjectDAO} and calls
-	 * {@link SubjectDAO#delete(com.rabbitframework.security.subject.Subject)
+	 * {@link SubjectDAO#delete(Subject)
 	 * delete(subject)}.
 	 *
 	 * @param subject
 	 *            the subject for which state will be removed
-	 * @see SubjectDAO#delete(com.rabbitframework.security.subject.Subject)
+	 * @see SubjectDAO#delete(Subject)
 	 * @since 1.2
 	 */
 	protected void delete(Subject subject) {

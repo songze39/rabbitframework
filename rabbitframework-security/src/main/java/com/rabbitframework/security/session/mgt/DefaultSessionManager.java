@@ -180,7 +180,7 @@ public class DefaultSessionManager extends AbstractValidatingSessionManager impl
 	 * Persists the given session instance to an underlying EIS (Enterprise
 	 * Information System). This implementation delegates and calls <code>this.
 	 * {@link SessionDAO sessionDAO}.
-	 * {@link SessionDAO#create(com.rabbitframework.security.session.Session)
+	 * {@link SessionDAO#create(Session)
 	 * create}(session);<code>
 	 *
 	 * @param session
