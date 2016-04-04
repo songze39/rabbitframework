@@ -163,7 +163,7 @@ public class DefaultWebSecurityManager extends DefaultSecurityManager implements
 
 	@Override
 	public void setSessionManager(SessionManager sessionManager) {
-		// this.sessionMode = null;
+		this.sessionMode = null;
 		if (sessionManager != null && !(sessionManager instanceof WebSessionManager)) {
 			if (log.isWarnEnabled()) {
 				String msg = "The " + getClass().getName() + " implementation expects SessionManager instances "
