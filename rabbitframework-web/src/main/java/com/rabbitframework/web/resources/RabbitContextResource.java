@@ -16,7 +16,7 @@ public abstract class RabbitContextResource {
 	protected UriInfo uriInfo;
 
 	@Context
-	protected Request request;
+	protected Request restRequest;
 
 	@Context
 	protected SecurityContext securityContext;
@@ -28,10 +28,10 @@ public abstract class RabbitContextResource {
 	protected CloseableService closeableService;
 
 	@Context
-	protected HttpServletRequest httpServletRequest;
+	protected HttpServletRequest request;
 
 	@Context
-	protected HttpServletResponse httpServletResponse;
+	protected HttpServletResponse response;
 
 	@Context
 	protected ResourceContext resourceContext;
