@@ -330,7 +330,6 @@ public abstract class AuthenticatingRealm extends CachingRealm implements Initia
      *
      * @param authenticationCachingEnabled the value to set
      */
-    @SuppressWarnings({"UnusedDeclaration"})
     public void setAuthenticationCachingEnabled(boolean authenticationCachingEnabled) {
         this.authenticationCachingEnabled = authenticationCachingEnabled;
         if (authenticationCachingEnabled) {
