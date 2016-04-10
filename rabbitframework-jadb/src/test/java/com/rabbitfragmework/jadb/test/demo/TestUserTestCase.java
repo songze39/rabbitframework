@@ -16,14 +16,14 @@ import com.rabbitframework.jadb.mapping.param.WhereParamType;
 public class TestUserTestCase extends DataAccessTestCase {
 	private static final Logger logger = LoggerFactory.getLogger(TestUserTestCase.class);
 
-	// @Test
+	// @GeneratorTest
 	public void createTestUser() {
 		TestUserMapper testMapper = getMapper(TestUserMapper.class);
 		int result = testMapper.createTestUser();
 		System.out.println(result);
 	}
 
-//	 @Test
+//	 @GeneratorTest
 	public void insertTestUser() {
 		TestUserMapper testMapper = getMapper(TestUserMapper.class);
 		TestUser testUser = new TestUser();
@@ -33,7 +33,7 @@ public class TestUserTestCase extends DataAccessTestCase {
 		System.out.println(testUser.getId());
 	}
 
-//	 @Test
+//	 @GeneratorTest
 	public void updateTestUserById() {
 		TestUserMapper testMapper = getMapper(TestUserMapper.class);
 		int result = testMapper.updateTest(1L, "updateName");
@@ -49,7 +49,7 @@ public class TestUserTestCase extends DataAccessTestCase {
 		testMapper.updateTestByUser(testUser);
 	}
 
-	// @Test
+	// @GeneratorTest
 	public void selectTestUserAll() {
 		TestUserMapper testMapper = getMapper(TestUserMapper.class);
 		List<TestUser> testUsers = testMapper.selectTestUser();
@@ -58,7 +58,7 @@ public class TestUserTestCase extends DataAccessTestCase {
 		}
 	}
 
-	// @Test
+	// @GeneratorTest
 	public void selectTestUserByPage() {
 		TestUserMapper testMapper = getMapper(TestUserMapper.class);
 		List<TestUser> testUsers = testMapper.selectTestUserByPage(new RowBounds());
@@ -67,21 +67,21 @@ public class TestUserTestCase extends DataAccessTestCase {
 		}
 	}
 
-	// @Test
+	// @GeneratorTest
 	public void deleteTestUser() {
 		TestUserMapper testMapper = getMapper(TestUserMapper.class);
 		int result = testMapper.delTestUser(1L);
 		System.out.println("result:" + result);
 	}
 
-	// @Test
+	// @GeneratorTest
 	public void selectTestUserToMap() {
 		TestUserMapper testMapper = getMapper(TestUserMapper.class);
 		Map<Long, TestUser> testUser = testMapper.selectTestUserToMap();
 		System.out.println(testUser.size());
 	}
 
-//	@Test
+//	@GeneratorTest
 	public void selectTesstUserByParamType() {
 		TestUserMapper testMapper = getMapper(TestUserMapper.class);
 		WhereParamType paramType = new WhereParamType();

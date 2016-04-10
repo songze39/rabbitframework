@@ -100,7 +100,7 @@ public abstract class MockResource {
 	 * @param location
 	 * @return
 	 */
-	private static Resource[] getResources(String location) throws IOException {
+	public static Resource[] getResources(String location) throws IOException {
 		if (location == null) {
 			throw new NullPointerException("param location is not null");
 		}

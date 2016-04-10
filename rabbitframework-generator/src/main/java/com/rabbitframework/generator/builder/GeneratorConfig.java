@@ -1,0 +1,70 @@
+package com.rabbitframework.generator.builder;
+
+import com.rabbitframework.commons.utils.ResourceUtils;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.util.*;
+
+public class GeneratorConfig {
+    Configuration configuration;
+    private static final Logger logger = LoggerFactory.getLogger(GeneratorConfig.class);
+    public GeneratorConfig() {
+        before();
+    }
+
+    public void before() {
+        configuration = new Configuration(Configuration.VERSION_2_3_23);
+//        configuration.setObjectWrapper(new DefaultObjectWrapper(Configuration.VERSION_2_3_23));
+        try {
+            File resource = ResourceUtils.getResourceAsFile("/");
+            logger.debug("path:" + resource.getAbsolutePath());
+//            configuration.setDirectoryForTemplateLoading(resource);
+        } catch (IOException e) {
+            logger.error(e.getMessage(), e);
+        }
+    }
+
+    public void simple() {
+        try {
+            Template template = configuration.getTemplate("template/simple.ftl");
+            Map map = new HashMap();
+            map.put("user", "rabbit");
+            template.process(map, new OutputStreamWriter(System.out));
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+    }
+
+    public void list() {
+        try {
+            Template template = configuration.getTemplate("template/list.ftl");
+            List<Model> models = new ArrayList<>();
+            for (int i = 0; i < 3; i++) {
+                Model model = new Model();
+                model.setId(i);
+                model.setName("list:" + i);
+                models.add(model);
+            }
+            Map map = new HashMap();
+            map.put("modelList", models);
+            template.process(map, new OutputStreamWriter(System.out));
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+    }
+
+    private Properties variables;
+    public Properties getVariables() {
+        return variables;
+    }
+
+    public void setVariables(Properties variables) {
+        this.variables = variables;
+    }
+}

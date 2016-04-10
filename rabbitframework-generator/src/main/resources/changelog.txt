@@ -1,0 +1,1 @@
+rabbitframework-generator框架用于代码生成
