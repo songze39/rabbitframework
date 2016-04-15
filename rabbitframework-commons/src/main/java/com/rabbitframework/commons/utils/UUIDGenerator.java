@@ -51,8 +51,4 @@ public class UUIDGenerator {
     private static String getUUID32(String generator) {
         return generator.replace("-", "");
     }
-
-    public static void main(String[] args) {
-        System.out.println(getTimeUUID36());
-    }
 }
