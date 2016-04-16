@@ -1,7 +1,6 @@
 package com.rabbitframework.generator.test.freemarker;
 
 import com.rabbitframework.commons.utils.ResourceUtils;
-import com.rabbitframework.generator.builder.GeneratorConfig;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import org.junit.Before;
@@ -26,8 +25,7 @@ public class FreemarkerTest {
         configuration = new Configuration(Configuration.VERSION_2_3_23);
 //        configuration.setObjectWrapper(new DefaultObjectWrapper(Configuration.VERSION_2_3_23));
         try {
-            new GeneratorConfig();
-            File resource = ResourceUtils.getResourceAsFile("/");
+            File resource = ResourceUtils.getResourceAsFile("/template");
             logger.debug("path:" + resource.getAbsolutePath());
             configuration.setDirectoryForTemplateLoading(resource);
         } catch (IOException e) {
@@ -38,7 +36,7 @@ public class FreemarkerTest {
     @Test
     public void simple() {
         try {
-            Template template = configuration.getTemplate("template/simple.ftl");
+            Template template = configuration.getTemplate("simple.ftl");
             Map map = new HashMap();
             map.put("user", "rabbit");
             template.process(map, new OutputStreamWriter(System.out));
@@ -50,7 +48,7 @@ public class FreemarkerTest {
     @Test
     public void list() {
         try {
-            Template template = configuration.getTemplate("template/list.ftl");
+            Template template = configuration.getTemplate("list.ftl");
             List<Model> models = new ArrayList<>();
             for (int i = 0; i < 3; i++) {
                 Model model = new Model();

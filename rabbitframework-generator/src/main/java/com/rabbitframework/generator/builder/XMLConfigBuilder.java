@@ -12,7 +12,6 @@ public class XMLConfigBuilder {
     private static final Logger logger = LoggerFactory.getLogger(XMLConfigBuilder.class);
     private boolean parsed;
     private XPathParser xPathParser;
-    private GeneratorConfig generatorConfig;
     public XMLConfigBuilder(Reader reader) {
         this(reader, null);
     }
@@ -30,10 +29,8 @@ public class XMLConfigBuilder {
     }
 
     private XMLConfigBuilder(XPathParser xPathParser, Properties pro) {
-        generatorConfig = new GeneratorConfig();
         this.parsed = false;
         this.xPathParser = xPathParser;
-        generatorConfig.setVariables(pro);
     }
 
 
