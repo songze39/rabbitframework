@@ -1,8 +1,10 @@
 
 package com.rabbitframework.security;
-import com.rabbitframework.security.util.ClassUtils;
-import junit.framework.TestCase;
 import org.junit.Test;
+
+import com.rabbitframework.commons.utils.ClassUtils;
+
+import junit.framework.TestCase;
 
 /**
  */

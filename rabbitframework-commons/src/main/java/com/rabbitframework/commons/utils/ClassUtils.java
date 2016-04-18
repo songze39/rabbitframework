@@ -78,11 +78,8 @@ public class ClassUtils {
 					clazzs.add(clazz);
 				}
 			} catch (Exception e) {
-				logger.error(
-						"Could not read package: " + packageName + ":"
-								+ e.getMessage(), e);
-				throw new TypeException("Could not read package: "
-						+ packageName, e);
+				logger.error("Could not read package: " + packageName + ":" + e.getMessage(), e);
+				throw new TypeException("Could not read package: " + packageName, e);
 			}
 
 		}
@@ -111,11 +108,9 @@ public class ClassUtils {
 			return Object.class;
 		}
 
-		Type[] types = ((ParameterizedType) genericSuperclass)
-				.getActualTypeArguments();
+		Type[] types = ((ParameterizedType) genericSuperclass).getActualTypeArguments();
 		if (index >= types.length || index < 0) {
-			throw new IndexOutOfBoundsException("Index: " + index
-					+ ", Size of Parameterized Type: " + types.length);
+			throw new IndexOutOfBoundsException("Index: " + index + ", Size of Parameterized Type: " + types.length);
 		}
 		Type rawType = types[index];
 		if (rawType instanceof ParameterizedType) {
@@ -132,8 +127,7 @@ public class ClassUtils {
 		try {
 			return clazz.newInstance();
 		} catch (Exception e) {
-			throw new NewInstanceException("Unable to instantiate class ["
-					+ clazz.getName() + "]", e);
+			throw new NewInstanceException("Unable to instantiate class [" + clazz.getName() + "]", e);
 		}
 	}
 
@@ -152,12 +146,10 @@ public class ClassUtils {
 	 *            构造函数中的参数
 	 * @return
 	 */
-	public static Object newInstance(Class<?> clazz,
-			Class<?>[] constructorType, Object... args) {
+	public static Object newInstance(Class<?> clazz, Class<?>[] constructorType, Object... args) {
 		try {
 			if (constructorType != null) {
-				Constructor<?> constructor = clazz
-						.getConstructor(constructorType);
+				Constructor<?> constructor = clazz.getConstructor(constructorType);
 				return constructor.newInstance(args);
 			} else {
 				return newInstance(clazz);
@@ -179,18 +171,14 @@ public class ClassUtils {
 	 *            构造函数中的参数
 	 * @return
 	 */
-	public static Object newInstance(String className,
-			Class<?>[] parameterTypes, Object... args) {
+	public static Object newInstance(String className, Class<?>[] parameterTypes, Object... args) {
 		Class<?> clazz = classForName(className);
 		try {
 			if (parameterTypes != null && parameterTypes.length > 0) {
 				if (args == null || args.length != parameterTypes.length) {
-					throw new NewInstanceException(
-							"Unable to instantiate class [" + clazz.getName()
-									+ "]");
+					throw new NewInstanceException("Unable to instantiate class [" + clazz.getName() + "]");
 				}
-				Constructor<?> constructor = clazz
-						.getConstructor(parameterTypes);
+				Constructor<?> constructor = clazz.getConstructor(parameterTypes);
 				return constructor.newInstance(args);
 			} else {
 				return newInstance(clazz);
@@ -198,6 +186,32 @@ public class ClassUtils {
 
 		} catch (Exception e) {
 			throw new NewInstanceException(e.getMessage(), e);
+		}
+	}
+
+	public static Object newInstance(Class<?> clazz, Object... args) {
+		Class<?>[] argTypes = new Class[args.length];
+		for (int i = 0; i < args.length; i++) {
+			argTypes[i] = args[i].getClass();
+		}
+		return newInstance(clazz, argTypes, args);
+	}
+
+	public static Constructor<?> getConstructor(Class<?> clazz, Class<?>... argTypes) {
+		try {
+			return clazz.getConstructor(argTypes);
+		} catch (NoSuchMethodException e) {
+			throw new IllegalStateException(e);
+		}
+
+	}
+
+	public static Object newInstance(Constructor<?> ctor, Object... args) {
+		try {
+			return ctor.newInstance(args);
+		} catch (Exception e) {
+			String msg = "Unable to instantiate Permission instance with constructor [" + ctor + "]";
+			throw new NewInstanceException(msg, e);
 		}
 	}
 }
