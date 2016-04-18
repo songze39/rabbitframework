@@ -20,9 +20,9 @@ package com.rabbitframework.security;
 
 import junit.framework.TestCase;
 
+import org.apache.shiro.util.ClassUtils;
 import org.junit.Test;
 
-import com.rabbitframework.security.util.ClassUtils;
 
 /**
  */
