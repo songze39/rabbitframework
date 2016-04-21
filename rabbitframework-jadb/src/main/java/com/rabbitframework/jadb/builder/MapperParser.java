@@ -108,9 +108,9 @@ public class MapperParser {
 			cache = configuration.getCache(pool);
 			cacheKey = cacheNamespace.key();
 		}
-		boolean ispage = isPage(method, dialect, sqlCommendType);
+		boolean isPage = isPage(method, dialect, sqlCommendType);
 
-		SqlSource sqlSource = getSqlSource(getSql(sqlParser, ispage, dialect), languageDriver, ispage);
+		SqlSource sqlSource = getSqlSource(getSql(sqlParser, isPage, dialect), languageDriver, isPage);
 		RowMapper rowMapper = null;
 		if (SqlCommendType.SELECT == sqlCommendType) {
 			rowMapper = RowMapperUtil.getRowMapper(method);

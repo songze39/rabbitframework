@@ -40,7 +40,7 @@ public class Plugin implements InvocationHandler {
     }
 
     public static Object wrap(Object target, Interceptor interceptor) {
-        Map<Class<?>, Set<Method>> interceptMap = getinterceptMap(interceptor);
+        Map<Class<?>, Set<Method>> interceptMap = getInterceptMap(interceptor);
         Class<?> type = target.getClass();
         Class<?>[] interfaces = getAllInterfaces(type, interceptMap);
         if (interfaces.length > 0) {
@@ -64,7 +64,7 @@ public class Plugin implements InvocationHandler {
         }
     }
 
-    private static Map<Class<?>, Set<Method>> getinterceptMap(
+    private static Map<Class<?>, Set<Method>> getInterceptMap(
             Interceptor interceptor) {
         Intercept interceptsAnnotation = interceptor.getClass().getAnnotation(
                 Intercept.class);
