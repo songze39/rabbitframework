@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 public class StringUtils {
     private static final Logger logger = LoggerFactory.getLogger(StringUtils.class);
+    public static final String EMPTY_STRING = "";
     public final static String CONFIG_LOCATION_DELIMITERS = ",; \t\n";
     public static final String PREFERRED_ENCODING = "UTF-8";
 
@@ -306,6 +307,40 @@ public class StringUtils {
         if (length > 1) {
             String remaining = in.substring(1);
             sb.append(remaining);
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Returns the specified array as a comma-delimited (',') string.
+     *
+     * @param array the array whose contents will be converted to a string.
+     * @return the array's contents as a comma-delimited (',') string.
+     * @since 1.0
+     */
+    public static String toString(Object[] array) {
+        return toDelimitedString(array, ",");
+    }
+
+    /**
+     * Returns the array's contents as a string, with each element delimited by the specified
+     * {@code delimiter} argument.  Useful for {@code toString()} implementations and log messages.
+     *
+     * @param array     the array whose contents will be converted to a string
+     * @param delimiter the delimiter to use between each element
+     * @return a single string, delimited by the specified {@code delimiter}.
+     * @since 1.0
+     */
+    public static String toDelimitedString(Object[] array, String delimiter) {
+        if (array == null || array.length == 0) {
+            return EMPTY_STRING;
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < array.length; i++) {
+            if (i > 0) {
+                sb.append(delimiter);
+            }
+            sb.append(array[i]);
         }
         return sb.toString();
     }
