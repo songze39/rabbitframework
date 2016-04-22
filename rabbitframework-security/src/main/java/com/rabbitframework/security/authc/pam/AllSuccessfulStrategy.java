@@ -18,34 +18,28 @@
  */
 package com.rabbitframework.security.authc.pam;
 
+import com.rabbitframework.security.authc.AuthenticationException;
+import com.rabbitframework.security.authc.AuthenticationInfo;
+import com.rabbitframework.security.authc.AuthenticationToken;
+import com.rabbitframework.security.authc.UnknownAccountException;
+import com.rabbitframework.security.realm.Realm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationInfo;
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.UnknownAccountException;
-import org.apache.shiro.realm.Realm;
-
 
 /**
- * <tt>AuthenticationStrategy</tt> implementation that requires <em>all</em> configured realms to
- * <b>successfully</b> process the submitted <tt>AuthenticationToken</tt> during the log-in attempt.
- * <p/>
- * <p>If one or more realms do not support the submitted token, or one or more are unable to acquire
- * <tt>AuthenticationInfo</tt> for the token, this implementation will immediately fail the log-in attempt for the
- * associated subject (user).
- *
- * @since 0.2
+ * 所有{@link Realm}验证成功才算成功,且返回所有{@link Realm}身份验证成功的 认证信息,如果有一个失败就失败了
  */
 public class AllSuccessfulStrategy extends AbstractAuthenticationStrategy {
 
-    /** Private class log instance. */
+    /**
+     * Private class log instance.
+     */
     private static final Logger log = LoggerFactory.getLogger(AllSuccessfulStrategy.class);
 
     /**
      * Because all realms in this strategy must complete successfully, this implementation ensures that the given
-     * <code>Realm</code> {@link org.apache.shiro.realm.Realm#supports(org.apache.shiro.authc.AuthenticationToken) supports} the given
+     * <code>Realm</code> {@link Realm#supports(AuthenticationToken) supports} the given
      * <code>token</code> argument.  If it does not, this method throws an
      * {@link UnsupportedTokenException UnsupportedTokenException} to end the authentication
      * process immediately. If the realm does support the token, the <code>info</code> argument is returned immediately.

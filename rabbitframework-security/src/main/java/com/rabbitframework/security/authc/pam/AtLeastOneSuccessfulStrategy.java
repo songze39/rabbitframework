@@ -18,36 +18,23 @@
  */
 package com.rabbitframework.security.authc.pam;
 
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationInfo;
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.util.CollectionUtils;
+import com.rabbitframework.security.authc.AuthenticationException;
+import com.rabbitframework.security.authc.AuthenticationInfo;
+import com.rabbitframework.security.authc.AuthenticationToken;
+import com.rabbitframework.security.util.CollectionUtils;
 
 /**
- * <tt>AuthenticationStrategy</tt> implementation that requires <em>at least one</em> configured realm to
- * successfully process the submitted <tt>AuthenticationToken</tt> during the log-in attempt.
- * <p/>
- * <p>This means any number of configured realms do not have to support the submitted log-in token, or they may
- * be unable to acquire <tt>AuthenticationInfo</tt> for the token, but as long as at least one can do both, this
- * Strategy implementation will allow the log-in process to be successful.
- * <p/>
- * <p>Note that this implementation will aggregate the account data from <em>all</em> successfully consulted
- * realms during the authentication attempt. If you want only the account data from the first successfully
- * consulted realm and want to ignore all subsequent realms, use the
- * {@link FirstSuccessfulStrategy FirstSuccessfulAuthenticationStrategy} instead.
- *
- * @see FirstSuccessfulStrategy FirstSuccessfulAuthenticationStrategy
- * @since 0.2
+ * 只要有一个 Realm 验证成功即可,和 {@link FirstSuccessfulStrategy} 不同,返回所有 Realm 身份验证成功的认证信息;
  */
 public class AtLeastOneSuccessfulStrategy extends AbstractAuthenticationStrategy {
 
     /**
      * Ensures that the <code>aggregate</code> method argument is not <code>null</code> and
-     * <code>aggregate.{@link org.apache.shiro.authc.AuthenticationInfo#getPrincipals() getPrincipals()}</code>
+     * <code>aggregate.{@link AuthenticationInfo#getPrincipals() getPrincipals()}</code>
      * is not <code>null</code>, and if either is <code>null</code>, throws an AuthenticationException to indicate
      * that none of the realms authenticated successfully.
      */
-    public AuthenticationInfo afterAllAttempts(AuthenticationToken token, AuthenticationInfo aggregate) throws AuthenticationException {
+    public AuthenticationInfo afterAllAØttempts(AuthenticationToken token, AuthenticationInfo aggregate) throws AuthenticationException {
         //we know if one or more were able to succesfully authenticate if the aggregated account object does not
         //contain null or empty data:
         if (aggregate == null || CollectionUtils.isEmpty(aggregate.getPrincipals())) {
