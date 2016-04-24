@@ -14,7 +14,7 @@ public class PropertyParser {
 	 * 
 	 * 解析${}表达式，并根据属性获取值
 	 * 
-	 * @param value
+	 * @param expSource
 	 *            参数值
 	 * @param variables
 	 *            属性变量
