@@ -31,280 +31,292 @@ import com.rabbitframework.security.util.LifecycleUtils;
 
 import java.util.Collection;
 
-
 /**
- * Default business-tier implementation of the {@link ValidatingSessionManager} interface.
+ * Default business-tier implementation of the {@link ValidatingSessionManager}
+ * interface.
  *
  * @since 0.1
  */
 public abstract class AbstractValidatingSessionManager extends AbstractNativeSessionManager
-        implements ValidatingSessionManager, Destroyable {
+		implements ValidatingSessionManager, Destroyable {
+	private static final Logger log = LoggerFactory.getLogger(AbstractValidatingSessionManager.class);
 
-    //TODO - complete JavaDoc
+	/**
+	 * The default interval at which sessions will be validated (1 hour); This
+	 * can be overridden by calling {@link #setSessionValidationInterval(long)}
+	 */
+	public static final long DEFAULT_SESSION_VALIDATION_INTERVAL = MILLIS_PER_HOUR;
 
-    private static final Logger log = LoggerFactory.getLogger(AbstractValidatingSessionManager.class);
+	protected boolean sessionValidationSchedulerEnabled;
 
-    /**
-     * The default interval at which sessions will be validated (1 hour);
-     * This can be overridden by calling {@link #setSessionValidationInterval(long)}
-     */
-    public static final long DEFAULT_SESSION_VALIDATION_INTERVAL = MILLIS_PER_HOUR;
+	/**
+	 * Scheduler used to validate sessions on a regular basis.
+	 */
+	protected SessionValidationScheduler sessionValidationScheduler;
 
-    protected boolean sessionValidationSchedulerEnabled;
+	protected long sessionValidationInterval;
 
-    /**
-     * Scheduler used to validate sessions on a regular basis.
-     */
-    protected SessionValidationScheduler sessionValidationScheduler;
+	public AbstractValidatingSessionManager() {
+		this.sessionValidationSchedulerEnabled = true;
+		this.sessionValidationInterval = DEFAULT_SESSION_VALIDATION_INTERVAL;
+	}
 
-    protected long sessionValidationInterval;
+	public boolean isSessionValidationSchedulerEnabled() {
+		return sessionValidationSchedulerEnabled;
+	}
 
-    public AbstractValidatingSessionManager() {
-        this.sessionValidationSchedulerEnabled = true;
-        this.sessionValidationInterval = DEFAULT_SESSION_VALIDATION_INTERVAL;
-    }
+	public void setSessionValidationSchedulerEnabled(boolean sessionValidationSchedulerEnabled) {
+		this.sessionValidationSchedulerEnabled = sessionValidationSchedulerEnabled;
+	}
 
-    public boolean isSessionValidationSchedulerEnabled() {
-        return sessionValidationSchedulerEnabled;
-    }
+	public void setSessionValidationScheduler(SessionValidationScheduler sessionValidationScheduler) {
+		this.sessionValidationScheduler = sessionValidationScheduler;
+	}
 
-    @SuppressWarnings({"UnusedDeclaration"})
-    public void setSessionValidationSchedulerEnabled(boolean sessionValidationSchedulerEnabled) {
-        this.sessionValidationSchedulerEnabled = sessionValidationSchedulerEnabled;
-    }
+	public SessionValidationScheduler getSessionValidationScheduler() {
+		return sessionValidationScheduler;
+	}
 
-    public void setSessionValidationScheduler(SessionValidationScheduler sessionValidationScheduler) {
-        this.sessionValidationScheduler = sessionValidationScheduler;
-    }
+	private void enableSessionValidationIfNecessary() {
+		SessionValidationScheduler scheduler = getSessionValidationScheduler();
+		if (isSessionValidationSchedulerEnabled() && (scheduler == null || !scheduler.isEnabled())) {
+			enableSessionValidation();
+		}
+	}
 
-    public SessionValidationScheduler getSessionValidationScheduler() {
-        return sessionValidationScheduler;
-    }
+	/**
+	 * If using the underlying default <tt>SessionValidationScheduler</tt> (that
+	 * is, the {@link #setSessionValidationScheduler(SessionValidationScheduler)
+	 * setSessionValidationScheduler} method is never called) , this method
+	 * allows one to specify how frequently session should be validated (to
+	 * check for orphans). The default value is
+	 * {@link #DEFAULT_SESSION_VALIDATION_INTERVAL}.
+	 * <p/>
+	 * If you override the default scheduler, it is assumed that overriding
+	 * instance 'knows' how often to validate sessions, and this attribute will
+	 * be ignored.
+	 * <p/>
+	 * Unless this method is called, the default value is
+	 * {@link #DEFAULT_SESSION_VALIDATION_INTERVAL}.
+	 *
+	 * @param sessionValidationInterval
+	 *            the time in milliseconds between checking for valid sessions
+	 *            to reap orphans.
+	 */
+	public void setSessionValidationInterval(long sessionValidationInterval) {
+		this.sessionValidationInterval = sessionValidationInterval;
+	}
 
-    private void enableSessionValidationIfNecessary() {
-        SessionValidationScheduler scheduler = getSessionValidationScheduler();
-        if (isSessionValidationSchedulerEnabled() && (scheduler == null || !scheduler.isEnabled())) {
-            enableSessionValidation();
-        }
-    }
+	public long getSessionValidationInterval() {
+		return sessionValidationInterval;
+	}
 
-    /**
-     * If using the underlying default <tt>SessionValidationScheduler</tt> (that is, the
-     * {@link #setSessionValidationScheduler(SessionValidationScheduler) setSessionValidationScheduler} method is
-     * never called) , this method allows one to specify how
-     * frequently session should be validated (to check for orphans).  The default value is
-     * {@link #DEFAULT_SESSION_VALIDATION_INTERVAL}.
-     * <p/>
-     * If you override the default scheduler, it is assumed that overriding instance 'knows' how often to
-     * validate sessions, and this attribute will be ignored.
-     * <p/>
-     * Unless this method is called, the default value is {@link #DEFAULT_SESSION_VALIDATION_INTERVAL}.
-     *
-     * @param sessionValidationInterval the time in milliseconds between checking for valid sessions to reap orphans.
-     */
-    public void setSessionValidationInterval(long sessionValidationInterval) {
-        this.sessionValidationInterval = sessionValidationInterval;
-    }
+	@Override
+	protected final Session doGetSession(final SessionKey key) throws InvalidSessionException {
+		enableSessionValidationIfNecessary();
 
-    public long getSessionValidationInterval() {
-        return sessionValidationInterval;
-    }
+		log.trace("Attempting to retrieve session with key {}", key);
 
-    @Override
-    protected final Session doGetSession(final SessionKey key) throws InvalidSessionException {
-        enableSessionValidationIfNecessary();
+		Session s = retrieveSession(key);
+		if (s != null) {
+			validate(s, key);
+		}
+		return s;
+	}
 
-        log.trace("Attempting to retrieve session with key {}", key);
+	/**
+	 * Looks up a session from the underlying data store based on the specified
+	 * session key.
+	 *
+	 * @param key
+	 *            the session key to use to look up the target session.
+	 * @return the session identified by {@code sessionId}.
+	 * @throws UnknownSessionException
+	 *             if there is no session identified by {@code sessionId}.
+	 */
+	protected abstract Session retrieveSession(SessionKey key) throws UnknownSessionException;
 
-        Session s = retrieveSession(key);
-        if (s != null) {
-            validate(s, key);
-        }
-        return s;
-    }
+	protected Session createSession(SessionContext context) throws AuthorizationException {
+		enableSessionValidationIfNecessary();
+		return doCreateSession(context);
+	}
 
-    /**
-     * Looks up a session from the underlying data store based on the specified session key.
-     *
-     * @param key the session key to use to look up the target session.
-     * @return the session identified by {@code sessionId}.
-     * @throws UnknownSessionException if there is no session identified by {@code sessionId}.
-     */
-    protected abstract Session retrieveSession(SessionKey key) throws UnknownSessionException;
+	protected abstract Session doCreateSession(SessionContext initData) throws AuthorizationException;
 
-    protected Session createSession(SessionContext context) throws AuthorizationException {
-        enableSessionValidationIfNecessary();
-        return doCreateSession(context);
-    }
+	protected void validate(Session session, SessionKey key) throws InvalidSessionException {
+		try {
+			doValidate(session);
+		} catch (ExpiredSessionException ese) {
+			onExpiration(session, ese, key);
+			throw ese;
+		} catch (InvalidSessionException ise) {
+			onInvalidation(session, ise, key);
+			throw ise;
+		}
+	}
 
-    protected abstract Session doCreateSession(SessionContext initData) throws AuthorizationException;
+	protected void onExpiration(Session s, ExpiredSessionException ese, SessionKey key) {
+		log.trace("Session with id [{}] has expired.", s.getId());
+		try {
+			onExpiration(s);
+			notifyExpiration(s);
+		} finally {
+			afterExpired(s);
+		}
+	}
 
-    protected void validate(Session session, SessionKey key) throws InvalidSessionException {
-        try {
-            doValidate(session);
-        } catch (ExpiredSessionException ese) {
-            onExpiration(session, ese, key);
-            throw ese;
-        } catch (InvalidSessionException ise) {
-            onInvalidation(session, ise, key);
-            throw ise;
-        }
-    }
+	protected void onExpiration(Session session) {
+		onChange(session);
+	}
 
-    protected void onExpiration(Session s, ExpiredSessionException ese, SessionKey key) {
-        log.trace("Session with id [{}] has expired.", s.getId());
-        try {
-            onExpiration(s);
-            notifyExpiration(s);
-        } finally {
-            afterExpired(s);
-        }
-    }
+	protected void afterExpired(Session session) {
+	}
 
-    protected void onExpiration(Session session) {
-        onChange(session);
-    }
+	protected void onInvalidation(Session s, InvalidSessionException ise, SessionKey key) {
+		if (ise instanceof ExpiredSessionException) {
+			onExpiration(s, (ExpiredSessionException) ise, key);
+			return;
+		}
+		log.trace("Session with id [{}] is invalid.", s.getId());
+		try {
+			onStop(s);
+			notifyStop(s);
+		} finally {
+			afterStopped(s);
+		}
+	}
 
-    protected void afterExpired(Session session) {
-    }
+	protected void doValidate(Session session) throws InvalidSessionException {
+		if (session instanceof ValidatingSession) {
+			((ValidatingSession) session).validate();
+		} else {
+			String msg = "The " + getClass().getName() + " implementation only supports validating "
+					+ "Session implementations of the " + ValidatingSession.class.getName() + " interface.  "
+					+ "Please either implement this interface in your session implementation or override the "
+					+ AbstractValidatingSessionManager.class.getName()
+					+ ".doValidate(Session) method to perform validation.";
+			throw new IllegalStateException(msg);
+		}
+	}
 
-    protected void onInvalidation(Session s, InvalidSessionException ise, SessionKey key) {
-        if (ise instanceof ExpiredSessionException) {
-            onExpiration(s, (ExpiredSessionException) ise, key);
-            return;
-        }
-        log.trace("Session with id [{}] is invalid.", s.getId());
-        try {
-            onStop(s);
-            notifyStop(s);
-        } finally {
-            afterStopped(s);
-        }
-    }
+	/**
+	 * Subclass template hook in case per-session timeout is not based on
+	 * {@link com.rabbitframework.security.session.Session#getTimeout()}.
+	 * <p/>
+	 * <p>
+	 * This implementation merely returns
+	 * {@link com.rabbitframework.security.session.Session#getTimeout()}
+	 * </p>
+	 *
+	 * @param session
+	 *            the session for which to determine session timeout.
+	 * @return the time in milliseconds the specified session may remain idle
+	 *         before expiring.
+	 */
+	protected long getTimeout(Session session) {
+		return session.getTimeout();
+	}
 
-    protected void doValidate(Session session) throws InvalidSessionException {
-        if (session instanceof ValidatingSession) {
-            ((ValidatingSession) session).validate();
-        } else {
-            String msg = "The " + getClass().getName() + " implementation only supports validating " +
-                    "Session implementations of the " + ValidatingSession.class.getName() + " interface.  " +
-                    "Please either implement this interface in your session implementation or override the " +
-                    AbstractValidatingSessionManager.class.getName() + ".doValidate(Session) method to perform validation.";
-            throw new IllegalStateException(msg);
-        }
-    }
+	protected SessionValidationScheduler createSessionValidationScheduler() {
+		ExecutorServiceSessionValidationScheduler scheduler;
 
-    /**
-     * Subclass template hook in case per-session timeout is not based on
-     * {@link com.rabbitframework.security.session.Session#getTimeout()}.
-     * <p/>
-     * <p>This implementation merely returns {@link com.rabbitframework.security.session.Session#getTimeout()}</p>
-     *
-     * @param session the session for which to determine session timeout.
-     * @return the time in milliseconds the specified session may remain idle before expiring.
-     */
-    protected long getTimeout(Session session) {
-        return session.getTimeout();
-    }
+		if (log.isDebugEnabled()) {
+			log.debug("No sessionValidationScheduler set.  Attempting to create default instance.");
+		}
+		scheduler = new ExecutorServiceSessionValidationScheduler(this);
+		scheduler.setInterval(getSessionValidationInterval());
+		if (log.isTraceEnabled()) {
+			log.trace("Created default SessionValidationScheduler instance of type [" + scheduler.getClass().getName()
+					+ "].");
+		}
+		return scheduler;
+	}
 
-    protected SessionValidationScheduler createSessionValidationScheduler() {
-        ExecutorServiceSessionValidationScheduler scheduler;
+	protected void enableSessionValidation() {
+		SessionValidationScheduler scheduler = getSessionValidationScheduler();
+		if (scheduler == null) {
+			scheduler = createSessionValidationScheduler();
+			setSessionValidationScheduler(scheduler);
+		}
+		if (log.isInfoEnabled()) {
+			log.info("Enabling session validation scheduler...");
+		}
+		scheduler.enableSessionValidation();
+		afterSessionValidationEnabled();
+	}
 
-        if (log.isDebugEnabled()) {
-            log.debug("No sessionValidationScheduler set.  Attempting to create default instance.");
-        }
-        scheduler = new ExecutorServiceSessionValidationScheduler(this);
-        scheduler.setInterval(getSessionValidationInterval());
-        if (log.isTraceEnabled()) {
-            log.trace("Created default SessionValidationScheduler instance of type [" + scheduler.getClass().getName() + "].");
-        }
-        return scheduler;
-    }
+	protected void afterSessionValidationEnabled() {
+	}
 
-    protected void enableSessionValidation() {
-        SessionValidationScheduler scheduler = getSessionValidationScheduler();
-        if (scheduler == null) {
-            scheduler = createSessionValidationScheduler();
-            setSessionValidationScheduler(scheduler);
-        }
-        if (log.isInfoEnabled()) {
-            log.info("Enabling session validation scheduler...");
-        }
-        scheduler.enableSessionValidation();
-        afterSessionValidationEnabled();
-    }
+	protected void disableSessionValidation() {
+		beforeSessionValidationDisabled();
+		SessionValidationScheduler scheduler = getSessionValidationScheduler();
+		if (scheduler != null) {
+			try {
+				scheduler.disableSessionValidation();
+				if (log.isInfoEnabled()) {
+					log.info("Disabled session validation scheduler.");
+				}
+			} catch (Exception e) {
+				if (log.isDebugEnabled()) {
+					String msg = "Unable to disable SessionValidationScheduler.  Ignoring (shutting down)...";
+					log.debug(msg, e);
+				}
+			}
+			LifecycleUtils.destroy(scheduler);
+			setSessionValidationScheduler(null);
+		}
+	}
 
-    protected void afterSessionValidationEnabled() {
-    }
+	protected void beforeSessionValidationDisabled() {
+	}
 
-    protected void disableSessionValidation() {
-        beforeSessionValidationDisabled();
-        SessionValidationScheduler scheduler = getSessionValidationScheduler();
-        if (scheduler != null) {
-            try {
-                scheduler.disableSessionValidation();
-                if (log.isInfoEnabled()) {
-                    log.info("Disabled session validation scheduler.");
-                }
-            } catch (Exception e) {
-                if (log.isDebugEnabled()) {
-                    String msg = "Unable to disable SessionValidationScheduler.  Ignoring (shutting down)...";
-                    log.debug(msg, e);
-                }
-            }
-            LifecycleUtils.destroy(scheduler);
-            setSessionValidationScheduler(null);
-        }
-    }
+	public void destroy() {
+		disableSessionValidation();
+	}
 
-    protected void beforeSessionValidationDisabled() {
-    }
+	/**
+	 * @see ValidatingSessionManager#validateSessions()
+	 */
+	public void validateSessions() {
+		if (log.isInfoEnabled()) {
+			log.info("Validating all active sessions...");
+		}
 
-    public void destroy() {
-        disableSessionValidation();
-    }
+		int invalidCount = 0;
 
-    /**
-     * @see ValidatingSessionManager#validateSessions()
-     */
-    public void validateSessions() {
-        if (log.isInfoEnabled()) {
-            log.info("Validating all active sessions...");
-        }
+		Collection<Session> activeSessions = getActiveSessions();
 
-        int invalidCount = 0;
+		if (activeSessions != null && !activeSessions.isEmpty()) {
+			for (Session s : activeSessions) {
+				try {
+					// simulate a lookup key to satisfy the method signature.
+					// this could probably stand to be cleaned up in future
+					// versions:
+					SessionKey key = new DefaultSessionKey(s.getId());
+					validate(s, key);
+				} catch (InvalidSessionException e) {
+					if (log.isDebugEnabled()) {
+						boolean expired = (e instanceof ExpiredSessionException);
+						String msg = "Invalidated session with id [" + s.getId() + "]"
+								+ (expired ? " (expired)" : " (stopped)");
+						log.debug(msg);
+					}
+					invalidCount++;
+				}
+			}
+		}
 
-        Collection<Session> activeSessions = getActiveSessions();
+		if (log.isInfoEnabled()) {
+			String msg = "Finished session validation.";
+			if (invalidCount > 0) {
+				msg += "  [" + invalidCount + "] sessions were stopped.";
+			} else {
+				msg += "  No sessions were stopped.";
+			}
+			log.info(msg);
+		}
+	}
 
-        if (activeSessions != null && !activeSessions.isEmpty()) {
-            for (Session s : activeSessions) {
-                try {
-                    //simulate a lookup key to satisfy the method signature.
-                    //this could probably stand to be cleaned up in future versions:
-                    SessionKey key = new DefaultSessionKey(s.getId());
-                    validate(s, key);
-                } catch (InvalidSessionException e) {
-                    if (log.isDebugEnabled()) {
-                        boolean expired = (e instanceof ExpiredSessionException);
-                        String msg = "Invalidated session with id [" + s.getId() + "]" +
-                                (expired ? " (expired)" : " (stopped)");
-                        log.debug(msg);
-                    }
-                    invalidCount++;
-                }
-            }
-        }
-
-        if (log.isInfoEnabled()) {
-            String msg = "Finished session validation.";
-            if (invalidCount > 0) {
-                msg += "  [" + invalidCount + "] sessions were stopped.";
-            } else {
-                msg += "  No sessions were stopped.";
-            }
-            log.info(msg);
-        }
-    }
-
-    protected abstract Collection<Session> getActiveSessions();
+	protected abstract Collection<Session> getActiveSessions();
 }

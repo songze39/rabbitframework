@@ -74,15 +74,13 @@ public class DefaultSubjectContext extends MapContext implements SubjectContext 
 	/**
 	 * The session key that is used to store subject principals.
 	 */
-	public static final String PRINCIPALS_SESSION_KEY = DefaultSubjectContext.class.getName()
-			+ "_PRINCIPALS_SESSION_KEY";
+	public static final String PRINCIPALS_SESSION_KEY = CLASS_NAME + "_PRINCIPALS_SESSION_KEY";
 
 	/**
 	 * The session key that is used to store whether or not the user is
 	 * authenticated.
 	 */
-	public static final String AUTHENTICATED_SESSION_KEY = DefaultSubjectContext.class.getName()
-			+ "_AUTHENTICATED_SESSION_KEY";
+	public static final String AUTHENTICATED_SESSION_KEY = CLASS_NAME + "_AUTHENTICATED_SESSION_KEY";
 
 	private static final transient Logger log = LoggerFactory.getLogger(DefaultSubjectContext.class);
 
