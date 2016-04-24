@@ -64,7 +64,6 @@ public class DefaultWebSessionManager extends DefaultSessionManager implements W
         return sessionIdCookie;
     }
 
-    @SuppressWarnings({"UnusedDeclaration"})
     public void setSessionIdCookie(Cookie sessionIdCookie) {
         this.sessionIdCookie = sessionIdCookie;
     }
@@ -73,7 +72,6 @@ public class DefaultWebSessionManager extends DefaultSessionManager implements W
         return sessionIdCookieEnabled;
     }
 
-    @SuppressWarnings({"UnusedDeclaration"})
     public void setSessionIdCookieEnabled(boolean sessionIdCookieEnabled) {
         this.sessionIdCookieEnabled = sessionIdCookieEnabled;
     }

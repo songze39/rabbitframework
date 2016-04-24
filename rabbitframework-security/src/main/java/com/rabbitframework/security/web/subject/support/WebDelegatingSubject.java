@@ -33,71 +33,69 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 /**
- * Default {@link WebSubject WebSubject} implementation that additional ensures the ability to retain a
- * servlet request/response pair to be used by internal shiro components as necessary during the request execution.
+ * Default {@link WebSubject WebSubject} implementation that additional ensures
+ * the ability to retain a servlet request/response pair to be used by internal
+ * shiro components as necessary during the request execution.
  *
  * @since 1.0
  */
 public class WebDelegatingSubject extends DelegatingSubject implements WebSubject {
+	private final ServletRequest servletRequest;
+	private final ServletResponse servletResponse;
 
-    private static final long serialVersionUID = -1655724323350159250L;
+	public WebDelegatingSubject(PrincipalCollection principals, boolean authenticated, String host, Session session,
+			ServletRequest request, ServletResponse response, SecurityManager securityManager) {
+		this(principals, authenticated, host, session, true, request, response, securityManager);
+	}
 
-    private final ServletRequest servletRequest;
-    private final ServletResponse servletResponse;
+	// since 1.2
+	public WebDelegatingSubject(PrincipalCollection principals, boolean authenticated, String host, Session session,
+			boolean sessionEnabled, ServletRequest request, ServletResponse response, SecurityManager securityManager) {
+		super(principals, authenticated, host, session, sessionEnabled, securityManager);
+		this.servletRequest = request;
+		this.servletResponse = response;
+	}
 
-    public WebDelegatingSubject(PrincipalCollection principals, boolean authenticated,
-                                String host, Session session,
-                                ServletRequest request, ServletResponse response,
-                                SecurityManager securityManager) {
-        this(principals, authenticated, host, session, true, request, response, securityManager);
-    }
+	public ServletRequest getServletRequest() {
+		return servletRequest;
+	}
 
-    //since 1.2
-    public WebDelegatingSubject(PrincipalCollection principals, boolean authenticated,
-                                String host, Session session, boolean sessionEnabled,
-                                ServletRequest request, ServletResponse response,
-                                SecurityManager securityManager) {
-        super(principals, authenticated, host, session, sessionEnabled, securityManager);
-        this.servletRequest = request;
-        this.servletResponse = response;
-    }
+	public ServletResponse getServletResponse() {
+		return servletResponse;
+	}
 
-    public ServletRequest getServletRequest() {
-        return servletRequest;
-    }
+	/**
+	 * Returns {@code true} if session creation is allowed (as determined by the
+	 * super class's {@link super#isSessionCreationEnabled()} value and no
+	 * request-specific override has disabled sessions for this subject,
+	 * {@code false} otherwise.
+	 * <p/>
+	 * This means session creation is disabled if the super
+	 * {@link super#isSessionCreationEnabled()} property is {@code false} or if
+	 * a request attribute is discovered that turns off sessions for the current
+	 * request.
+	 *
+	 * @return {@code true} if session creation is allowed (as determined by the
+	 *         super class's {@link super#isSessionCreationEnabled()} value and
+	 *         no request-specific override has disabled sessions for this
+	 *         subject, {@code false} otherwise.
+	 * @since 1.2
+	 */
+	@Override
+	protected boolean isSessionCreationEnabled() {
+		boolean enabled = super.isSessionCreationEnabled();
+		return enabled && WebUtils._isSessionCreationEnabled(this);
+	}
 
-    public ServletResponse getServletResponse() {
-        return servletResponse;
-    }
-
-    /**
-     * Returns {@code true} if session creation is allowed  (as determined by the super class's
-     * {@link super#isSessionCreationEnabled()} value and no request-specific override has disabled sessions for this subject,
-     * {@code false} otherwise.
-     * <p/>
-     * This means session creation is disabled if the super {@link super#isSessionCreationEnabled()} property is {@code false}
-     * or if a request attribute is discovered that turns off sessions for the current request.
-     *
-     * @return {@code true} if session creation is allowed  (as determined by the super class's
-     *         {@link super#isSessionCreationEnabled()} value and no request-specific override has disabled sessions for this
-     *         subject, {@code false} otherwise.
-     * @since 1.2
-     */
-    @Override
-    protected boolean isSessionCreationEnabled() {
-        boolean enabled = super.isSessionCreationEnabled();
-        return enabled && WebUtils._isSessionCreationEnabled(this);
-    }
-
-    @Override
-    protected SessionContext createSessionContext() {
-        WebSessionContext wsc = new DefaultWebSessionContext();
-        String host = getHost();
-        if (StringUtils.hasText(host)) {
-            wsc.setHost(host);
-        }
-        wsc.setServletRequest(this.servletRequest);
-        wsc.setServletResponse(this.servletResponse);
-        return wsc;
-    }
+	@Override
+	protected SessionContext createSessionContext() {
+		WebSessionContext wsc = new DefaultWebSessionContext();
+		String host = getHost();
+		if (StringUtils.hasText(host)) {
+			wsc.setHost(host);
+		}
+		wsc.setServletRequest(this.servletRequest);
+		wsc.setServletResponse(this.servletResponse);
+		return wsc;
+	}
 }

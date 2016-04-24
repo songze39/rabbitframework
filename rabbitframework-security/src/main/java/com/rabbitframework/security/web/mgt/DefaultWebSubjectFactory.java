@@ -31,48 +31,37 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 /**
- * A {@code SubjectFactory} implementation that creates {@link WebDelegatingSubject} instances.
+ * A {@code SubjectFactory} implementation that creates
+ * {@link WebDelegatingSubject} instances.
  * <p/>
- * {@code WebDelegatingSubject} instances are required if Request/Response objects are to be maintained across
- * threads when using the {@code Subject} {@link Subject#associateWith(java.util.concurrent.Callable) createCallable}
+ * {@code WebDelegatingSubject} instances are required if Request/Response
+ * objects are to be maintained across threads when using the {@code Subject}
+ * {@link Subject#associateWith(java.util.concurrent.Callable) createCallable}
  * and {@link Subject#associateWith(Runnable) createRunnable} methods.
  *
  * @since 1.0
  */
 public class DefaultWebSubjectFactory extends DefaultSubjectFactory {
 
-    public DefaultWebSubjectFactory() {
-        super();
-    }
+	public DefaultWebSubjectFactory() {
+		super();
+	}
 
-    public Subject createSubject(SubjectContext context) {
-        if (!(context instanceof WebSubjectContext)) {
-            return super.createSubject(context);
-        }
-        WebSubjectContext wsc = (WebSubjectContext) context;
-        SecurityManager securityManager = wsc.resolveSecurityManager();
-        Session session = wsc.resolveSession();
-        boolean sessionEnabled = wsc.isSessionCreationEnabled();
-        PrincipalCollection principals = wsc.resolvePrincipals();
-        boolean authenticated = wsc.resolveAuthenticated();
-        String host = wsc.resolveHost();
-        ServletRequest request = wsc.resolveServletRequest();
-        ServletResponse response = wsc.resolveServletResponse();
+	public Subject createSubject(SubjectContext context) {
+		if (!(context instanceof WebSubjectContext)) {
+			return super.createSubject(context);
+		}
+		WebSubjectContext wsc = (WebSubjectContext) context;
+		SecurityManager securityManager = wsc.resolveSecurityManager();
+		Session session = wsc.resolveSession();
+		boolean sessionEnabled = wsc.isSessionCreationEnabled();
+		PrincipalCollection principals = wsc.resolvePrincipals();
+		boolean authenticated = wsc.resolveAuthenticated();
+		String host = wsc.resolveHost();
+		ServletRequest request = wsc.resolveServletRequest();
+		ServletResponse response = wsc.resolveServletResponse();
 
-        return new WebDelegatingSubject(principals, authenticated, host, session, sessionEnabled,
-                request, response, securityManager);
-    }
-
-    /**
-     * @deprecated since 1.2 - override {@link #createSubject(com.rabbitframework.security.subject.SubjectContext)} directly if you
-     *             need to instantiate a custom {@link Subject} class.
-     */
-    @Deprecated
-    protected Subject newSubjectInstance(PrincipalCollection principals, boolean authenticated,
-                                         String host, Session session,
-                                         ServletRequest request, ServletResponse response,
-                                         SecurityManager securityManager) {
-        return new WebDelegatingSubject(principals, authenticated, host, session, true,
-                request, response, securityManager);
-    }
+		return new WebDelegatingSubject(principals, authenticated, host, session, sessionEnabled, request, response,
+				securityManager);
+	}
 }
