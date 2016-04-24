@@ -36,9 +36,9 @@ public enum ProvidedHashFormat {
     BASE64(Base64Format.class),
 
     /**
-     * Value representing the {@link Shiro1CryptFormat} implementation.
+     * Value representing the {@link SecurityCryptFormat} implementation.
      */
-    SHIRO1(Shiro1CryptFormat.class);
+    SHIRO1(SecurityCryptFormat.class);
 
     private final Class<? extends HashFormat> clazz;
 

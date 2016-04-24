@@ -39,8 +39,8 @@ import java.util.Map;
 
 /**
  * <h1>Deprecated</h1>
- * This filter has been deprecated as of Shiro 1.2 in favor of using the {@link ShiroFilter} in {@code web.xml} instead.
- * See the {@link ShiroFilter} JavaDoc for usage.
+ * This filter has been deprecated as of Shiro 1.2 in favor of using the {@link SecurityFilter} in {@code web.xml} instead.
+ * See the {@link SecurityFilter} JavaDoc for usage.
  * <p/>
  * ======================
  * <p/>
@@ -57,8 +57,8 @@ import java.util.Map;
  * (i.e. {@code classpath:shiro.ini}):
  * <pre>
  * &lt;filter&gt;
- *     &lt;filter-name&gt;ShiroFilter&lt;/filter-name&gt;
- *     &lt;filter-class&gt;org.apache.shiro.web.servlet.IniShiroFilter&lt;/filter-class&gt;
+ *     &lt;filter-name&gt;SecurityFilter&lt;/filter-name&gt;
+ *     &lt;filter-class&gt;org.apache.shiro.web.servlet.IniSecurityFilter&lt;/filter-class&gt;
  * &lt;/filter&gt;
  * </pre>
  * <h3>Custom Path</h3>
@@ -66,8 +66,8 @@ import java.util.Map;
  * {@code classpath:shiro.ini}, you may specify an alternate location via the {@code configPath init-param}:
  * <pre>
  * &lt;filter&gt;
- *     &lt;filter-name&gt;ShiroFilter&lt;/filter-name&gt;
- *     &lt;filter-class&gt;org.apache.shiro.web.servlet.IniShiroFilter&lt;/filter-class&gt;
+ *     &lt;filter-name&gt;SecurityFilter&lt;/filter-name&gt;
+ *     &lt;filter-class&gt;org.apache.shiro.web.servlet.IniSecurityFilter&lt;/filter-class&gt;
  *     &lt;init-param&gt;
  *         &lt;param-name&gt;configPath&lt;/param-name&gt;
  *         &lt;param-value&gt;/WEB-INF/someFile.ini&lt;/param-value&gt;
@@ -85,8 +85,8 @@ import java.util.Map;
  * the {@code config init-param}:
  * <pre>
  * &lt;filter&gt;
- *     &lt;filter-name&gt;ShiroFilter&lt;/filter-name&gt;
- *     &lt;filter-class&gt;org.apache.shiro.web.servlet.IniShiroFilter&lt;/filter-class&gt;
+ *     &lt;filter-name&gt;SecurityFilter&lt;/filter-name&gt;
+ *     &lt;filter-class&gt;org.apache.shiro.web.servlet.IniSecurityFilter&lt;/filter-class&gt;
  *     &lt;init-param&gt;
  *         &lt;param-name&gt;config&lt;/param-name&gt;
  *         &lt;param-value&gt;
@@ -105,22 +105,22 @@ import java.util.Map;
  * @see <a href="http://shiro.apache.org/configuration.html">Apache Shiro INI Configuration</a>
  * @see <a href="http://shiro.apache.org/web.html">Apache Shiro Web Documentation</a>
  * @since 1.0
- * @deprecated in 1.2 in favor of using the {@link ShiroFilter}
+ * @deprecated in 1.2 in favor of using the {@link SecurityFilter}
  */
 @Deprecated
-public class IniShiroFilter extends AbstractShiroFilter {
+public class IniSecurityFilter extends AbstractSecurityFilter {
 
     public static final String CONFIG_INIT_PARAM_NAME = "config";
     public static final String CONFIG_PATH_INIT_PARAM_NAME = "configPath";
 
     public static final String DEFAULT_WEB_INI_RESOURCE_PATH = "/WEB-INF/shiro.ini";
 
-    private static final Logger log = LoggerFactory.getLogger(IniShiroFilter.class);
+    private static final Logger log = LoggerFactory.getLogger(IniSecurityFilter.class);
 
     private String config;
     private String configPath;
 
-    public IniShiroFilter() {
+    public IniSecurityFilter() {
     }
 
     /**
@@ -273,7 +273,7 @@ public class IniShiroFilter extends AbstractShiroFilter {
     protected void applyFilterChainResolver(Ini ini, Map<String, ?> defaults) {
         if (ini == null || ini.isEmpty()) {
             //nothing to use to create the resolver, just return
-            //(the AbstractShiroFilter allows a null resolver, in which case the original FilterChain is
+            //(the AbstractSecurityFilter allows a null resolver, in which case the original FilterChain is
             // always used).
             return;
         }

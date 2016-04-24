@@ -20,46 +20,46 @@ package com.rabbitframework.security;
 
 /**
  * Root exception for all Shiro runtime exceptions.  This class is used as the root instead
- * of {@link SecurityException} to remove the potential for conflicts;  many other
+ * of {@link java.lang.SecurityException} to remove the potential for conflicts;  many other
  * frameworks and products (such as J2EE containers) perform special operations when
- * encountering {@link SecurityException}.
+ * encountering {@link java.lang.SecurityException}.
  *
  * @since 0.1
  */
-public class ShiroException extends RuntimeException {
+public class SecurityException extends RuntimeException {
 
     /**
-     * Creates a new ShiroException.
+     * Creates a new SecurityException.
      */
-    public ShiroException() {
+    public SecurityException() {
         super();
     }
 
     /**
-     * Constructs a new ShiroException.
+     * Constructs a new SecurityException.
      *
      * @param message the reason for the exception
      */
-    public ShiroException(String message) {
+    public SecurityException(String message) {
         super(message);
     }
 
     /**
-     * Constructs a new ShiroException.
+     * Constructs a new SecurityException.
      *
      * @param cause the underlying Throwable that caused this exception to be thrown.
      */
-    public ShiroException(Throwable cause) {
+    public SecurityException(Throwable cause) {
         super(cause);
     }
 
     /**
-     * Constructs a new ShiroException.
+     * Constructs a new SecurityException.
      *
      * @param message the reason for the exception
      * @param cause   the underlying Throwable that caused this exception to be thrown.
      */
-    public ShiroException(String message, Throwable cause) {
+    public SecurityException(String message, Throwable cause) {
         super(message, cause);
     }
 

@@ -22,6 +22,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.rabbitframework.security.web.servlet.SecurityHttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,7 +31,6 @@ import com.rabbitframework.security.mgt.AbstractRememberMeManager;
 import com.rabbitframework.security.subject.Subject;
 import com.rabbitframework.security.subject.SubjectContext;
 import com.rabbitframework.security.web.servlet.Cookie;
-import com.rabbitframework.security.web.servlet.ShiroHttpServletRequest;
 import com.rabbitframework.security.web.servlet.SimpleCookie;
 import com.rabbitframework.security.web.subject.WebSubject;
 import com.rabbitframework.security.web.subject.WebSubjectContext;
@@ -161,7 +161,7 @@ public class CookieRememberMeManager extends AbstractRememberMeManager {
     private boolean isIdentityRemoved(WebSubjectContext subjectContext) {
         ServletRequest request = subjectContext.resolveServletRequest();
         if (request != null) {
-            Boolean removed = (Boolean) request.getAttribute(ShiroHttpServletRequest.IDENTITY_REMOVED_KEY);
+            Boolean removed = (Boolean) request.getAttribute(SecurityHttpServletRequest.IDENTITY_REMOVED_KEY);
             return removed != null && removed;
         }
         return false;

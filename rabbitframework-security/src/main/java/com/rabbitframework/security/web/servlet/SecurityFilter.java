@@ -39,14 +39,14 @@ import com.rabbitframework.security.web.util.WebUtils;
  * &lt;/listener&gt;
  * ...
  * &lt;filter&gt;
- *     &lt;filter-name&gt;ShiroFilter&lt;/filter-name&gt;
- *     &lt;filter-class&gt;org.apache.shiro.web.servlet.ShiroFilter&lt;/filter-class&gt;
+ *     &lt;filter-name&gt;SecurityFilter&lt;/filter-name&gt;
+ *     &lt;filter-class&gt;org.apache.shiro.web.servlet.SecurityFilter&lt;/filter-class&gt;
  * &lt;/filter&gt;
  *
  * &lt;-- Filter all web requests.  This filter mapping is typically declared
  *     before all others to ensure any other filters are secured as well: --&gt;
  * &lt;filter-mapping&gt;
- *     &lt;filter-name&gt;ShiroFilter&lt;/filter-name&gt;
+ *     &lt;filter-name&gt;SecurityFilter&lt;/filter-name&gt;
  *     &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
  * &lt;/filter-mapping&gt;
  * </pre>
@@ -59,7 +59,7 @@ import com.rabbitframework.security.web.util.WebUtils;
  * @see <a href="http://shiro.apache.org/web.html">Apache Shiro Web Documentation</a>
  * @since 1.2
  */
-public class ShiroFilter extends AbstractShiroFilter {
+public class SecurityFilter extends AbstractSecurityFilter {
 
     /**
      * Configures this instance based on the existing {@link WebEnvironment} instance

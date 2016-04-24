@@ -38,7 +38,7 @@ import java.util.*;
  *
  * @since 0.2
  */
-public class ShiroHttpSession implements HttpSession {
+public class SecurityHttpSession implements HttpSession {
 
     //TODO - complete JavaDoc
 
@@ -70,7 +70,7 @@ public class ShiroHttpSession implements HttpSession {
     protected HttpServletRequest currentRequest = null;
     protected Session session = null; //'real' Shiro Session
 
-    public ShiroHttpSession(Session session, HttpServletRequest currentRequest, ServletContext servletContext) {
+    public SecurityHttpSession(Session session, HttpServletRequest currentRequest, ServletContext servletContext) {
         if (session instanceof HttpServletSession) {
             String msg = "Session constructor argument cannot be an instance of HttpServletSession.  This is enforced to " +
                     "prevent circular dependencies and infinite loops.";
@@ -238,7 +238,7 @@ public class ShiroHttpSession implements HttpSession {
     }
 
     public boolean isNew() {
-        Boolean value = (Boolean) currentRequest.getAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_IS_NEW);
+        Boolean value = (Boolean) currentRequest.getAttribute(SecurityHttpServletRequest.REFERENCED_SESSION_IS_NEW);
         return value != null && value.equals(Boolean.TRUE);
     }
 }

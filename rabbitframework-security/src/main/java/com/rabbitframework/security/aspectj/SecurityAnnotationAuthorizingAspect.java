@@ -28,14 +28,14 @@ import org.aspectj.lang.annotation.Pointcut;
  *
  */
 @Aspect()
-public class ShiroAnnotationAuthorizingAspect {
+public class SecurityAnnotationAuthorizingAspect {
 
     private static final String pointCupExpression =
             "execution(@org.apache.shiro.authz.annotation.RequiresAuthentication * *(..)) || " +
-                    "execution(@org.apache.shiro.authz.annotation.RequiresGuest * *(..)) || " +
-                    "execution(@org.apache.shiro.authz.annotation.RequiresPermissions * *(..)) || " +
-                    "execution(@org.apache.shiro.authz.annotation.RequiresRoles * *(..)) || " +
-                    "execution(@org.apache.shiro.authz.annotation.RequiresUser * *(..))";
+                    "execution(@com.rabbitframework.security.authz.annotation.RequiresGuest * *(..)) || " +
+                    "execution(@com.rabbitframework.security.authz.annotation.RequiresPermissions * *(..)) || " +
+                    "execution(@com.rabbitframework.security.authz.annotation.RequiresRoles * *(..)) || " +
+                    "execution(@com.rabbitframework.security.authz.annotation.RequiresUser * *(..))";
 
     @Pointcut(pointCupExpression)
     public void anyShiroAnnotatedMethod(){}

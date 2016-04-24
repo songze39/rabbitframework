@@ -18,7 +18,7 @@
  */
 package com.rabbitframework.security.crypto.codec;
 
-import com.rabbitframework.security.ShiroException;
+import com.rabbitframework.security.SecurityException;
 
 
 /**
@@ -26,7 +26,7 @@ import com.rabbitframework.security.ShiroException;
  *
  * @since 0.9
  */
-public class CodecException extends ShiroException
+public class CodecException extends SecurityException
 {
 
     /**

@@ -18,7 +18,7 @@
  */
 package com.rabbitframework.security.config;
 
-import com.rabbitframework.security.ShiroException;
+import com.rabbitframework.security.SecurityException;
 
 
 /**
@@ -26,7 +26,7 @@ import com.rabbitframework.security.ShiroException;
  *
  * @since 0.9
  */
-public class ConfigurationException extends ShiroException
+public class ConfigurationException extends SecurityException
 {
 
     /**

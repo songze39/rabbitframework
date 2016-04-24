@@ -18,7 +18,7 @@
  */
 package com.rabbitframework.security.authz.permission;
 
-import com.rabbitframework.security.ShiroException;
+import com.rabbitframework.security.SecurityException;
 
 
 /**
@@ -27,7 +27,7 @@ import com.rabbitframework.security.ShiroException;
  *
  * @since 0.9
  */
-public class InvalidPermissionStringException extends ShiroException
+public class InvalidPermissionStringException extends SecurityException
 {
 
     private String permissionString;

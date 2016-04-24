@@ -32,7 +32,7 @@ import com.rabbitframework.security.session.mgt.SessionManager;
 import com.rabbitframework.security.subject.Subject;
 import com.rabbitframework.security.subject.SubjectContext;
 import com.rabbitframework.security.util.LifecycleUtils;
-import com.rabbitframework.security.web.servlet.ShiroHttpServletRequest;
+import com.rabbitframework.security.web.servlet.SecurityHttpServletRequest;
 import com.rabbitframework.security.web.session.mgt.*;
 import com.rabbitframework.security.web.subject.WebSubject;
 import com.rabbitframework.security.web.subject.WebSubjectContext;
@@ -247,7 +247,7 @@ public class DefaultWebSecurityManager extends DefaultSecurityManager implements
             WebSubject webSubject = (WebSubject) subject;
             ServletRequest request = webSubject.getServletRequest();
             if (request != null) {
-                request.setAttribute(ShiroHttpServletRequest.IDENTITY_REMOVED_KEY, Boolean.TRUE);
+                request.setAttribute(SecurityHttpServletRequest.IDENTITY_REMOVED_KEY, Boolean.TRUE);
             }
         }
     }

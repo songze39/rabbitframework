@@ -61,7 +61,7 @@ public class DefaultPasswordService implements HashingPasswordService {
         hashService.setGeneratePublicSalt(true); //always want generated salts for user passwords to be most secure
         this.hashService = hashService;
 
-        this.hashFormat = new Shiro1CryptFormat();
+        this.hashFormat = new SecurityCryptFormat();
         this.hashFormatFactory = new DefaultHashFormatFactory();
     }
 

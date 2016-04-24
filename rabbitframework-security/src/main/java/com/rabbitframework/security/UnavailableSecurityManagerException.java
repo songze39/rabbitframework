@@ -24,7 +24,7 @@ package com.rabbitframework.security;
  *
  * @since 1.0
  */
-public class UnavailableSecurityManagerException extends ShiroException {
+public class UnavailableSecurityManagerException extends SecurityException {
 
     public UnavailableSecurityManagerException(String message) {
         super(message);

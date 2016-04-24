@@ -21,7 +21,7 @@ package com.rabbitframework.security.web.session;
 import com.rabbitframework.security.session.InvalidSessionException;
 import com.rabbitframework.security.session.Session;
 import com.rabbitframework.security.util.StringUtils;
-import com.rabbitframework.security.web.servlet.ShiroHttpSession;
+import com.rabbitframework.security.web.servlet.SecurityHttpSession;
 
 import javax.servlet.http.HttpSession;
 import java.io.Serializable;
@@ -50,8 +50,8 @@ public class HttpServletSession implements Session {
             String msg = "HttpSession constructor argument cannot be null.";
             throw new IllegalArgumentException(msg);
         }
-        if (httpSession instanceof ShiroHttpSession) {
-            String msg = "HttpSession constructor argument cannot be an instance of ShiroHttpSession.  This " +
+        if (httpSession instanceof SecurityHttpSession) {
+            String msg = "HttpSession constructor argument cannot be an instance of SecurityHttpSession.  This " +
                     "is enforced to prevent circular dependencies and infinite loops.";
             throw new IllegalArgumentException(msg);
         }

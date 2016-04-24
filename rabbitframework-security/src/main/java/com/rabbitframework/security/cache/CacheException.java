@@ -18,7 +18,7 @@
  */
 package com.rabbitframework.security.cache;
 
-import com.rabbitframework.security.ShiroException;
+import com.rabbitframework.security.SecurityException;
 
 
 /**
@@ -26,7 +26,7 @@ import com.rabbitframework.security.ShiroException;
  *
  * @since 0.2
  */
-public class CacheException extends ShiroException
+public class CacheException extends SecurityException
 {
 
     /**

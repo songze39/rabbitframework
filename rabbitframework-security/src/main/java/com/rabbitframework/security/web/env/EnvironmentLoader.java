@@ -20,6 +20,7 @@ package com.rabbitframework.security.web.env;
 
 import javax.servlet.ServletContext;
 
+import com.rabbitframework.security.web.servlet.SecurityFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -95,7 +96,7 @@ import com.rabbitframework.security.util.UnknownClassException;
  * Shiro's environment in a web application - it will not filter web requests or
  * perform web-specific security operations. To do this, you must ensure that
  * you have also configured the
- * {@link com.rabbitframework.security.web.servlet.ShiroFilter ShiroFilter} in
+ * {@link SecurityFilter SecurityFilter} in
  * {@code web.xml}.
  * <p/>
  * Finally, it should be noted that this implementation was based on ideas in
@@ -103,7 +104,7 @@ import com.rabbitframework.security.util.UnknownClassException;
  * implementation - no need to reinvent the wheel for this common behavior.
  *
  * @see EnvironmentLoaderListener
- * @see com.rabbitframework.security.web.servlet.ShiroFilter ShiroFilter
+ * @see SecurityFilter SecurityFilter
  * @since 1.2
  */
 public class EnvironmentLoader {

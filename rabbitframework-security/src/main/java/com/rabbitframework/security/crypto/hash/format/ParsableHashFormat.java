@@ -27,7 +27,7 @@ import com.rabbitframework.security.crypto.hash.Hash;
  * (Hash -&gt; String, String -&gt; Hash) capabilities.  Some HashFormats, such as many {@link ModularCryptFormat}s
  * (like Unix Crypt(3)) only support one way conversion and therefore wouldn't implement this interface.
  *
- * @see Shiro1CryptFormat
+ * @see SecurityCryptFormat
  *
  * @since 1.2
  */

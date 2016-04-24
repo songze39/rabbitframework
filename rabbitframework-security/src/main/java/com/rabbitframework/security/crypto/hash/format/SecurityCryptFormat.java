@@ -25,7 +25,7 @@ import com.rabbitframework.security.crypto.hash.SimpleHash;
 import com.rabbitframework.security.util.StringUtils;
 
 /**
- * The {@code Shiro1CryptFormat} is a fully reversible
+ * The {@code SecurityCryptFormat} is a fully reversible
  * <a href="http://packages.python.org/passlib/modular_crypt_format.html">Modular Crypt Format</a> (MCF).  Because it is
  * fully reversible (i.e. Hash -&gt; String, String -&gt; Hash), it does NOT use the traditional MCF encoding alphabet
  * (the traditional MCF encoding, aka H64, is bit-destructive and cannot be reversed).  Instead, it uses fully
@@ -38,59 +38,58 @@ import com.rabbitframework.security.util.StringUtils;
  * </pre>
  * <p>Each token is defined as follows:</p>
  * <table>
- *     <tr>
- *         <th>Position</th>
- *         <th>Token</th>
- *         <th>Description</th>
- *         <th>Required?</th>
- *     </tr>
- *     <tr>
- *         <td>1</td>
- *         <td>{@code mcfFormatId}</td>
- *         <td>The Modular Crypt Format identifier for this implementation, equal to <b>{@code shiro1}</b>.
- *             ( This implies that all {@code shiro1} MCF-formatted strings will always begin with the prefix
- *             {@code $shiro1$} ).</td>
- *         <td>true</td>
- *     </tr>
- *     <tr>
- *         <td>2</td>
- *         <td>{@code algorithmName}</td>
- *         <td>The name of the hash algorithm used to perform the hash.  This is an algorithm name understood by
- *         {@code MessageDigest}.{@link java.security.MessageDigest#getInstance(String) getInstance}, for example
- *         {@code MD5}, {@code SHA-256}, {@code SHA-256}, etc.</td>
- *         <td>true</td>
- *     </tr>
- *     <tr>
- *         <td>3</td>
- *         <td>{@code iterationCount}</td>
- *         <td>The number of hash iterations performed.</td>
- *         <td>true (1 <= N <= Integer.MAX_VALUE)</td>
- *     </tr>
- *     <tr>
- *         <td>4</td>
- *         <td>{@code base64EncodedSalt}</td>
- *         <td>The Base64-encoded salt byte array.  This token only exists if a salt was used to perform the hash.</td>
- *         <td>false</td>
- *     </tr>
- *     <tr>
- *         <td>5</td>
- *         <td>{@code base64EncodedDigest}</td>
- *         <td>The Base64-encoded digest byte array.  This is the actual hash result.</td>
- *         <td>true</td>
- *     </tr>
+ * <tr>
+ * <th>Position</th>
+ * <th>Token</th>
+ * <th>Description</th>
+ * <th>Required?</th>
+ * </tr>
+ * <tr>
+ * <td>1</td>
+ * <td>{@code mcfFormatId}</td>
+ * <td>The Modular Crypt Format identifier for this implementation, equal to <b>{@code shiro1}</b>.
+ * ( This implies that all {@code shiro1} MCF-formatted strings will always begin with the prefix
+ * {@code $shiro1$} ).</td>
+ * <td>true</td>
+ * </tr>
+ * <tr>
+ * <td>2</td>
+ * <td>{@code algorithmName}</td>
+ * <td>The name of the hash algorithm used to perform the hash.  This is an algorithm name understood by
+ * {@code MessageDigest}.{@link java.security.MessageDigest#getInstance(String) getInstance}, for example
+ * {@code MD5}, {@code SHA-256}, {@code SHA-256}, etc.</td>
+ * <td>true</td>
+ * </tr>
+ * <tr>
+ * <td>3</td>
+ * <td>{@code iterationCount}</td>
+ * <td>The number of hash iterations performed.</td>
+ * <td>true (1 <= N <= Integer.MAX_VALUE)</td>
+ * </tr>
+ * <tr>
+ * <td>4</td>
+ * <td>{@code base64EncodedSalt}</td>
+ * <td>The Base64-encoded salt byte array.  This token only exists if a salt was used to perform the hash.</td>
+ * <td>false</td>
+ * </tr>
+ * <tr>
+ * <td>5</td>
+ * <td>{@code base64EncodedDigest}</td>
+ * <td>The Base64-encoded digest byte array.  This is the actual hash result.</td>
+ * <td>true</td>
+ * </tr>
  * </table>
  *
  * @see ModularCryptFormat
  * @see ParsableHashFormat
- *
  * @since 1.2
  */
-public class Shiro1CryptFormat implements ModularCryptFormat, ParsableHashFormat {
+public class SecurityCryptFormat implements ModularCryptFormat, ParsableHashFormat {
 
-    public static final String ID = "shiro1";
+    public static final String ID = "security1";
     public static final String MCF_PREFIX = TOKEN_DELIMITER + ID + TOKEN_DELIMITER;
 
-    public Shiro1CryptFormat() {
+    public SecurityCryptFormat() {
     }
 
     public String getId() {
@@ -131,7 +130,7 @@ public class Shiro1CryptFormat implements ModularCryptFormat, ParsableHashFormat
         String[] parts = suffix.split("\\$");
 
         //last part is always the digest/checksum, Base64-encoded:
-        int i = parts.length-1;
+        int i = parts.length - 1;
         String digestBase64 = parts[i--];
         //second-to-last part is always the salt, Base64-encoded:
         String saltBase64 = parts[i--];

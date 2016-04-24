@@ -18,6 +18,8 @@
  */
 package com.rabbitframework.security.web.env;
 
+import com.rabbitframework.security.web.servlet.SecurityFilter;
+
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
@@ -38,12 +40,12 @@ import javax.servlet.ServletContextListener;
  * {@link EnvironmentLoader} JavaDoc.
  * <h2>Shiro Filter</h2>
  * This listener is almost always defined in conjunction with the
- * {@link com.rabbitframework.security.web.servlet.ShiroFilter ShiroFilter} to ensure security operations for web requests.  Please
- * see the {@link com.rabbitframework.security.web.servlet.ShiroFilter ShiroFilter} JavaDoc for more.
+ * {@link SecurityFilter SecurityFilter} to ensure security operations for web requests.  Please
+ * see the {@link SecurityFilter SecurityFilter} JavaDoc for more.
  *
  *
  * @see EnvironmentLoader
- * @see com.rabbitframework.security.web.servlet.ShiroFilter ShiroFilter
+ * @see SecurityFilter SecurityFilter
  * @since 1.2
  */
 public class EnvironmentLoaderListener extends EnvironmentLoader implements ServletContextListener {

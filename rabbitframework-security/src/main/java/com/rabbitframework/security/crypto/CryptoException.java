@@ -18,14 +18,14 @@
  */
 package com.rabbitframework.security.crypto;
 
-import com.rabbitframework.security.ShiroException;
+import com.rabbitframework.security.SecurityException;
 
 /**
  * Base Shiro exception for problems encountered during cryptographic operations.
  *
  * @since 1.0
  */
-public class CryptoException extends ShiroException {
+public class CryptoException extends SecurityException {
 
     public CryptoException(String message) {
         super(message);

@@ -19,6 +19,6 @@
 /**
  * This package primarily exists as a root classpath distinction, but it does contain two core classes widely used
  * by applications, {@link com.rabbitframework.security.SecurityUtils SecurityUtils} and
- * {@link com.rabbitframework.security.ShiroException ShiroException}.
+ * {@link com.rabbitframework.security.SecurityException SecurityException}.
  */
 package com.rabbitframework.security;
