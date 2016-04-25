@@ -1,15 +1,12 @@
-package com.rabbitframework.security.authz.permission;
+package org.apache.shiro.authz.permission;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.shiro.authz.Permission;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.rabbitframework.security.authz.Permission;
-import com.rabbitframework.security.authz.permission.WildcardPermission;
-
 public class WildcardPermissionTest {
 	private Logger logger = LoggerFactory
 			.getLogger(WildcardPermissionTest.class);

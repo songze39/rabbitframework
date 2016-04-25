@@ -9,6 +9,26 @@
     <artifactId>rabbitframework-security</artifactId>
     <dependencies>
         <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-aspectj</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-ehcache</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-spring</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.easymock</groupId>
             <artifactId>easymock</artifactId>
         </dependency>
@@ -53,11 +73,11 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
         </dependency>
-        <dependency>
-			<groupId>com.rabbitframework</groupId>
-			<artifactId>rabbitframework-commons</artifactId>
-			<version>${rabbitframework.version}</version>
-		</dependency>
+        <!--<dependency>-->
+			<!--<groupId>com.rabbitframework</groupId>-->
+			<!--<artifactId>rabbitframework-commons</artifactId>-->
+			<!--<version>${rabbitframework.version}</version>-->
+		<!--</dependency>-->
         <!-- Test dependencies -->
 
         <dependency>
