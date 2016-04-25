@@ -1,5 +1,9 @@
 package com.rabbitframework.security.spring.web;
 
-public class SecurityFilterFactoryBean {
+import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 
+public class SecurityFilterFactoryBean extends ShiroFilterFactoryBean {
+    public SecurityFilterFactoryBean() {
+        super();
+    }
 }
