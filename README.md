@@ -15,9 +15,10 @@ rabbitframework框架利用第三方开源框架以及对maven的依赖而整合
 	
 	4、支持多数据源功能，读写自动识别，不支持多数据源事务；
 	
-	5、支持创建表、分表分库（通过拦截器功能实现）**暂没有验证**；
+	5、支持创建表、分表分库(通过拦截器功能实现)；
 
-三、rabbitframework-security:权限框架 **处于开发状态**
+三、rabbitframework-security:权限框架,对[shiro1.2.4]进行扩展
 [shiro1.2.4]:https://github.com/apache/shiro/ "shiro1.2.4"
+
 四、rabbitframework-web:web-rest框架，集成[jersey2]框架，**目前处于依赖状态**;
 [jersey2]: https://github.com/jersey/jersey "jersey2"
