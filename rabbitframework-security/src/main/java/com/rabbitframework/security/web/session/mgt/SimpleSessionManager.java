@@ -34,7 +34,7 @@ public class SimpleSessionManager extends AbstractValidatingSessionManager
 	private SessionFactory sessionFactory;
 	private CacheManager cacheManager;
 	private boolean deleteInvalidSessions;
-	
+
 	protected SessionDAO sessionDAO;
 
 	public SimpleSessionManager() {
@@ -81,7 +81,12 @@ public class SimpleSessionManager extends AbstractValidatingSessionManager
 							.createSession(sessionContext);
 					session.setId(sessionKey.getSessionId());
 					session.setAttribute(attributeKey, value);
-					sessionDAO.update(session);
+					if (sessionDAO instanceof AbstractRabbitSessionDAO) {
+						((AbstractRabbitSessionDAO) sessionDAO)
+								.initCreate(session);
+					} else {
+						sessionDAO.update(session);
+					}
 				} catch (Exception ex) {
 					throw e;
 				}
