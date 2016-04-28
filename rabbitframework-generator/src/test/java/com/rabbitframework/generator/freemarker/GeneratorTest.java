@@ -1,4 +1,4 @@
-package com.rabbitframework.generator.test.freemarker;
+package com.rabbitframework.generator.freemarker;
 import org.junit.Before;
 import org.junit.Test;
 

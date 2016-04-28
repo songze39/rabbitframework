@@ -1,4 +1,4 @@
-package com.rabbitframework.generator.test.freemarker;
+package com.rabbitframework.generator.freemarker;
 public class Model {
     private int id;
     private String name;

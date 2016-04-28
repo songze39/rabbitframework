@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <properties>
-        <!-- <property name="" value=""></property> -->
-    </properties>
+	<properties resource="">
+		<property name="test" value="generator"></property>
+	</properties>
 </configuration>

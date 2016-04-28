@@ -1,4 +1,4 @@
-package com.rabbitframework.generator.test.freemarker;
+package com.rabbitframework.generator.freemarker;
 
 import com.rabbitframework.commons.utils.ResourceUtils;
 import freemarker.template.Configuration;
