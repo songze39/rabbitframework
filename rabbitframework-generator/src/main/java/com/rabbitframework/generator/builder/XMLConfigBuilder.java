@@ -4,6 +4,8 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.util.Properties;
 
+import javax.sql.DataSource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,13 +13,13 @@ import com.rabbitframework.commons.utils.ResourceUtils;
 import com.rabbitframework.commons.utils.StringUtils;
 import com.rabbitframework.commons.xmlparser.XNode;
 import com.rabbitframework.commons.xmlparser.XPathParser;
+import com.rabbitframework.generator.dataaccess.Environment;
 import com.rabbitframework.generator.exceptions.BuilderException;
 
-public class XMLConfigBuilder {
+public class XMLConfigBuilder extends BaseBuilder {
 	private static final Logger logger = LoggerFactory.getLogger(XMLConfigBuilder.class);
 	private boolean parsed;
 	private XPathParser xPathParser;
-	protected final Configuration configuration;
 
 	public XMLConfigBuilder(Reader reader) {
 		this(reader, null);
@@ -36,7 +38,7 @@ public class XMLConfigBuilder {
 	}
 
 	private XMLConfigBuilder(XPathParser xPathParser, Properties pro) {
-		configuration = new Configuration();
+		super(new Configuration());
 		this.parsed = false;
 		this.xPathParser = xPathParser;
 		configuration.setVariables(pro);
@@ -55,6 +57,7 @@ public class XMLConfigBuilder {
 	private void parseConfiguration(XNode root) {
 		try {
 			propertiesElement(root.evalNode("properties"));
+			dataSourceElement(root.evalNode("dataSource"));
 		} catch (Exception e) {
 			logger.error("Error parsing generator Configuration. Cause: " + e, e);
 			throw new BuilderException("Error parsing generator Configuration. Cause: " + e, e);
@@ -77,5 +80,21 @@ public class XMLConfigBuilder {
 		}
 		xPathParser.setVariables(properties);
 		configuration.setVariables(properties);
+	}
+
+	private void dataSourceElement(XNode dataAccessNode) throws Exception {
+		if (dataAccessNode == null) {
+			return;
+		}
+		Environment environment = new Environment();
+		Properties variables = configuration.getVariables();
+		String type = dataAccessNode.getStringAttribute("type");
+		String dataSourceClazz = dataAccessNode.getStringAttribute("class");
+		Properties properties = dataAccessNode.getChildrenAsProperties();
+		DataSource dataSource = (DataSource) resolveClass(dataSourceClazz).newInstance();
+		PropertiesConvert.setProperties(properties, dataSource, variables);
+		environment.setDataSource(dataSource);
+		environment.setType(type);
+		configuration.setEnvironment(environment);
 	}
 }

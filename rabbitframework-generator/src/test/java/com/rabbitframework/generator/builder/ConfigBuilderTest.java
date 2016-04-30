@@ -24,5 +24,6 @@ public class ConfigBuilderTest extends TestCase {
 		Configuration configuration = configBuilder.parse();
 		reader.close();
 		logger.debug(configuration.getVariables().size() + "");
+		logger.debug("datasource:" + configuration.getEnvironment().getDataSource());
 	}
 }
