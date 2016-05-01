@@ -20,104 +20,129 @@ import com.rabbitframework.generator.dataaccess.Environment;
 import com.rabbitframework.generator.exceptions.BuilderException;
 
 public class XMLConfigBuilder extends BaseBuilder {
-	private static final Logger logger = LoggerFactory.getLogger(XMLConfigBuilder.class);
-	private boolean parsed;
-	private XPathParser xPathParser;
+    private static final Logger logger = LoggerFactory.getLogger(XMLConfigBuilder.class);
+    private boolean parsed;
+    private XPathParser xPathParser;
 
-	public XMLConfigBuilder(Reader reader) {
-		this(reader, null);
-	}
+    public XMLConfigBuilder(Reader reader) {
+        this(reader, null);
+    }
 
-	public XMLConfigBuilder(Reader reader, Properties properties) {
-		this(new XPathParser(reader, false, properties, null), properties);
-	}
+    public XMLConfigBuilder(Reader reader, Properties properties) {
+        this(new XPathParser(reader, false, properties, null), properties);
+    }
 
-	public XMLConfigBuilder(InputStream inputStream) {
-		this(inputStream, null);
-	}
+    public XMLConfigBuilder(InputStream inputStream) {
+        this(inputStream, null);
+    }
 
-	public XMLConfigBuilder(InputStream inputStream, Properties properties) {
-		this(new XPathParser(inputStream, false, properties, null), properties);
-	}
+    public XMLConfigBuilder(InputStream inputStream, Properties properties) {
+        this(new XPathParser(inputStream, false, properties, null), properties);
+    }
 
-	private XMLConfigBuilder(XPathParser xPathParser, Properties pro) {
-		super(new Configuration());
-		this.parsed = false;
-		this.xPathParser = xPathParser;
-		configuration.setVariables(pro);
-	}
+    private XMLConfigBuilder(XPathParser xPathParser, Properties pro) {
+        super(new Configuration());
+        this.parsed = false;
+        this.xPathParser = xPathParser;
+        configuration.setVariables(pro);
+    }
 
-	public Configuration parse() {
-		if (parsed) {
-			logger.error("Each XMLConfigBuilder can only be used once.");
-			throw new BuilderException("Each XMLConfigBuilder can only be used once.");
-		}
-		parsed = true;
-		parseConfiguration(xPathParser.evalNode("/configuration"));
-		return configuration;
-	}
+    public Configuration parse() {
+        if (parsed) {
+            logger.error("Each XMLConfigBuilder can only be used once.");
+            throw new BuilderException("Each XMLConfigBuilder can only be used once.");
+        }
+        parsed = true;
+        parseConfiguration(xPathParser.evalNode("/configuration"));
+        return configuration;
+    }
 
-	private void parseConfiguration(XNode root) {
-		try {
-			propertiesElement(root.evalNode("properties"));
-			dataSourceElement(root.evalNode("dataSource"));
-			generatorsElement(root.evalNode("generators"));
-		} catch (Exception e) {
-			logger.error("Error parsing generator Configuration. Cause: " + e, e);
-			throw new BuilderException("Error parsing generator Configuration. Cause: " + e, e);
-		}
-	}
+    private void parseConfiguration(XNode root) {
+        try {
+            propertiesElement(root.evalNode("properties"));
+            dataSourceElement(root.evalNode("dataSource"));
+            generatorsElement(root.evalNode("generators"));
+            tablesElement(root.evalNode("tables"));
+        } catch (Exception e) {
+            logger.error("Error parsing generator Configuration. Cause: " + e, e);
+            throw new BuilderException("Error parsing generator Configuration. Cause: " + e, e);
+        }
+    }
 
-	private void propertiesElement(XNode pro) throws Exception {
-		if (pro == null) {
-			return;
-		}
-		Properties properties = pro.getChildrenAsProperties();
-		String resource = pro.getStringAttribute("resource");
-		if (StringUtils.isNotBlank(resource)) {
-			Properties propertiesResource = ResourceUtils.getResourceAsProperties(resource);
-			properties.putAll(propertiesResource);
-		}
-		Properties variables = configuration.getVariables();
-		if (variables != null) {
-			properties.putAll(variables);
-		}
-		xPathParser.setVariables(properties);
-		configuration.setVariables(properties);
-	}
+    private void propertiesElement(XNode pro) throws Exception {
+        if (pro == null) {
+            return;
+        }
+        Properties properties = pro.getChildrenAsProperties();
+        String resource = pro.getStringAttribute("resource");
+        if (StringUtils.isNotBlank(resource)) {
+            Properties propertiesResource = ResourceUtils.getResourceAsProperties(resource);
+            properties.putAll(propertiesResource);
+        }
+        Properties variables = configuration.getVariables();
+        if (variables != null) {
+            properties.putAll(variables);
+        }
+        xPathParser.setVariables(properties);
+        configuration.setVariables(properties);
+    }
 
-	private void dataSourceElement(XNode dataAccessNode) throws Exception {
-		if (dataAccessNode == null) {
-			return;
-		}
-		Environment environment = new Environment();
-		Properties variables = configuration.getVariables();
-		String type = dataAccessNode.getStringAttribute("type");
-		String dataSourceClazz = dataAccessNode.getStringAttribute("class");
-		Properties properties = dataAccessNode.getChildrenAsProperties();
-		DataSource dataSource = (DataSource) resolveClass(dataSourceClazz).newInstance();
-		PropertiesConvert.setProperties(properties, dataSource, variables);
-		environment.setDataSource(dataSource);
-		environment.setType(type);
-		configuration.setEnvironment(environment);
-	}
+    private void dataSourceElement(XNode dataAccessNode) throws Exception {
+        if (dataAccessNode == null) {
+            return;
+        }
+        Environment environment = new Environment();
+        Properties variables = configuration.getVariables();
+        String type = dataAccessNode.getStringAttribute("type");
+        String databaseName = dataAccessNode.getStringAttribute("databaseName");
+        String dataSourceClazz = dataAccessNode.getStringAttribute("class");
+        Properties properties = dataAccessNode.getChildrenAsProperties();
+        DataSource dataSource = (DataSource) resolveClass(dataSourceClazz).newInstance();
+        PropertiesConvert.setProperties(properties, dataSource, variables);
+        environment.setDataSource(dataSource);
+        environment.setType(type);
+        environment.setDatabaseName(databaseName);
+        configuration.setEnvironment(environment);
+    }
 
-	private void generatorsElement(XNode generators) {
-		if (generators == null) {
-			return;
-		}
-		Template template = new Template();
-		List<XNode> xnode = generators.evalNodes("generator");
-		for (XNode cXnode : xnode) {
-			JavaModeGenerate javaModeGenerate = new JavaModeGenerate();
-			String templatePath = cXnode.getStringAttribute("templatePath");
-			String targetPackage = cXnode.getStringAttribute("targetPackage");
-			String targetProject = cXnode.getStringAttribute("targetProject");
-			javaModeGenerate.setTargetPackage(targetPackage);
-			javaModeGenerate.setTargetProject(targetProject);
-			javaModeGenerate.setTemplatePath(templatePath);
-			template.put(javaModeGenerate);
-		}
-		configuration.setTemplate(template);
-	}
+    private void generatorsElement(XNode generators) {
+        if (generators == null) {
+            return;
+        }
+        Template template = new Template();
+        List<XNode> xnode = generators.evalNodes("generator");
+        for (XNode cXnode : xnode) {
+            JavaModeGenerate javaModeGenerate = new JavaModeGenerate();
+            String templatePath = cXnode.getStringAttribute("templatePath");
+            String targetPackage = cXnode.getStringAttribute("targetPackage");
+            String targetProject = cXnode.getStringAttribute("targetProject");
+            javaModeGenerate.setTargetPackage(targetPackage);
+            javaModeGenerate.setTargetProject(targetProject);
+            javaModeGenerate.setTemplatePath(templatePath);
+            template.put(javaModeGenerate);
+        }
+        configuration.setTemplate(template);
+    }
+
+    private void tablesElement(XNode tables) {
+        if (tables == null) {
+            return;
+        }
+        TableConfiguration tableConfiguration = new TableConfiguration();
+        String tableType = tables.getStringAttribute("type", TableType.ALL.getType());
+        if (tableType.equals(TableType.ASSIGN.getType())) {
+            List<XNode> tableNodes = tables.evalNodes("table");
+            if (tableNodes.size() > 0) {
+                for (XNode tableNode : tableNodes) {
+                    String tableName = tableNode.getStringAttribute("tableName");
+                    String objectName = tableNode.getStringAttribute("objectName");
+                    tableConfiguration.put(tableName, objectName);
+                }
+            } else {
+                tableType = TableType.ALL.getType();
+            }
+        }
+        tableConfiguration.setTableType(TableType.getTableType(tableType));
+        configuration.setTableConfiguration(tableConfiguration);
+    }
 }

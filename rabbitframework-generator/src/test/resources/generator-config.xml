@@ -1,25 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-	<properties resource="c3p0.properties">
-		<property name="test" value="generator"></property>
-	</properties>
+    <properties resource="c3p0.properties">
+        <property name="test" value="generator"></property>
+    </properties>
 
-	<dataSource type="mysql" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-		<property name="driverClass" value="${c3p0.driverClassName}" />
-		<property name="jdbcUrl" value="${c3p0.url}" />
-		<property name="user" value="${c3p0.username}" />
-		<property name="password" value="${c3p0.password}" />
-		<property name="checkoutTimeout" value="${c3p0.checkoutTimeout}" />
-		<property name="idleConnectionTestPeriod" value="${c3p0.idleConnectionTestPeriod}" />
-		<property name="initialPoolSize" value="${c3p0.initialPoolSize}" />
-		<property name="maxIdleTime" value="${c3p0.maxIdleTime}" />
-		<property name="maxPoolSize" value="${c3p0.maxPoolSize}" />
-		<property name="minPoolSize" value="${c3p0.minPoolSize}" />
-		<property name="maxStatements" value="${c3p0.maxStatements}" />
-		<property name="acquireIncrement" value="${c3p0.acquireIncrement}" />
-	</dataSource>
-	<generators>
-		<generator templatePath="template/list.ftl" targetPackage="com.test"
-			targetProject="genpath" />
-	</generators>
+    <dataSource databaseName="rabbit" type="mysql" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${c3p0.driverClassName}"/>
+        <property name="jdbcUrl" value="${c3p0.url}"/>
+        <property name="user" value="${c3p0.username}"/>
+        <property name="password" value="${c3p0.password}"/>
+        <property name="checkoutTimeout" value="${c3p0.checkoutTimeout}"/>
+        <property name="idleConnectionTestPeriod" value="${c3p0.idleConnectionTestPeriod}"/>
+        <property name="initialPoolSize" value="${c3p0.initialPoolSize}"/>
+        <property name="maxIdleTime" value="${c3p0.maxIdleTime}"/>
+        <property name="maxPoolSize" value="${c3p0.maxPoolSize}"/>
+        <property name="minPoolSize" value="${c3p0.minPoolSize}"/>
+        <property name="maxStatements" value="${c3p0.maxStatements}"/>
+        <property name="acquireIncrement" value="${c3p0.acquireIncrement}"/>
+    </dataSource>
+    <generators>
+        <generator templatePath="template/list.ftl" targetPackage="com.test"
+                   targetProject="genpath"/>
+    </generators>
+    <!--type分为：all:所有表，assign:指定表名,
+    逻辑说明：
+    1、如果类型为all，将不再解析以下的table元素
+    2、如果类型为assign,先解析table元素,如果没有将类型更改为all
+    3、默认类型为all-->
+    <tables type="all">
+        <!--<table tableName="" objectName=""></table>-->
+    </tables>
 </configuration>
