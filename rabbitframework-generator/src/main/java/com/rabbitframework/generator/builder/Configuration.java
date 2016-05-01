@@ -49,4 +49,8 @@ public class Configuration {
     public TableConfiguration getTableConfiguration() {
         return tableConfiguration;
     }
+
+    public JavaTypeResolver getJavaTypeResolver() {
+        return javaTypeResolver;
+    }
 }

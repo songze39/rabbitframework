@@ -6,6 +6,8 @@ import com.rabbitframework.generator.builder.TableType;
 import com.rabbitframework.generator.exceptions.GeneratorException;
 import com.rabbitframework.generator.mapping.EntityMapping;
 import com.rabbitframework.generator.mapping.EntityProperty;
+import com.rabbitframework.generator.mapping.type.FullyQualifiedJavaType;
+import com.rabbitframework.generator.mapping.type.JavaTypeResolver;
 import com.rabbitframework.generator.utils.JavaBeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,27 +54,55 @@ public class DatabaseIntrospector {
         for (Map.Entry<String, String> entry : sets) {
             String tableName = entry.getKey();
             String objectName = entry.getValue();
-            EntityMapping entityMapping = getColumns(tableName, objectName);
-            calculateExtraColumnInformation(entityMapping);
-            entityMappings.add(entityMapping);
+
+            Map<String, EntityProperty> entityPropertyMap = getColumns(tableName);
+            calculateExtraColumnInformation(entityPropertyMap);
+            calculatePrimaryKey(tableName, entityPropertyMap);
+            List<EntityProperty> entityProperties = new ArrayList<EntityProperty>(entityPropertyMap.values());
+            EntityMapping.Builder builder = new EntityMapping.Builder(tableName, objectName, entityProperties);
+            entityMappings.add(builder.build());
         }
         return entityMappings;
     }
 
-    private void calculateExtraColumnInformation(EntityMapping entityMapping) {
-        List<EntityProperty> entityProperties = entityMapping.getEntityProperties();
-        for (EntityProperty entityProperty : entityProperties) {
-            entityProperty.setJavaProperty(JavaBeanUtils.ConverDbNameToPropertyName(entityProperty.getColumnName(), true));
+    private void calculatePrimaryKey(String tableName, Map<String, EntityProperty> entityPropertyMap) {
+        ResultSet resultSet = null;
+        try {
+            resultSet = databaseMetaData.getPrimaryKeys(null, null, tableName);
+            while (resultSet.next()) {
+                String columnName = resultSet.getString("COLUMN_NAME");
+                EntityProperty entityProperty = entityPropertyMap.get(columnName);
+                if (entityProperty != null) {
+                    entityProperty.setPrimaryKey(true);
+                }
+            }
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            throw new GeneratorException(e);
+        } finally {
+            close(resultSet);
         }
     }
 
-    public EntityMapping getColumns(String tableName, String objectName) {
+    private void calculateExtraColumnInformation(Map<String, EntityProperty> entityPropertyMap) {
+        JavaTypeResolver javaTypeResolver = configuration.getJavaTypeResolver();
+        for (Map.Entry<String, EntityProperty> entityPropertyEntry : entityPropertyMap.entrySet()) {
+            EntityProperty entityProperty = entityPropertyEntry.getValue();
+            entityProperty.setJavaProperty(JavaBeanUtils.ConverDbNameToPropertyName(entityProperty.getColumnName(), false));
+            FullyQualifiedJavaType fullyQualifiedJavaType = javaTypeResolver
+                    .calculateJavaType(entityProperty);
+            if (fullyQualifiedJavaType != null) {
+                entityProperty.setJavaType(fullyQualifiedJavaType);
+                entityProperty.setJdbcTypeName(javaTypeResolver.calculateJdbcTypeName(entityProperty));
+            } else {
+                entityProperty.setJavaType(FullyQualifiedJavaType.getObjectInstance());
+            }
+        }
+    }
+
+    public Map<String, EntityProperty> getColumns(String tableName) {
         ResultSet resultSet = null;
-        EntityMapping entityMapping = new EntityMapping();
-        entityMapping.setTableName(tableName);
-        entityMapping.setObjectName(JavaBeanUtils.ConverDbNameToPropertyName(objectName, true));
-        List<EntityProperty> entityProperties = new ArrayList<EntityProperty>();
-        entityMapping.setEntityProperties(entityProperties);
+        Map<String, EntityProperty> entityPropertyMap = new HashMap<String, EntityProperty>();
         try {
             resultSet = databaseMetaData.getColumns(null, null, tableName, null);
             while (resultSet.next()) {
@@ -92,13 +122,13 @@ public class DatabaseIntrospector {
                         ",tableSchem:" + tableSchem + ",tableNameDb:" + tableNameDb);
                 tableColumn.setJdbcType(jdbcType);
                 tableColumn.setLength(length);
-                tableColumn.setColumnName(columnName);
+                tableColumn.setColumnName(columnName.toLowerCase(Locale.ENGLISH));
                 tableColumn
                         .setNullable(nullable);
                 tableColumn.setScale(scale);
                 tableColumn.setRemarks(remarks);
                 tableColumn.setDefaultValue(defaultValue);
-                entityProperties.add(tableColumn);
+                entityPropertyMap.put(columnName, tableColumn);
             }
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
@@ -106,7 +136,7 @@ public class DatabaseIntrospector {
         } finally {
             close(resultSet);
         }
-        return entityMapping;
+        return entityPropertyMap;
     }
 
 

@@ -16,6 +16,5 @@ public class RabbitGeneratorTest {
         RabbitGeneratorBuilder builder = new RabbitGeneratorBuilder();
         RabbitGenerator rabbitGenerator = builder.build(reader);
         rabbitGenerator.generator();
-
     }
 }

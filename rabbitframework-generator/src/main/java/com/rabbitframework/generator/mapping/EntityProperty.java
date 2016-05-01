@@ -1,34 +1,33 @@
 package com.rabbitframework.generator.mapping;
 
-import com.rabbitframework.commons.utils.StringUtils;
 import com.rabbitframework.generator.mapping.type.FullyQualifiedJavaType;
 import com.rabbitframework.generator.mapping.type.Jdbc4Types;
+import com.rabbitframework.generator.utils.JavaBeanUtils;
 
 import java.sql.Types;
 
 public class EntityProperty {
-    protected String columnName;
-    protected int jdbcType;
-    protected String jdbcTypeName;
-    protected boolean nullable;
-    protected int length;
-    protected int scale;
-    protected boolean identity;
-    protected boolean isSequenceColumn;
-    protected String javaProperty;
-    protected FullyQualifiedJavaType fullyQualifiedJavaType;
-//    protected boolean isColumnNameDelimited;
-
-
-    // any database comment associated with this column. May be null
-    protected String remarks;
-
+    private String columnName;
+    private int jdbcType;
+    private String jdbcTypeName;
+    private boolean nullable;
+    private int length;
+    private int scale;
+    private String javaProperty;
+    private String upperJavaProperty;
+    private FullyQualifiedJavaType javaType;
+    private String remarks;
+    private boolean primaryKey = false;
     protected String defaultValue;
 
-    /**
-     * Constructs a Column definition. This object holds all the information
-     * about a column that is required to generate Java objects and SQL maps;
-     */
+    public boolean isPrimaryKey() {
+        return primaryKey;
+    }
+
+    public void setPrimaryKey(boolean primaryKey) {
+        this.primaryKey = primaryKey;
+    }
+
     public EntityProperty() {
         super();
     }
@@ -65,30 +64,6 @@ public class EntityProperty {
         this.scale = scale;
     }
 
-    /*
-     * This method is primarily used for debugging, so we don't externalize the
-     * strings
-     */
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append("Actual Column Name: ");
-        sb.append(columnName);
-        sb.append(", JDBC Type: "); //$NON-NLS-1$
-        sb.append(jdbcType);
-        sb.append(", Nullable: "); //$NON-NLS-1$
-        sb.append(nullable);
-        sb.append(", Length: "); //$NON-NLS-1$
-        sb.append(length);
-        sb.append(", Scale: "); //$NON-NLS-1$
-        sb.append(scale);
-        sb.append(", Identity: "); //$NON-NLS-1$
-        sb.append(identity);
-
-        return sb.toString();
-    }
-
     public void setColumnName(String columnName) {
         this.columnName = columnName;
     }
@@ -97,31 +72,11 @@ public class EntityProperty {
         return columnName;
     }
 
-    /**
-     * @return Returns the identity.
-     */
-    public boolean isIdentity() {
-        return identity;
-    }
-
-    /**
-     * @param identity The identity to set.
-     */
-    public void setIdentity(boolean identity) {
-        this.identity = identity;
-    }
-
     public boolean isBLOBColumn() {
         String typeName = getJdbcTypeName();
-
         return "BINARY".equals(typeName) || "BLOB".equals(typeName) //$NON-NLS-1$ //$NON-NLS-2$
                 || "CLOB".equals(typeName) || "LONGVARBINARY".equals(typeName) //$NON-NLS-1$ //$NON-NLS-2$
                 || "LONGVARCHAR".equals(typeName) || "VARBINARY".equals(typeName); //$NON-NLS-1$ //$NON-NLS-2$
-    }
-
-    public boolean isStringColumn() {
-        return fullyQualifiedJavaType.equals(FullyQualifiedJavaType
-                .getStringInstance());
     }
 
     public boolean isJdbcCharacterColumn() {
@@ -139,7 +94,6 @@ public class EntityProperty {
         if (prefix == null) {
             return javaProperty;
         }
-
         StringBuilder sb = new StringBuilder();
         sb.append(prefix);
         sb.append(javaProperty);
@@ -149,20 +103,25 @@ public class EntityProperty {
 
     public void setJavaProperty(String javaProperty) {
         this.javaProperty = javaProperty;
+        upperJavaProperty = JavaBeanUtils.ConverDbNameToPropertyName(javaProperty,true);
+    }
+
+    public String getUpperJavaProperty() {
+        return upperJavaProperty;
     }
 
     public boolean isJDBCDateColumn() {
-        return fullyQualifiedJavaType.equals(FullyQualifiedJavaType
+        return javaType.equals(FullyQualifiedJavaType
                 .getDateInstance())
                 && "DATE".equalsIgnoreCase(jdbcTypeName);
     }
 
     public boolean isJDBCTimeColumn() {
-        return fullyQualifiedJavaType.equals(FullyQualifiedJavaType
+        return javaType.equals(FullyQualifiedJavaType
                 .getDateInstance())
                 && "TIME".equalsIgnoreCase(jdbcTypeName); //$NON-NLS-1$
     }
-    
+
     public String getJdbcTypeName() {
         if (jdbcTypeName == null) {
             return "OTHER";
@@ -174,13 +133,12 @@ public class EntityProperty {
         this.jdbcTypeName = jdbcTypeName;
     }
 
-    public FullyQualifiedJavaType getFullyQualifiedJavaType() {
-        return fullyQualifiedJavaType;
+    public void setJavaType(FullyQualifiedJavaType javaType) {
+        this.javaType = javaType;
     }
 
-    public void setFullyQualifiedJavaType(
-            FullyQualifiedJavaType fullyQualifiedJavaType) {
-        this.fullyQualifiedJavaType = fullyQualifiedJavaType;
+    public FullyQualifiedJavaType getJavaType() {
+        return javaType;
     }
 
     public String getRemarks() {
@@ -197,13 +155,5 @@ public class EntityProperty {
 
     public void setDefaultValue(String defaultValue) {
         this.defaultValue = defaultValue;
-    }
-
-    public boolean isSequenceColumn() {
-        return isSequenceColumn;
-    }
-
-    public void setSequenceColumn(boolean isSequenceColumn) {
-        this.isSequenceColumn = isSequenceColumn;
     }
 }
