@@ -18,5 +18,8 @@
 		<property name="maxStatements" value="${c3p0.maxStatements}" />
 		<property name="acquireIncrement" value="${c3p0.acquireIncrement}" />
 	</dataSource>
-
+	<generators>
+		<generator templatePath="template/list.ftl" targetPackage="com.test"
+			targetProject="genpath" />
+	</generators>
 </configuration>

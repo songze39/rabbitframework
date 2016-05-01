@@ -2,10 +2,13 @@ package com.rabbitframework.generator.builder;
 
 import java.io.InputStream;
 import java.io.Reader;
+import java.util.List;
 import java.util.Properties;
 
 import javax.sql.DataSource;
 
+import com.rabbitframework.generator.template.JavaModeGenerate;
+import com.rabbitframework.generator.template.Template;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,6 +61,7 @@ public class XMLConfigBuilder extends BaseBuilder {
 		try {
 			propertiesElement(root.evalNode("properties"));
 			dataSourceElement(root.evalNode("dataSource"));
+			generatorsElement(root.evalNode("generators"));
 		} catch (Exception e) {
 			logger.error("Error parsing generator Configuration. Cause: " + e, e);
 			throw new BuilderException("Error parsing generator Configuration. Cause: " + e, e);
@@ -96,5 +100,24 @@ public class XMLConfigBuilder extends BaseBuilder {
 		environment.setDataSource(dataSource);
 		environment.setType(type);
 		configuration.setEnvironment(environment);
+	}
+
+	private void generatorsElement(XNode generators) {
+		if (generators == null) {
+			return;
+		}
+		Template template = new Template();
+		List<XNode> xnode = generators.evalNodes("generator");
+		for (XNode cXnode : xnode) {
+			JavaModeGenerate javaModeGenerate = new JavaModeGenerate();
+			String templatePath = cXnode.getStringAttribute("templatePath");
+			String targetPackage = cXnode.getStringAttribute("targetPackage");
+			String targetProject = cXnode.getStringAttribute("targetProject");
+			javaModeGenerate.setTargetPackage(targetPackage);
+			javaModeGenerate.setTargetProject(targetProject);
+			javaModeGenerate.setTemplatePath(templatePath);
+			template.put(javaModeGenerate);
+		}
+		configuration.setTemplate(template);
 	}
 }

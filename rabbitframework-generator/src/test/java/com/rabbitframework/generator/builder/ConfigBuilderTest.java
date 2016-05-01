@@ -2,11 +2,17 @@ package com.rabbitframework.generator.builder;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.rabbitframework.commons.utils.ResourceUtils;
+import com.rabbitframework.generator.template.JavaModeGenerate;
 
 import junit.framework.TestCase;
 
@@ -25,5 +31,7 @@ public class ConfigBuilderTest extends TestCase {
 		reader.close();
 		logger.debug(configuration.getVariables().size() + "");
 		logger.debug("datasource:" + configuration.getEnvironment().getDataSource());
+		Map<String, JavaModeGenerate> templateName = configuration.getTemplate().getTemplateMapping();
+		 logger.debug("templateName:" + templateName);
 	}
 }

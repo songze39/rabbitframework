@@ -35,6 +35,7 @@ public class GeneratorConfig {
 			// File resource = ResourceUtils.getResourceAsFile("/");
 			// logger.debug("path:" + resource.getAbsolutePath());
 			StringTemplateLoader templateLoader = new StringTemplateLoader();
+			configuration.setTemplateLoader(templateLoader);
 			Resource[] resources = ResourceUtils.getResources("classpath*:/template/*.ftl");
 			for (Resource resource : resources) {
 				String fileName = resource.getFilename();
@@ -42,7 +43,7 @@ public class GeneratorConfig {
 				templateLoader.putTemplate(fileName, value);
 			}
 			// templateLoader.putTemplate();
-			configuration.setTemplateLoader(templateLoader);
+			
 			// configuration.setDirectoryForTemplateLoading(resource);
 		} catch (IOException e) {
 			logger.error(e.getMessage(), e);
