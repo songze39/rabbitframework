@@ -116,9 +116,13 @@ public class XMLConfigBuilder extends BaseBuilder {
             String templatePath = cXnode.getStringAttribute("templatePath");
             String targetPackage = cXnode.getStringAttribute("targetPackage");
             String targetProject = cXnode.getStringAttribute("targetProject");
+            String fileSuffix = cXnode.getStringAttribute("fileSuffix");
+            String extension = cXnode.getStringAttribute("extension", ".java");
             javaModeGenerate.setTargetPackage(targetPackage);
             javaModeGenerate.setTargetProject(targetProject);
             javaModeGenerate.setTemplatePath(templatePath);
+            javaModeGenerate.setFileSuffix(fileSuffix);
+            javaModeGenerate.setExtension(extension);
             template.put(javaModeGenerate);
         }
         configuration.setTemplate(template);

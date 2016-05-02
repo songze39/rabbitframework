@@ -20,7 +20,7 @@
     </dataSource>
     <generators>
         <generator templatePath="template/model.ftl" targetPackage="com.test"
-                   targetProject="genpath"/>
+                   targetProject="genpath" fileSuffix="" extension=".java"/>
     </generators>
     <!--type分为：all:所有表，assign:指定表名,
     逻辑说明：

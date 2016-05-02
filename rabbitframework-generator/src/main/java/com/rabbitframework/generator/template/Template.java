@@ -2,14 +2,18 @@ package com.rabbitframework.generator.template;
 
 import com.rabbitframework.commons.org.springframework.io.Resource;
 import com.rabbitframework.commons.utils.ResourceUtils;
+import com.rabbitframework.commons.utils.StringUtils;
 import com.rabbitframework.generator.exceptions.GeneratorException;
 
+import com.rabbitframework.generator.utils.Constants;
 import freemarker.cache.StringTemplateLoader;
 import freemarker.template.Configuration;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.*;
@@ -50,9 +54,76 @@ public class Template {
         return Collections.unmodifiableMap(templateMapping);
     }
 
-    public void printToConsole(Object obj, String fileName) throws Exception {
+    public void printToConsole(Map<String, Object> params, String fileName) throws Exception {
         freemarker.template.Template template = configuration.getTemplate(fileName);
-        template.process(obj, new OutputStreamWriter(System.out));
+        template.process(params, new OutputStreamWriter(System.out));
     }
 
+    public void printToFile(Map<String, Object> params, String tempFileName, String outPath, String outfileName) {
+        OutputStreamWriter osw = null;
+        FileOutputStream fos = null;
+        try {
+            freemarker.template.Template template = configuration.getTemplate(tempFileName);
+            String packageName = (String) params.get(Constants.PACKAGE_NAME_KEY);
+            File directory = getDirectory(outPath, packageName);
+            File targetFile = new File(directory, outfileName);
+            fos = new FileOutputStream(targetFile, false);
+            osw = new OutputStreamWriter(fos, Constants.ENCODING);
+            template.process(params, osw);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            throw new GeneratorException(e);
+        } finally {
+            try {
+                if (fos != null) {
+                    fos.close();
+                }
+                if (osw != null) {
+                    osw.close();
+                }
+            } catch (Exception e) {
+
+            }
+        }
+    }
+
+//    private void writeFile(File file, String content, String fileEncoding) throws IOException {
+//        FileOutputStream fos = new FileOutputStream(file, false);
+//        OutputStreamWriter osw;
+//        if (fileEncoding == null) {
+//            osw = new OutputStreamWriter(fos);
+//        } else {
+//            osw = new OutputStreamWriter(fos, fileEncoding);
+//        }
+//
+//        BufferedWriter bw = new BufferedWriter(osw);
+//        bw.write(content);
+//        bw.close();
+//    }
+
+
+    public File getDirectory(String targetProject, String targetPackage) {
+        File project = new File(targetProject);
+        if (!project.isDirectory()) {
+            //throw new GeneratorException("The specified target project directory " + targetProject + " does not exist");
+            project.mkdirs();
+        }
+
+        StringBuilder sb = new StringBuilder();
+        StringTokenizer st = new StringTokenizer(targetPackage, ".");
+        while (st.hasMoreTokens()) {
+            sb.append(st.nextToken());
+            sb.append(File.separatorChar);
+        }
+
+        File directory = new File(project, sb.toString());
+        if (!directory.isDirectory()) {
+            boolean rc = directory.mkdirs();
+            if (!rc) {
+                throw new GeneratorException("Cannot create directory " + directory.getAbsolutePath());
+            }
+        }
+
+        return directory;
+    }
 }

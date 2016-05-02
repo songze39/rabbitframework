@@ -13,8 +13,12 @@ public class RabbitGeneratorTest {
     @Test
     public void generator() throws Exception {
         Reader reader = ResourceUtils.getResourceAsReader("generator-config.xml");
-        RabbitGeneratorBuilder builder = new RabbitGeneratorBuilder();
-        RabbitGenerator rabbitGenerator = builder.build(reader);
-        rabbitGenerator.generator();
+        try {
+            RabbitGeneratorBuilder builder = new RabbitGeneratorBuilder();
+            RabbitGenerator rabbitGenerator = builder.build(reader);
+            rabbitGenerator.generator();
+        } finally {
+            reader.close();
+        }
     }
 }

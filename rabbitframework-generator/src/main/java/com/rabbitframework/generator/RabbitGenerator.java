@@ -11,6 +11,7 @@ import com.rabbitframework.generator.dataaccess.DatabaseIntrospector;
 import com.rabbitframework.generator.mapping.EntityMapping;
 import com.rabbitframework.generator.template.JavaModeGenerate;
 import com.rabbitframework.generator.template.Template;
+import com.rabbitframework.generator.utils.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,10 +41,14 @@ public class RabbitGenerator {
                 JavaModeGenerate javaModeGenerate = entry.getValue();
                 String packageName = javaModeGenerate.getTargetPackage();
                 String outPath = javaModeGenerate.getTargetProject();
-                outMap.put("packageName", packageName);
+                String fileSuffix = javaModeGenerate.getFileSuffix();
+                String extension = javaModeGenerate.getExtension();
+                outMap.put(Constants.PACKAGE_NAME_KEY, packageName);
+                outMap.put(Constants.FILE_SUFFIX_KEY, fileSuffix);
                 for (EntityMapping entityMapping : entityMappings) {
-                    outMap.put("entity", entityMapping);
-                    template.printToConsole(outMap, key);
+                    outMap.put(Constants.ENTITY_KEY, entityMapping);
+//                    template.printToConsole(outMap, key);
+                    template.printToFile(outMap, key, outPath, entityMapping.getObjectName() + extension);
                 }
             }
 
