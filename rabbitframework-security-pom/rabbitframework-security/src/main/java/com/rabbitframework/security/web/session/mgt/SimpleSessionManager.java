@@ -24,6 +24,7 @@ import org.apache.shiro.subject.Subject;
 import org.apache.shiro.subject.support.DelegatingSubject;
 import org.apache.shiro.util.StringUtils;
 import org.apache.shiro.util.ThreadContext;
+import org.apache.shiro.web.util.SavedRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -91,7 +92,9 @@ public class SimpleSessionManager extends AbstractValidatingSessionManager
 					throw e;
 				}
 			} else {
-				throw e;
+				if (!(value instanceof SavedRequest)) {
+					throw e;
+				}
 			}
 		}
 	}
