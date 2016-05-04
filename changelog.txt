@@ -1,0 +1,4 @@
+rabbitframework1.1.1版本说明：
+1、修改security权限控制,将security进行分解，添加redis缓存功能,依整于apche的shrio。
+2、新增rabbitframework-generator模块，此模块用于生成代码生成。
+3、修改一些bug
