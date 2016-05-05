@@ -16,13 +16,11 @@ import java.util.Set;
 
 import org.apache.commons.lang.ClassUtils;
 import org.springframework.jdbc.core.ColumnMapRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.SingleColumnRowMapper;
 
-//TODO 待开发
-//@SuppressWarnings({ "rawtypes", "unchecked" })
 public class RowMapperUtil {
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static RowMapper getRowMapper(Method method) {
 		RowMapper<?> rowMapper = null;
 		Class<?> returnType = method.getReturnType();
@@ -64,37 +62,30 @@ public class RowMapperUtil {
 		} else if (Collection.class.isAssignableFrom(returnType)) {
 			Type returnTypeParameter = method.getGenericReturnType();
 			if (returnTypeParameter instanceof ParameterizedType) {
-				Type[] actualTypeArguments = ((ParameterizedType) returnTypeParameter)
-						.getActualTypeArguments();
-				if (actualTypeArguments != null
-						&& actualTypeArguments.length == 1) {
+				Type[] actualTypeArguments = ((ParameterizedType) returnTypeParameter).getActualTypeArguments();
+				if (actualTypeArguments != null && actualTypeArguments.length == 1) {
 					returnTypeParameter = actualTypeArguments[0];
 					if (returnTypeParameter instanceof Class) {
 						returnType = (Class<?>) returnTypeParameter;
 					} else if (returnTypeParameter instanceof ParameterizedType) {
-						returnType = (Class<?>) ((ParameterizedType) returnTypeParameter)
-								.getRawType();
+						returnType = (Class<?>) ((ParameterizedType) returnTypeParameter).getRawType();
 					} else if (returnTypeParameter instanceof GenericArrayType) {
 						Class<?> componentType = (Class<?>) ((GenericArrayType) returnTypeParameter)
 								.getGenericComponentType();
-						returnType = Array.newInstance(componentType, 0)
-								.getClass();
+						returnType = Array.newInstance(componentType, 0).getClass();
 					}
 				}
 			}
 		} else if (Map.class.isAssignableFrom(returnType)) {
 			Type returnTypeParameter = method.getGenericReturnType();
 			if (returnTypeParameter instanceof ParameterizedType) {
-				Type[] actualTypeArguments = ((ParameterizedType) returnTypeParameter)
-						.getActualTypeArguments();
-				if (actualTypeArguments != null
-						&& actualTypeArguments.length == 2) {
+				Type[] actualTypeArguments = ((ParameterizedType) returnTypeParameter).getActualTypeArguments();
+				if (actualTypeArguments != null && actualTypeArguments.length == 2) {
 					returnTypeParameter = actualTypeArguments[1];
 					if (returnTypeParameter instanceof Class) {
 						returnType = (Class<?>) returnTypeParameter;
 					} else if (returnTypeParameter instanceof ParameterizedType) {
-						returnType = (Class<?>) ((ParameterizedType) returnTypeParameter)
-								.getRawType();
+						returnType = (Class<?>) ((ParameterizedType) returnTypeParameter).getRawType();
 					}
 				}
 			}
@@ -104,8 +95,7 @@ public class RowMapperUtil {
 
 	public static boolean isColumnType(Class<?> columnTypeCandidate) {
 		return String.class == columnTypeCandidate // NL
-				|| org.springframework.util.ClassUtils
-						.isPrimitiveOrWrapper(columnTypeCandidate)// NL
+				|| org.springframework.util.ClassUtils.isPrimitiveOrWrapper(columnTypeCandidate)// NL
 				|| Date.class.isAssignableFrom(columnTypeCandidate) // NL
 				|| columnTypeCandidate == byte[].class // NL
 				|| columnTypeCandidate == BigDecimal.class // NL

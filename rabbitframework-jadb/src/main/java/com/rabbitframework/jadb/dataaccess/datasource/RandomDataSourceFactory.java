@@ -1,5 +1,8 @@
 package com.rabbitframework.jadb.dataaccess.datasource;
 
+import com.rabbitframework.jadb.dataaccess.DataSourceBean;
+import com.rabbitframework.jadb.dataaccess.dialect.DefaultDialect;
+import com.rabbitframework.jadb.dataaccess.dialect.Dialect;
 import com.rabbitframework.jadb.mapping.MappedStatement;
 
 import java.util.ArrayList;
@@ -11,15 +14,15 @@ import javax.sql.DataSource;
 
 public class RandomDataSourceFactory implements DataSourceFactory {
 	private Random random = new Random();
-	private List<DataSource> dataSources = Collections.emptyList();
+	private List<DataSourceBean> dataSources = Collections.emptyList();
 
 	@Override
-	public void addDataSource(String key, DataSource dataSource) {
-		if (dataSource == null) {
-			throw new NullPointerException("dataSource is null");
+	public void addDataSource(String key, DataSourceBean dataSourceBean) {
+		if (dataSourceBean == null) {
+			throw new NullPointerException("dataSourceBean is null");
 		}
 		if (dataSources.size() == 0) {
-			dataSources = new ArrayList<DataSource>(dataSources);
+			dataSources = new ArrayList<DataSourceBean>(dataSources);
 		}
 	}
 
@@ -29,6 +32,16 @@ public class RandomDataSourceFactory implements DataSourceFactory {
 			return null;
 		}
 		int index = random.nextInt(dataSources.size()); // 0.. size
-		return dataSources.get(index);
+		return dataSources.get(index).getDataSource();
+	}
+
+	@Override
+	public Dialect getDialect(MappedStatement mappedStatement) {
+		if (dataSources.size() == 0) {
+			return null;
+		}
+		int index = random.nextInt(dataSources.size()); // 0.. size
+		String dialectStr = dataSources.get(index).getDialect();
+		return DefaultDialect.newInstances(dialectStr);
 	}
 }

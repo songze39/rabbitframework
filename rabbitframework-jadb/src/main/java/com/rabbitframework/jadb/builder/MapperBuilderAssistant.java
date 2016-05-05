@@ -22,12 +22,15 @@ public class MapperBuilderAssistant extends BaseBuilder {
 		this.catalog = catalog;
 	}
 
-	public void addMappedStatement(String mappedStatementId,
-			SqlCommendType sqlCommendType, Cache cache, String[] cacheKey,
-			SqlSource sqlSource, LanguageDriver languageDriver,
-			List<KeyGenerator> keyGenerators, RowMapper rowMapper) {
-		MappedStatement.Builder statementBuilder = new MappedStatement.Builder(
-				configuration, mappedStatementId, sqlCommendType, catalog);
+	public String getCatalog() {
+		return catalog;
+	}
+
+	public void addMappedStatement(String mappedStatementId, SqlCommendType sqlCommendType, Cache cache,
+			String[] cacheKey, SqlSource sqlSource, LanguageDriver languageDriver, List<KeyGenerator> keyGenerators,
+			RowMapper rowMapper) {
+		MappedStatement.Builder statementBuilder = new MappedStatement.Builder(configuration, mappedStatementId,
+				sqlCommendType, catalog);
 		statementBuilder.cacheKey(cacheKey);
 		statementBuilder.cache(cache);
 		statementBuilder.sqlSource(sqlSource);

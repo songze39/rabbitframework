@@ -6,8 +6,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 
-import javax.sql.DataSource;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.FactoryBean;
@@ -24,6 +22,7 @@ import com.rabbitframework.jadb.RabbitJadbFactoryBuilder;
 import com.rabbitframework.jadb.builder.Configuration;
 import com.rabbitframework.jadb.builder.XMLConfigBuilder;
 import com.rabbitframework.jadb.cache.Cache;
+import com.rabbitframework.jadb.dataaccess.DataSourceBean;
 import com.rabbitframework.jadb.dataaccess.Environment;
 import com.rabbitframework.jadb.dataaccess.datasource.DataSourceFactory;
 
@@ -35,7 +34,7 @@ public class RabbitJadbFactoryBean
 	private Resource configLocation;
 	private Properties configurationProperties;
 	private DataSourceFactory dataSourceFactory;
-	private Map<String, DataSource> dataSourceMap;
+	private Map<String, DataSourceBean> dataSourceMap;
 	private Map<String, Cache> cacheMap;
 	private String entityPackages;
 	private String mapperPackages;
@@ -69,7 +68,7 @@ public class RabbitJadbFactoryBean
 		this.dataSourceFactory = dataSourceFactory;
 	}
 
-	public void setDataSourceMap(Map<String, DataSource> dataSourceMap) {
+	public void setDataSourceMap(Map<String, DataSourceBean> dataSourceMap) {
 		this.dataSourceMap = dataSourceMap;
 	}
 
@@ -122,19 +121,19 @@ public class RabbitJadbFactoryBean
 			}
 		}
 		Environment environment = new Environment();
-		for (Entry<String, DataSource> entry : dataSourceMap.entrySet()) {
+		for (Entry<String, DataSourceBean> entry : dataSourceMap.entrySet()) {
 			String name = entry.getKey();
-			DataSource dataSource = entry.getValue();
+			DataSourceBean dataSource = entry.getValue();
 			dataSourceFactory.addDataSource(name, dataSource);
-			environment.addCacheDataSource(dataSource);
+			environment.addCacheDataSource(dataSource.getDataSource());
 		}
 		environment.setDataSourceFactory(dataSourceFactory);
+		configuration.setEnvironment(environment);
 		String[] entityPackageNames = StringUtils.tokenizeToStringArray(entityPackages);
 		configuration.addEntitys(entityPackageNames);
 		String[] mapperPackageNames = StringUtils.tokenizeToStringArray(mapperPackages);
 		configuration.addMappers(mapperPackageNames);
 		configuration.addCaches(cacheMap);
-		configuration.setEnvironment(environment);
 		return rabbitJadbFactoryBuilder.build(configuration);
 	}
 

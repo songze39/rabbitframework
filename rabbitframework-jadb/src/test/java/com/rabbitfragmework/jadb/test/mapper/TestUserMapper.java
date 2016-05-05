@@ -6,7 +6,6 @@ import java.util.Map;
 import com.rabbitfragmework.jadb.test.model.TestUser;
 import com.rabbitframework.jadb.annontations.CacheNamespace;
 import com.rabbitframework.jadb.annontations.Create;
-import com.rabbitframework.jadb.annontations.DbDialect;
 import com.rabbitframework.jadb.annontations.Delete;
 import com.rabbitframework.jadb.annontations.Insert;
 import com.rabbitframework.jadb.annontations.MapKey;
@@ -14,7 +13,6 @@ import com.rabbitframework.jadb.annontations.Mapper;
 import com.rabbitframework.jadb.annontations.Param;
 import com.rabbitframework.jadb.annontations.Select;
 import com.rabbitframework.jadb.annontations.Update;
-import com.rabbitframework.jadb.dataaccess.dialect.MySqlDialect;
 import com.rabbitframework.jadb.mapping.RowBounds;
 import com.rabbitframework.jadb.mapping.param.WhereParamType;
 
@@ -46,7 +44,6 @@ public interface TestUserMapper {
 	public Map<Long, TestUser> selectTestUserToMap();
 
 	@Select("select * from test_user")
-	@DbDialect(dialect = MySqlDialect.class)
 	public List<TestUser> selectTestUserByPage(RowBounds rowBounds);
 
 	@Select("select * from test_user")

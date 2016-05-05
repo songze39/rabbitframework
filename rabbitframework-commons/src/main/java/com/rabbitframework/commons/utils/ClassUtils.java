@@ -141,6 +141,7 @@ public class ClassUtils {
         try {
             return clazz.newInstance();
         } catch (Exception e) {
+            logger.error(e.getMessage(), e);
             throw new NewInstanceException("Unable to instantiate class [" + clazz.getName() + "]", e);
         }
     }
@@ -167,6 +168,7 @@ public class ClassUtils {
             }
 
         } catch (Exception e) {
+            logger.error(e.getMessage(), e);
             throw new NewInstanceException(e.getMessage(), e);
         }
     }
@@ -184,6 +186,7 @@ public class ClassUtils {
         try {
             if (parameterTypes != null && parameterTypes.length > 0) {
                 if (args == null || args.length != parameterTypes.length) {
+                    logger.error("Unable to instantiate class [" + clazz.getName() + "]");
                     throw new NewInstanceException("Unable to instantiate class [" + clazz.getName() + "]");
                 }
                 Constructor<?> constructor = clazz.getConstructor(parameterTypes);
@@ -193,6 +196,7 @@ public class ClassUtils {
             }
 
         } catch (Exception e) {
+            logger.error(e.getMessage(), e);
             throw new NewInstanceException(e.getMessage(), e);
         }
     }
@@ -209,6 +213,7 @@ public class ClassUtils {
         try {
             return clazz.getConstructor(argTypes);
         } catch (NoSuchMethodException e) {
+            logger.error(e.getMessage(), e);
             throw new IllegalStateException(e);
         }
 
@@ -219,6 +224,7 @@ public class ClassUtils {
             return ctor.newInstance(args);
         } catch (Exception e) {
             String msg = "Unable to instantiate Permission instance with constructor [" + ctor + "]";
+            logger.error(msg, e);
             throw new NewInstanceException(msg, e);
         }
     }

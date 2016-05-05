@@ -17,6 +17,7 @@ import com.rabbitframework.commons.xmlparser.XNode;
 import com.rabbitframework.commons.xmlparser.XPathParser;
 import com.rabbitframework.jadb.cache.Cache;
 import com.rabbitframework.jadb.cache.CacheBuilder;
+import com.rabbitframework.jadb.dataaccess.DataSourceBean;
 import com.rabbitframework.jadb.dataaccess.Environment;
 import com.rabbitframework.jadb.dataaccess.datasource.DataSourceFactory;
 import com.rabbitframework.jadb.exceptions.BuilderException;
@@ -61,8 +62,7 @@ public class XMLConfigBuilder extends BaseBuilder {
 	public Configuration parse() {
 		if (parsed) {
 			logger.error("Each XMLConfigBuilder can only be used once.");
-			throw new BuilderException(
-					"Each XMLConfigBuilder can only be used once.");
+			throw new BuilderException("Each XMLConfigBuilder can only be used once.");
 		}
 		parsed = true;
 		parseConfiguration(xPathParser.evalNode("/configuration"));
@@ -78,10 +78,8 @@ public class XMLConfigBuilder extends BaseBuilder {
 			entityElement(root.evalNode("entitys"));
 			mapperElement(root.evalNode("mappers"));
 		} catch (Exception e) {
-			logger.error("Error parsing SQL Mapper Configuration. Cause: " + e,
-					e);
-			throw new BuilderException(
-					"Error parsing SQL Mapper Configuration. Cause: " + e, e);
+			logger.error("Error parsing SQL Mapper Configuration. Cause: " + e, e);
+			throw new BuilderException("Error parsing SQL Mapper Configuration. Cause: " + e, e);
 		}
 	}
 
@@ -97,8 +95,7 @@ public class XMLConfigBuilder extends BaseBuilder {
 		Properties properties = pro.getChildrenAsProperties();
 		String resource = pro.getStringAttribute("resource");
 		if (StringUtils.isNotBlank(resource)) {
-			Properties propertiesResource = ResourceUtils
-					.getResourceAsProperties(resource);
+			Properties propertiesResource = ResourceUtils.getResourceAsProperties(resource);
 			properties.putAll(propertiesResource);
 		}
 		Properties variables = configuration.getVariables();
@@ -124,8 +121,7 @@ public class XMLConfigBuilder extends BaseBuilder {
 		for (int i = 0; i < size; i++) {
 			XNode cxnode = childrenPluginNode.get(i);
 			String interceptorStr = cxnode.getStringAttribute("interceptor");
-			Interceptor interceptor = (Interceptor) resolveClass(interceptorStr)
-					.newInstance();
+			Interceptor interceptor = (Interceptor) resolveClass(interceptorStr).newInstance();
 			configuration.addInterceptor(interceptor);
 		}
 	}
@@ -154,22 +150,17 @@ public class XMLConfigBuilder extends BaseBuilder {
 		if (dataAccessNode == null) {
 			return;
 		}
-		XNode dataSourceFactoryNode = dataAccessNode
-				.evalNode("dataSourceFactory");
+		XNode dataSourceFactoryNode = dataAccessNode.evalNode("dataSourceFactory");
 		if (dataSourceFactoryNode == null) {
 			throw new NullPointerException("dataSourceFactory is null");
 		}
-		String dsFactoryClazz = dataSourceFactoryNode
-				.getStringAttribute("class");
-		DataSourceFactory dataSourceFactory = (DataSourceFactory) resolveClass(
-				dsFactoryClazz).newInstance();
+		String dsFactoryClazz = dataSourceFactoryNode.getStringAttribute("class");
+		DataSourceFactory dataSourceFactory = (DataSourceFactory) resolveClass(dsFactoryClazz).newInstance();
 		dataSourceElement(dataAccessNode, dataSourceFactory);
 	}
 
-	private void dataSourceElement(XNode dataAccessNode,
-			DataSourceFactory dataSourceFactory) throws Exception {
-		List<XNode> dataSources = dataAccessNode.evalNode("dataSources")
-				.getChildren();
+	private void dataSourceElement(XNode dataAccessNode, DataSourceFactory dataSourceFactory) throws Exception {
+		List<XNode> dataSources = dataAccessNode.evalNode("dataSources").getChildren();
 		if (dataSources.size() == 0) {
 			return;
 		}
@@ -178,11 +169,14 @@ public class XMLConfigBuilder extends BaseBuilder {
 		for (XNode xNode : dataSources) {
 			String name = xNode.getStringAttribute("name");
 			String dataSourceClazz = xNode.getStringAttribute("class");
+			String dialectStr = xNode.getStringAttribute("dialect");
 			Properties properties = xNode.getChildrenAsProperties();
-			DataSource dataSource = (DataSource) resolveClass(dataSourceClazz)
-					.newInstance();
+			DataSource dataSource = (DataSource) resolveClass(dataSourceClazz).newInstance();
 			PropertiesConvert.setProperties(properties, dataSource, variables);
-			dataSourceFactory.addDataSource(name, dataSource);
+			DataSourceBean dataSourceBean = new DataSourceBean();
+			dataSourceBean.setDataSource(dataSource);
+			dataSourceBean.setDialect(dialectStr);
+			dataSourceFactory.addDataSource(name, dataSourceBean);
 			environment.addCacheDataSource(dataSource);
 		}
 		environment.setDataSourceFactory(dataSourceFactory);
@@ -194,8 +188,7 @@ public class XMLConfigBuilder extends BaseBuilder {
 			List<XNode> packageNodes = context.evalNodes("package");
 			for (XNode xNode : packageNodes) {
 				String packageName = xNode.getStringAttribute("name");
-				String[] packageNames = StringUtils
-						.tokenizeToStringArray(packageName);
+				String[] packageNames = StringUtils.tokenizeToStringArray(packageName);
 				configuration.addEntitys(packageNames);
 			}
 			List<XNode> entityNodes = context.evalNodes("entity");
@@ -212,8 +205,7 @@ public class XMLConfigBuilder extends BaseBuilder {
 			List<XNode> packageNodes = context.evalNodes("package");
 			for (XNode xNode : packageNodes) {
 				String packageName = xNode.getStringAttribute("name");
-				String[] packageNames = StringUtils
-						.tokenizeToStringArray(packageName);
+				String[] packageNames = StringUtils.tokenizeToStringArray(packageName);
 				configuration.addMappers(packageNames);
 			}
 

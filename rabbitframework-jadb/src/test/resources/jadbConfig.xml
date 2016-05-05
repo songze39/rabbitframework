@@ -12,7 +12,7 @@
 		<dataSourceFactory
 			class="com.rabbitframework.jadb.dataaccess.datasource.SimpleDataSourceFactory" />
 		<dataSources>
-			<dataSource name="simple"
+			<dataSource name="simple" dialect="mysql"
 				class="com.mchange.v2.c3p0.ComboPooledDataSource">
 				<property name="driverClass" value="${c3p0.driverClassName}" />
 				<property name="jdbcUrl" value="${c3p0.url}" />

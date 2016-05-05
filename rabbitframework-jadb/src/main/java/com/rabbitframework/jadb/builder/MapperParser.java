@@ -15,7 +15,6 @@ import org.springframework.jdbc.core.RowMapper;
 import com.rabbitframework.commons.utils.StringUtils;
 import com.rabbitframework.jadb.annontations.CacheNamespace;
 import com.rabbitframework.jadb.annontations.Create;
-import com.rabbitframework.jadb.annontations.DbDialect;
 import com.rabbitframework.jadb.annontations.Delete;
 import com.rabbitframework.jadb.annontations.Insert;
 import com.rabbitframework.jadb.annontations.Mapper;
@@ -30,6 +29,7 @@ import com.rabbitframework.jadb.exceptions.BuilderException;
 import com.rabbitframework.jadb.mapping.EntityMap;
 import com.rabbitframework.jadb.mapping.EntityProperty;
 import com.rabbitframework.jadb.mapping.GenerationType;
+import com.rabbitframework.jadb.mapping.MappedStatement;
 import com.rabbitframework.jadb.mapping.RowBounds;
 import com.rabbitframework.jadb.mapping.SqlCommendType;
 import com.rabbitframework.jadb.mapping.binding.EntityRegistry;
@@ -86,6 +86,7 @@ public class MapperParser {
 	 */
 	@SuppressWarnings("rawtypes")
 	private void parsetMapperStatement(Method method) {
+		final String mappedStatementId = mapperInterface.getName() + "." + method.getName(); // 声明ID
 		Class<?> parameterType = getParameterType(method);
 		LanguageDriver languageDriver = configuration.getLanguageDriver();
 		SQLParser sqlParser = getSQLParserByAnnotations(method);
@@ -94,13 +95,6 @@ public class MapperParser {
 
 		SqlCommendType sqlCommendType = sqlParser.getSqlCommendType();
 		CacheNamespace cacheNamespace = method.getAnnotation(CacheNamespace.class);
-		Class<? extends Dialect> dialect = null;
-
-		DbDialect dbDialect = method.getAnnotation(DbDialect.class);
-		if (dbDialect != null) {
-			dialect = dbDialect.dialect();
-		}
-
 		Cache cache = null;
 		String[] cacheKey = null;
 		if (cacheNamespace != null) {
@@ -108,9 +102,8 @@ public class MapperParser {
 			cache = configuration.getCache(pool);
 			cacheKey = cacheNamespace.key();
 		}
-		boolean isPage = isPage(method, dialect, sqlCommendType);
-
-		SqlSource sqlSource = getSqlSource(getSql(sqlParser, isPage, dialect), languageDriver, isPage);
+		boolean isPage = isPage(method, sqlCommendType);
+		SqlSource sqlSource = getSqlSource(getSql(sqlParser, isPage, mappedStatementId), languageDriver, isPage);
 		RowMapper rowMapper = null;
 		if (SqlCommendType.SELECT == sqlCommendType) {
 			rowMapper = RowMapperUtil.getRowMapper(method);
@@ -133,14 +126,16 @@ public class MapperParser {
 			}
 		}
 
-		final String mappedStatementId = mapperInterface.getName() + "." + method.getName(); // 声明ID
 		assistant.addMappedStatement(mappedStatementId, sqlCommendType, cache, cacheKey, sqlSource, languageDriver,
 				keyGenerators, rowMapper);
 	}
 
-	private String getSql(SQLParser sqlParser, boolean ispage, Class<? extends Dialect> dialectClazz) {
+	private String getSql(SQLParser sqlParser, boolean ispage, String mappedStatementId) {
 		if (ispage) {
-			Dialect dialect = (Dialect) com.rabbitframework.commons.utils.ClassUtils.newInstance(dialectClazz);
+			MappedStatement.Builder statementBuilder = new MappedStatement.Builder(configuration, mappedStatementId,
+					null, this.assistant.getCatalog());
+			Dialect dialect = configuration.getEnvironment().getDataSourceFactory()
+					.getDialect(statementBuilder.build());
 			return dialect.getSQL(sqlParser.getSqlValue());
 		} else {
 			return sqlParser.getSqlValue();
@@ -148,11 +143,8 @@ public class MapperParser {
 
 	}
 
-	private boolean isPage(Method method, Class<? extends Dialect> dialect, SqlCommendType commendType) {
+	private boolean isPage(Method method, SqlCommendType commendType) {
 		boolean pageFlag = false;
-		if (dialect == null) {
-			return pageFlag;
-		}
 		if (commendType != SqlCommendType.SELECT) {
 			return pageFlag;
 		}
