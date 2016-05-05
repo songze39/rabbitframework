@@ -103,7 +103,8 @@ public class MapperParser {
 			cacheKey = cacheNamespace.key();
 		}
 		boolean isPage = isPage(method, sqlCommendType);
-		SqlSource sqlSource = getSqlSource(getSql(sqlParser, isPage, mappedStatementId), languageDriver, isPage);
+		SqlSource sqlSource = getSqlSource(getSql(sqlParser, isPage, mappedStatementId, sqlCommendType), languageDriver,
+				isPage);
 		RowMapper rowMapper = null;
 		if (SqlCommendType.SELECT == sqlCommendType) {
 			rowMapper = RowMapperUtil.getRowMapper(method);
@@ -130,10 +131,11 @@ public class MapperParser {
 				keyGenerators, rowMapper);
 	}
 
-	private String getSql(SQLParser sqlParser, boolean ispage, String mappedStatementId) {
+	private String getSql(SQLParser sqlParser, boolean ispage, String mappedStatementId,
+			SqlCommendType sqlCommendType) {
 		if (ispage) {
 			MappedStatement.Builder statementBuilder = new MappedStatement.Builder(configuration, mappedStatementId,
-					null, this.assistant.getCatalog());
+					sqlCommendType, this.assistant.getCatalog());
 			Dialect dialect = configuration.getEnvironment().getDataSourceFactory()
 					.getDialect(statementBuilder.build());
 			return dialect.getSQL(sqlParser.getSqlValue());
