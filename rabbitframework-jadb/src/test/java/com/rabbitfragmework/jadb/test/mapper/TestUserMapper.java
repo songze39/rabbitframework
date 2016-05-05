@@ -18,34 +18,35 @@ import com.rabbitframework.jadb.mapping.param.WhereParamType;
 
 @Mapper
 public interface TestUserMapper {
+    public static final String table = "test_user";
 
-	@Create("create table test_user (id int primary key auto_increment, test_name varchar(200))")
-	public int createTestUser();
+    @Create("create table test_user (id int primary key auto_increment, test_name varchar(200))")
+    public int createTestUser();
 
-	// @Insert("insert into test_user(test_name) values(#{testName})")
-	@Insert
-	public int insertTest(TestUser testUser);
+    // @Insert("insert into test_user(test_name) values(#{testName})")
+    @Insert
+    public int insertTest(TestUser testUser);
 
-	@Update("update test_user set test_name=#{testName} where id=#{id}")
-	public int updateTest(@Param("id") long id, @Param("testName") String testName);
+    @Update("update test_user set test_name=#{testName} where id=#{id}")
+    public int updateTest(@Param("id") long id, @Param("testName") String testName);
 
-	@Update
-	public int updateTestByUser(TestUser testUser);
+    @Update
+    public int updateTestByUser(TestUser testUser);
 
-	@Delete("delete from test_user where id=#{id}")
-	public int delTestUser(long id);
+    @Delete("delete from test_user where id=#{id}")
+    public int delTestUser(long id);
 
-	@Select("select * from test_user")
-	@CacheNamespace(pool = "defaultCache", key = { "seltestuser" })
-	public List<TestUser> selectTestUser();
+    @Select("select * from @{table}")
+    @CacheNamespace(pool = "defaultCache", key = {"seltestuser"})
+    public List<TestUser> selectTestUser();
 
-	@Select("select * from test_user")
-	@MapKey("id")
-	public Map<Long, TestUser> selectTestUserToMap();
+    @Select("select * from test_user")
+    @MapKey("id")
+    public Map<Long, TestUser> selectTestUserToMap();
 
-	@Select("select * from test_user")
-	public List<TestUser> selectTestUserByPage(RowBounds rowBounds);
+    @Select("select * from @{table}")
+    public List<TestUser> selectTestUserByPage(RowBounds rowBounds);
 
-	@Select("select * from test_user")
-	public List<TestUser> selectTesstUserByParamType(WhereParamType paramType);
+    @Select("select * from test_user")
+    public List<TestUser> selectTesstUserByParamType(WhereParamType paramType);
 }
