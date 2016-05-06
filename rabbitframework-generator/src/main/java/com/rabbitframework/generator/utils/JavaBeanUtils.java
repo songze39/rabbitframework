@@ -1,62 +1,61 @@
 package com.rabbitframework.generator.utils;
 
-public class JavaBeanUtils {
+import com.rabbitframework.generator.mapping.type.FullyQualifiedJavaType;
 
-    public static String converDbNameToPropertyName(String inputString,
-                                                    boolean firstCharacterUppercase) {
+public class JavaBeanUtils {
+    /**
+     * JavaBeans rules:
+     * <p>
+     * eMail > geteMail() firstName > getFirstName() URL > getURL() XAxis >
+     * getXAxis() a > getA() B > invalid - this method assumes that this is not
+     * the case. Call getValidPropertyName first. Yaxis > invalid - this method
+     * assumes that this is not the case. Call getValidPropertyName first.
+     *
+     * @param property
+     * @return the getter method name
+     */
+    public static String getGetterMethodName(String property, FullyQualifiedJavaType fullyQualifiedJavaType) {
         StringBuilder sb = new StringBuilder();
-        boolean nextUpperCase = false;
-        for (int i = 0; i < inputString.length(); i++) {
-            char c = inputString.charAt(i);
-            switch (c) {
-                case '_':
-                case '-':
-                case '@':
-                case '$':
-                case '#':
-                case ' ':
-                case '/':
-                case '&':
-                    if (sb.length() > 0) {
-                        nextUpperCase = true;
-                    }
-                    break;
-                default:
-                    if (nextUpperCase) {
-                        sb.append(Character.toUpperCase(c));
-                        nextUpperCase = false;
-                    } else {
-                        sb.append(Character.toLowerCase(c));
-                    }
-                    break;
+
+        sb.append(property);
+        if (Character.isLowerCase(sb.charAt(0))) {
+            if (sb.length() == 1 || !Character.isUpperCase(sb.charAt(1))) {
+                sb.setCharAt(0, Character.toUpperCase(sb.charAt(0)));
             }
         }
 
-        if (firstCharacterUppercase) {
-            sb.setCharAt(0, Character.toUpperCase(sb.charAt(0)));
+        if (fullyQualifiedJavaType.equals(FullyQualifiedJavaType.getBooleanPrimitiveInstance())) {
+            sb.insert(0, "is");
+        } else {
+            sb.insert(0, "get");
         }
 
         return sb.toString();
     }
 
-    public static void main(String[] args) {
+    /**
+     * JavaBeans rules:
+     * <p>
+     * eMail > seteMail() firstName > setFirstName() URL > setURL() XAxis >
+     * setXAxis() a > setA() B > invalid - this method assumes that this is not
+     * the case. Call getValidPropertyName first. Yaxis > invalid - this method
+     * assumes that this is not the case. Call getValidPropertyName first.
+     *
+     * @param property
+     * @return the setter method name
+     */
+    public static String getSetterMethodName(String property) {
+        StringBuilder sb = new StringBuilder();
 
-    }
-
-    public static String converPropertyNameToDbName(String property) {
-        StringBuilder result = new StringBuilder();
-        if (property != null && property.length() > 0) {
-            result.append(property.substring(0, 1).toLowerCase());
-            for (int i = 1; i < property.length(); i++) {
-                char ch = property.charAt(i);
-                if (Character.isUpperCase(ch)) {
-                    result.append("_");
-                    result.append(Character.toLowerCase(ch));
-                } else {
-                    result.append(ch);
-                }
+        sb.append(property);
+        if (Character.isLowerCase(sb.charAt(0))) {
+            if (sb.length() == 1 || !Character.isUpperCase(sb.charAt(1))) {
+                sb.setCharAt(0, Character.toUpperCase(sb.charAt(0)));
             }
         }
-        return result.toString();
+
+        sb.insert(0, "set");
+
+        return sb.toString();
     }
 }

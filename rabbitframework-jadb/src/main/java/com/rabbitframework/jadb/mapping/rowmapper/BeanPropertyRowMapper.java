@@ -3,6 +3,7 @@ package com.rabbitframework.jadb.mapping.rowmapper;
 import com.rabbitframework.commons.reflect.MetaClass;
 import com.rabbitframework.commons.reflect.MetaObject;
 import com.rabbitframework.commons.reflect.SystemMetaObject;
+import com.rabbitframework.commons.utils.StringUtils;
 import org.springframework.beans.BeanInstantiationException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.JdbcUtils;
@@ -34,27 +35,10 @@ public class BeanPropertyRowMapper implements RowMapper {
         MetaClass metaClass = MetaClass.forClass(mappedClass);
         String[] propertyNames = metaClass.getSetterNames();
         for (String property : propertyNames) {
-            String fields = converPropertyToDbName(property);
+            String fields = StringUtils.toUnderScoreCase(property);
             mappedFields.put(fields, property);
         }
 
-    }
-
-    public static String converPropertyToDbName(String property) {
-        StringBuilder result = new StringBuilder();
-        if (property != null && property.length() > 0) {
-            result.append(property.substring(0, 1).toLowerCase());
-            for (int i = 1; i < property.length(); i++) {
-                char ch = property.charAt(i);
-                if (Character.isUpperCase(ch)) {
-                    result.append("_");
-                    result.append(Character.toLowerCase(ch));
-                } else {
-                    result.append(ch);
-                }
-            }
-        }
-        return result.toString();
     }
 
     public Object mapRow(ResultSet rs, int rowNumber) throws SQLException {

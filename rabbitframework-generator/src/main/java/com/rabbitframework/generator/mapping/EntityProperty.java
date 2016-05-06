@@ -1,5 +1,6 @@
 package com.rabbitframework.generator.mapping;
 
+import com.rabbitframework.commons.utils.StringUtils;
 import com.rabbitframework.generator.mapping.type.FullyQualifiedJavaType;
 import com.rabbitframework.generator.mapping.type.Jdbc4Types;
 import com.rabbitframework.generator.utils.JavaBeanUtils;
@@ -19,6 +20,8 @@ public class EntityProperty {
     private String remarks;
     private boolean primaryKey = false;
     protected String defaultValue;
+    private String getterMethodName;
+    private String setterMethodName;
 
     public boolean isPrimaryKey() {
         return primaryKey;
@@ -103,10 +106,19 @@ public class EntityProperty {
 
     public void setJavaProperty(String javaProperty) {
         this.javaProperty = javaProperty;
-        StringBuilder sb = new StringBuilder(javaProperty);
-        sb.setCharAt(0, Character.toUpperCase(sb.charAt(0)));
-        firstUpperJavaProperty = sb.toString();
+        firstUpperJavaProperty = StringUtils.uppercaseFirstChar(javaProperty);
+        getterMethodName = JavaBeanUtils.getGetterMethodName(javaProperty, javaType);
+        setterMethodName = JavaBeanUtils.getSetterMethodName(javaProperty);
     }
+
+    public String getGetterMethodName() {
+        return getterMethodName;
+    }
+
+    public String getSetterMethodName() {
+        return setterMethodName;
+    }
+
 
     public String getFirstUpperJavaProperty() {
         return firstUpperJavaProperty;
@@ -121,7 +133,7 @@ public class EntityProperty {
     public boolean isJDBCTimeColumn() {
         return javaType.equals(FullyQualifiedJavaType
                 .getDateInstance())
-                && "TIME".equalsIgnoreCase(jdbcTypeName); //$NON-NLS-1$
+                && "TIME".equalsIgnoreCase(jdbcTypeName);
     }
 
     public String getJdbcTypeName() {

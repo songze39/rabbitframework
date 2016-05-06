@@ -86,22 +86,7 @@ public class Template {
             }
         }
     }
-
-//    private void writeFile(File file, String content, String fileEncoding) throws IOException {
-//        FileOutputStream fos = new FileOutputStream(file, false);
-//        OutputStreamWriter osw;
-//        if (fileEncoding == null) {
-//            osw = new OutputStreamWriter(fos);
-//        } else {
-//            osw = new OutputStreamWriter(fos, fileEncoding);
-//        }
-//
-//        BufferedWriter bw = new BufferedWriter(osw);
-//        bw.write(content);
-//        bw.close();
-//    }
-
-
+    
     public File getDirectory(String targetProject, String targetPackage) {
         File project = new File(targetProject);
         if (!project.isDirectory()) {

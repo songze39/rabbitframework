@@ -1,5 +1,6 @@
 package com.rabbitframework.generator.dataaccess;
 
+import com.rabbitframework.commons.utils.StringUtils;
 import com.rabbitframework.generator.builder.Configuration;
 import com.rabbitframework.generator.builder.TableConfiguration;
 import com.rabbitframework.generator.builder.TableType;
@@ -8,7 +9,6 @@ import com.rabbitframework.generator.mapping.EntityMapping;
 import com.rabbitframework.generator.mapping.EntityProperty;
 import com.rabbitframework.generator.mapping.type.FullyQualifiedJavaType;
 import com.rabbitframework.generator.mapping.type.JavaTypeResolver;
-import com.rabbitframework.generator.utils.JavaBeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -88,7 +88,6 @@ public class DatabaseIntrospector {
         JavaTypeResolver javaTypeResolver = configuration.getJavaTypeResolver();
         for (Map.Entry<String, EntityProperty> entityPropertyEntry : entityPropertyMap.entrySet()) {
             EntityProperty entityProperty = entityPropertyEntry.getValue();
-            entityProperty.setJavaProperty(JavaBeanUtils.converDbNameToPropertyName(entityProperty.getColumnName(), false));
             FullyQualifiedJavaType fullyQualifiedJavaType = javaTypeResolver
                     .calculateJavaType(entityProperty);
             if (fullyQualifiedJavaType != null) {
@@ -97,6 +96,7 @@ public class DatabaseIntrospector {
             } else {
                 entityProperty.setJavaType(FullyQualifiedJavaType.getObjectInstance());
             }
+            entityProperty.setJavaProperty(StringUtils.toCamelCase(entityProperty.getColumnName(), false));
         }
     }
 
@@ -122,7 +122,7 @@ public class DatabaseIntrospector {
                         ",tableSchem:" + tableSchem + ",tableNameDb:" + tableNameDb);
                 tableColumn.setJdbcType(jdbcType);
                 tableColumn.setLength(length);
-                tableColumn.setColumnName(columnName.toLowerCase(Locale.ENGLISH));
+                tableColumn.setColumnName(columnName.toLowerCase(Locale.US));
                 tableColumn
                         .setNullable(nullable);
                 tableColumn.setScale(scale);
@@ -149,14 +149,14 @@ public class DatabaseIntrospector {
         }
     }
 
-    public Map<String, String> getTablesName() {
+    private Map<String, String> getTablesName() {
         ResultSet resultSet = null;
         Map<String, String> map = new HashMap<String, String>();
         try {
             resultSet = databaseMetaData.getTables(configuration.getEnvironment().getDatabaseName(), null, null, new String[]{"TABLE"});
             while (resultSet.next()) {
                 String tableName = resultSet.getString("TABLE_NAME");
-                String objectName = JavaBeanUtils.converDbNameToPropertyName(tableName, true);
+                String objectName = StringUtils.toCamelCase(tableName, true);
                 map.put(tableName, objectName);
 
             }

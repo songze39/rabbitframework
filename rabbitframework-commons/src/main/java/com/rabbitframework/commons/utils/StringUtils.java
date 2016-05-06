@@ -11,7 +11,8 @@ import org.slf4j.LoggerFactory;
 public class StringUtils {
     private static final Logger logger = LoggerFactory.getLogger(StringUtils.class);
     public static final String EMPTY_STRING = "";
-    public final static String CONFIG_LOCATION_DELIMITERS = ",; \t\n";
+    public static final String CONFIG_LOCATION_DELIMITERS = ",; \t\n";
+    public static final String SEPARATOR = "_";
     public static final String PREFERRED_ENCODING = "UTF-8";
 
     /**
@@ -205,7 +206,7 @@ public class StringUtils {
         return str;
     }
 
-    public static String IntegerToString(int a) {
+    public static String integerToString(int a) {
 
         String Leverid = "";
         for (int i = 0; i < a; i++) {
@@ -343,5 +344,79 @@ public class StringUtils {
             sb.append(array[i]);
         }
         return sb.toString();
+    }
+
+    /**
+     * 将带有_,-,@,$,#,' ',/,&分隔符的字符串转换为骆驼拼写法的字符串
+     * <p/>
+     * 如:hello_world 转换为helloWorld
+     *
+     * @param inputString
+     * @param firstCharacterUppercase 首字母是否大写
+     * @return
+     */
+    public static String toCamelCase(String inputString,
+                                     boolean firstCharacterUppercase) {
+        StringBuilder sb = new StringBuilder();
+        boolean nextUpperCase = false;
+        for (int i = 0; i < inputString.length(); i++) {
+            char c = inputString.charAt(i);
+            switch (c) {
+                case '_':
+                case '-':
+                case '@':
+                case '$':
+                case '#':
+                case ' ':
+                case '/':
+                case '&':
+                    if (sb.length() > 0) {
+                        nextUpperCase = true;
+                    }
+                    break;
+                default:
+                    if (nextUpperCase) {
+                        sb.append(Character.toUpperCase(c));
+                        nextUpperCase = false;
+                    } else {
+                        sb.append(Character.toLowerCase(c));
+                    }
+                    break;
+            }
+        }
+
+        if (firstCharacterUppercase) {
+            sb.setCharAt(0, Character.toUpperCase(sb.charAt(0)));
+        }
+
+        return sb.toString();
+    }
+
+    public static String toUnderScoreCase(String property) {
+        return toSeparatorName(property, SEPARATOR);
+    }
+
+    public static String toSeparatorName(String property, String separator) {
+        StringBuilder result = new StringBuilder();
+        if (property != null && property.length() > 0) {
+            result.append(property.substring(0, 1).toLowerCase());
+            for (int i = 1; i < property.length(); i++) {
+                char ch = property.charAt(i);
+                if (Character.isUpperCase(ch)) {
+                    result.append(separator);
+                    result.append(Character.toLowerCase(ch));
+                } else {
+                    result.append(ch);
+                }
+            }
+        }
+        return result.toString();
+    }
+
+    public static void main(String[] args) {
+        System.out.println(toUnderScoreCase("testName"));
+        System.out.println(uppercaseFirstChar("testName"));
+        System.out.println(toCamelCase("test_hello", false));
+        System.out.println(uppercaseFirstChar("test_hello"));
     }
 }
