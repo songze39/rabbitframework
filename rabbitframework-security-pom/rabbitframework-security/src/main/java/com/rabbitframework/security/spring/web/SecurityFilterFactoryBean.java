@@ -385,7 +385,7 @@ public class SecurityFilterFactoryBean implements FactoryBean,
 	}
 
 	/**
-	 * Lazily creates and returns a {@link AbstractShiroFilter} concrete
+	 * Lazily creates and returns a {@link AbstractSecurityFilter} concrete
 	 * instance via the {@link #createInstance} method.
 	 *
 	 * @return the application's Shiro Filter instance used to filter incoming
@@ -603,10 +603,10 @@ public class SecurityFilterFactoryBean implements FactoryBean,
 	 * Ordinarily the {@code AbstractShiroFilter} must be subclassed to
 	 * additionally perform configuration and initialization behavior. Because
 	 * this {@code FactoryBean} implementation manually builds the
-	 * {@link AbstractShiroFilter}'s
-	 * {@link AbstractShiroFilter#setSecurityManager(org.apache.shiro.web.mgt.WebSecurityManager)
+	 * {@link AbstractSecurityFilter}'s
+	 * {@link AbstractSecurityFilter#setSecurityManager(org.apache.shiro.web.mgt.WebSecurityManager)
 	 * securityManager} and
-	 * {@link AbstractShiroFilter#setFilterChainResolver(org.apache.shiro.web.filter.mgt.FilterChainResolver)
+	 * {@link AbstractSecurityFilter#setFilterChainResolver(org.apache.shiro.web.filter.mgt.FilterChainResolver)
 	 * filterChainResolver} properties, the only thing left to do is set those
 	 * properties explicitly. We do that in a simple concrete subclass in the
 	 * constructor.
