@@ -11,7 +11,7 @@ public class FullyQualifiedJavaType implements
     private String shortName;
     private String fullName;
     private String packageName;
-    private boolean primitive;
+    private boolean primitive = true;
 
     public FullyQualifiedJavaType(String fullTypeSpecification) {
         super();
@@ -117,6 +117,7 @@ public class FullyQualifiedJavaType implements
     private void parse(String fullTypeSpecification) {
         String typeSpecification = fullTypeSpecification.trim();
         fullName = typeSpecification.trim();
+        shortName = fullName;
         if (fullName.contains(".")) {
             packageName = getPackage(fullName);
             shortName = fullName

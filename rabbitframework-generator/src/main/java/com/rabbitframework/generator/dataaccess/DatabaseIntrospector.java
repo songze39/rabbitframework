@@ -88,7 +88,7 @@ public class DatabaseIntrospector {
         JavaTypeResolver javaTypeResolver = configuration.getJavaTypeResolver();
         for (Map.Entry<String, EntityProperty> entityPropertyEntry : entityPropertyMap.entrySet()) {
             EntityProperty entityProperty = entityPropertyEntry.getValue();
-            entityProperty.setJavaProperty(JavaBeanUtils.ConverDbNameToPropertyName(entityProperty.getColumnName(), false));
+            entityProperty.setJavaProperty(JavaBeanUtils.converDbNameToPropertyName(entityProperty.getColumnName(), false));
             FullyQualifiedJavaType fullyQualifiedJavaType = javaTypeResolver
                     .calculateJavaType(entityProperty);
             if (fullyQualifiedJavaType != null) {
@@ -156,7 +156,7 @@ public class DatabaseIntrospector {
             resultSet = databaseMetaData.getTables(configuration.getEnvironment().getDatabaseName(), null, null, new String[]{"TABLE"});
             while (resultSet.next()) {
                 String tableName = resultSet.getString("TABLE_NAME");
-                String objectName = JavaBeanUtils.ConverDbNameToPropertyName(tableName, true);
+                String objectName = JavaBeanUtils.converDbNameToPropertyName(tableName, true);
                 map.put(tableName, objectName);
 
             }

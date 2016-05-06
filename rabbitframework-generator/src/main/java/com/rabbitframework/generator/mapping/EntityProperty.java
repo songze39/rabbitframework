@@ -14,7 +14,7 @@ public class EntityProperty {
     private int length;
     private int scale;
     private String javaProperty;
-    private String upperJavaProperty;
+    private String firstUpperJavaProperty;
     private FullyQualifiedJavaType javaType;
     private String remarks;
     private boolean primaryKey = false;
@@ -103,11 +103,13 @@ public class EntityProperty {
 
     public void setJavaProperty(String javaProperty) {
         this.javaProperty = javaProperty;
-        upperJavaProperty = JavaBeanUtils.ConverDbNameToPropertyName(javaProperty,true);
+        StringBuilder sb = new StringBuilder(javaProperty);
+        sb.setCharAt(0, Character.toUpperCase(sb.charAt(0)));
+        firstUpperJavaProperty = sb.toString();
     }
 
-    public String getUpperJavaProperty() {
-        return upperJavaProperty;
+    public String getFirstUpperJavaProperty() {
+        return firstUpperJavaProperty;
     }
 
     public boolean isJDBCDateColumn() {

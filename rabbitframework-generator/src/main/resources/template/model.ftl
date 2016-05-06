@@ -19,22 +19,22 @@ public class ${entity.objectName}${fileSuffix} {
 </#list>
 
 <#list entity.idProperties as mIdProperties>
-    public void set${mIdProperties.upperJavaProperty}(${mIdProperties.javaType.shortName} ${mIdProperties.javaProperty}) {
+    public void set${mIdProperties.firstUpperJavaProperty}(${mIdProperties.javaType.shortName} ${mIdProperties.javaProperty}) {
         this.${mIdProperties.javaProperty} = ${mIdProperties.javaProperty};
     }
 
-    public ${mIdProperties.javaType.shortName} get${mIdProperties.upperJavaProperty}() {
+    public ${mIdProperties.javaType.shortName} get${mIdProperties.firstUpperJavaProperty}() {
         return ${mIdProperties.javaProperty}
     }
 
 </#list>
 
 <#list entity.columnProperties as mColumnProperties>
-    public void set${mColumnProperties.upperJavaProperty}(${mColumnProperties.javaType.shortName} ${mColumnProperties.javaProperty}) {
+    public void set${mColumnProperties.firstUpperJavaProperty}(${mColumnProperties.javaType.shortName} ${mColumnProperties.javaProperty}) {
         this.${mColumnProperties.javaProperty} = ${mColumnProperties.javaProperty};
     }
 
-    public ${mColumnProperties.javaType.shortName} get${mColumnProperties.upperJavaProperty}() {
+    public ${mColumnProperties.javaType.shortName} get${mColumnProperties.firstUpperJavaProperty}() {
         return ${mColumnProperties.javaProperty}
     }
 

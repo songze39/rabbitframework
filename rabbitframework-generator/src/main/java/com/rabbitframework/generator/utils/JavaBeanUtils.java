@@ -2,8 +2,8 @@ package com.rabbitframework.generator.utils;
 
 public class JavaBeanUtils {
 
-    public static String ConverDbNameToPropertyName(String inputString,
-                                                  boolean firstCharacterUppercase) {
+    public static String converDbNameToPropertyName(String inputString,
+                                                    boolean firstCharacterUppercase) {
         StringBuilder sb = new StringBuilder();
         boolean nextUpperCase = false;
         for (int i = 0; i < inputString.length(); i++) {
@@ -37,6 +37,10 @@ public class JavaBeanUtils {
         }
 
         return sb.toString();
+    }
+
+    public static void main(String[] args) {
+
     }
 
     public static String converPropertyNameToDbName(String property) {
