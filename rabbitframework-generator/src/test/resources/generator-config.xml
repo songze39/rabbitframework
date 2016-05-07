@@ -3,22 +3,7 @@
     <properties resource="jdbc.properties">
         <property name="test" value="generator"></property>
     </properties>
-
-    <!--<dataSource databaseName="rabbit" type="mysql" class="com.mchange.v2.c3p0.ComboPooledDataSource">-->
-    <!--<property name="driverClass" value="${c3p0.driverClassName}"/>-->
-    <!--<property name="jdbcUrl" value="${c3p0.url}"/>-->
-    <!--<property name="user" value="${c3p0.username}"/>-->
-    <!--<property name="password" value="${c3p0.password}"/>-->
-    <!--<property name="checkoutTimeout" value="${c3p0.checkoutTimeout}"/>-->
-    <!--<property name="idleConnectionTestPeriod" value="${c3p0.idleConnectionTestPeriod}"/>-->
-    <!--<property name="initialPoolSize" value="${c3p0.initialPoolSize}"/>-->
-    <!--<property name="maxIdleTime" value="${c3p0.maxIdleTime}"/>-->
-    <!--<property name="maxPoolSize" value="${c3p0.maxPoolSize}"/>-->
-    <!--<property name="minPoolSize" value="${c3p0.minPoolSize}"/>-->
-    <!--<property name="maxStatements" value="${c3p0.maxStatements}"/>-->
-    <!--<property name="acquireIncrement" value="${c3p0.acquireIncrement}"/>-->
-    <!--</dataSource>-->
-
+    
     <jdbcConnection driverClass="${jdbc.driverClassName}" catalog=""
                     connectionURL="${jdbc.url}" userName="${jdbc.username}"
                     password="${jdbc.password}">
