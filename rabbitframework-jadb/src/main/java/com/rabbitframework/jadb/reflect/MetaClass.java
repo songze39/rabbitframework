@@ -1,4 +1,4 @@
-package com.rabbitframework.commons.reflect;
+package com.rabbitframework.jadb.reflect;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -6,10 +6,10 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Collection;
 
-import com.rabbitframework.commons.reflect.invoker.GetFieldInvoker;
-import com.rabbitframework.commons.reflect.invoker.Invoker;
-import com.rabbitframework.commons.reflect.invoker.MethodInvoker;
-import com.rabbitframework.commons.reflect.property.PropertyTokenizer;
+import com.rabbitframework.jadb.reflect.invoker.GetFieldInvoker;
+import com.rabbitframework.jadb.reflect.invoker.Invoker;
+import com.rabbitframework.jadb.reflect.invoker.MethodInvoker;
+import com.rabbitframework.jadb.reflect.property.PropertyTokenizer;
 
 public class MetaClass {
 

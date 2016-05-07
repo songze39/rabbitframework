@@ -1,8 +1,8 @@
 package com.rabbitframework.jadb.mapping.rowmapper;
 
-import com.rabbitframework.commons.reflect.MetaClass;
-import com.rabbitframework.commons.reflect.MetaObject;
-import com.rabbitframework.commons.reflect.SystemMetaObject;
+import com.rabbitframework.jadb.reflect.MetaClass;
+import com.rabbitframework.jadb.reflect.MetaObject;
+import com.rabbitframework.jadb.reflect.SystemMetaObject;
 import com.rabbitframework.commons.utils.StringUtils;
 import org.springframework.beans.BeanInstantiationException;
 import org.springframework.jdbc.core.RowMapper;

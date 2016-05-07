@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.rabbitframework.commons.reflect.MetaClass;
+import com.rabbitframework.jadb.reflect.MetaClass;
 import com.rabbitframework.commons.utils.StringUtils;
 import com.rabbitframework.jadb.annontations.Column;
 import com.rabbitframework.jadb.annontations.ID;

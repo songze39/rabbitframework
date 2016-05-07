@@ -1,11 +1,11 @@
-package com.rabbitframework.commons.reflect.wrapper;
+package com.rabbitframework.jadb.reflect.wrapper;
 
 import java.util.List;
 import java.util.Map;
 
 import com.rabbitframework.commons.exceptions.ReflectionException;
-import com.rabbitframework.commons.reflect.MetaObject;
-import com.rabbitframework.commons.reflect.property.PropertyTokenizer;
+import com.rabbitframework.jadb.reflect.MetaObject;
+import com.rabbitframework.jadb.reflect.property.PropertyTokenizer;
 
 /**
  * 对象封装基类

@@ -1,7 +1,7 @@
-package com.rabbitframework.commons.reflect;
+package com.rabbitframework.jadb.reflect;
 
-import com.rabbitframework.commons.reflect.factory.DefaultObjectFactory;
-import com.rabbitframework.commons.reflect.factory.ObjectFactory;
+import com.rabbitframework.jadb.reflect.factory.DefaultObjectFactory;
+import com.rabbitframework.jadb.reflect.factory.ObjectFactory;
 
 public class SystemMetaObject {
 

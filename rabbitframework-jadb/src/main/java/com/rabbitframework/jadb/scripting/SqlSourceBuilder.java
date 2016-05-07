@@ -2,8 +2,8 @@ package com.rabbitframework.jadb.scripting;
 
 import com.rabbitframework.commons.propertytoken.GenericTokenParser;
 import com.rabbitframework.commons.propertytoken.TokenHandler;
-import com.rabbitframework.commons.reflect.MetaClass;
-import com.rabbitframework.commons.reflect.MetaObject;
+import com.rabbitframework.jadb.reflect.MetaClass;
+import com.rabbitframework.jadb.reflect.MetaObject;
 import com.rabbitframework.jadb.builder.BaseBuilder;
 import com.rabbitframework.jadb.builder.Configuration;
 import com.rabbitframework.jadb.mapping.ParameterMapping;

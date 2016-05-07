@@ -1,6 +1,6 @@
 package com.rabbitframework.jadb.scripting;
 
-import com.rabbitframework.commons.reflect.MetaObject;
+import com.rabbitframework.jadb.reflect.MetaObject;
 import com.rabbitframework.jadb.builder.Configuration;
 
 import ognl.OgnlContext;

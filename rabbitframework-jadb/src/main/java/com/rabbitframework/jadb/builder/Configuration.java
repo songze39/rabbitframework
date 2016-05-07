@@ -11,9 +11,9 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.rabbitframework.commons.reflect.MetaObject;
-import com.rabbitframework.commons.reflect.factory.DefaultObjectFactory;
-import com.rabbitframework.commons.reflect.factory.ObjectFactory;
+import com.rabbitframework.jadb.reflect.MetaObject;
+import com.rabbitframework.jadb.reflect.factory.DefaultObjectFactory;
+import com.rabbitframework.jadb.reflect.factory.ObjectFactory;
 import com.rabbitframework.commons.utils.ClassUtils;
 import com.rabbitframework.jadb.annontations.Mapper;
 import com.rabbitframework.jadb.annontations.Table;

@@ -15,7 +15,7 @@ import org.springframework.jdbc.core.RowMapperResultSetExtractor;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
-import com.rabbitframework.commons.reflect.MetaObject;
+import com.rabbitframework.jadb.reflect.MetaObject;
 import com.rabbitframework.jadb.dataaccess.JdbcTemplateHolder;
 import com.rabbitframework.jadb.dataaccess.KeyGenerator;
 import com.rabbitframework.jadb.log.ConnectionLogger;

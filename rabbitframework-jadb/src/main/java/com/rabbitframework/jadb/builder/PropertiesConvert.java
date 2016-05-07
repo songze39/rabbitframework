@@ -3,8 +3,8 @@ package com.rabbitframework.jadb.builder;
 import java.util.Properties;
 
 import com.rabbitframework.commons.propertytoken.PropertyParser;
-import com.rabbitframework.commons.reflect.MetaObject;
-import com.rabbitframework.commons.reflect.SystemMetaObject;
+import com.rabbitframework.jadb.reflect.MetaObject;
+import com.rabbitframework.jadb.reflect.SystemMetaObject;
 import com.rabbitframework.jadb.exceptions.BindingException;
 
 public class PropertiesConvert {

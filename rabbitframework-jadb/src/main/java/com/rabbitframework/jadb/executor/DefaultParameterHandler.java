@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.SqlTypeValue;
 import org.springframework.jdbc.core.StatementCreatorUtils;
 
-import com.rabbitframework.commons.reflect.MetaObject;
+import com.rabbitframework.jadb.reflect.MetaObject;
 import com.rabbitframework.jadb.builder.Configuration;
 import com.rabbitframework.jadb.mapping.BoundSql;
 import com.rabbitframework.jadb.mapping.MappedStatement;

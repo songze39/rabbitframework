@@ -6,8 +6,8 @@ import java.util.Map;
 
 import org.springframework.dao.support.DataAccessUtils;
 
-import com.rabbitframework.commons.reflect.MetaObject;
-import com.rabbitframework.commons.reflect.factory.ObjectFactory;
+import com.rabbitframework.jadb.reflect.MetaObject;
+import com.rabbitframework.jadb.reflect.factory.ObjectFactory;
 import com.rabbitframework.jadb.builder.Configuration;
 import com.rabbitframework.jadb.exceptions.BindingException;
 import com.rabbitframework.jadb.exceptions.PersistenceException;

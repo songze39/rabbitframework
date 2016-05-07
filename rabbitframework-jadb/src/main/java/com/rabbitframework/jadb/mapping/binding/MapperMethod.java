@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-import com.rabbitframework.commons.reflect.MetaObject;
+import com.rabbitframework.jadb.reflect.MetaObject;
 import com.rabbitframework.jadb.annontations.MapKey;
 import com.rabbitframework.jadb.annontations.Param;
 import com.rabbitframework.jadb.builder.Configuration;

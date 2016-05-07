@@ -1,7 +1,7 @@
 package com.rabbitframework.jadb.cache;
 
-import com.rabbitframework.commons.reflect.MetaObject;
-import com.rabbitframework.commons.reflect.SystemMetaObject;
+import com.rabbitframework.jadb.reflect.MetaObject;
+import com.rabbitframework.jadb.reflect.SystemMetaObject;
 import com.rabbitframework.jadb.cache.decorators.LoggingCache;
 import com.rabbitframework.jadb.cache.decorators.LruCache;
 import com.rabbitframework.jadb.cache.decorators.ScheduledCache;

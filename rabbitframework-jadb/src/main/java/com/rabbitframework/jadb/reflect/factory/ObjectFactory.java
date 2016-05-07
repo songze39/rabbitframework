@@ -1,4 +1,4 @@
-package com.rabbitframework.commons.reflect.factory;
+package com.rabbitframework.jadb.reflect.factory;
 
 import java.util.List;
 import java.util.Properties;

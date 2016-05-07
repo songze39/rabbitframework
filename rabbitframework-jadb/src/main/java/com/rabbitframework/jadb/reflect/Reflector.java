@@ -1,4 +1,4 @@
-package com.rabbitframework.commons.reflect;
+package com.rabbitframework.jadb.reflect;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -15,11 +15,11 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.rabbitframework.commons.exceptions.ReflectionException;
-import com.rabbitframework.commons.reflect.invoker.GetFieldInvoker;
-import com.rabbitframework.commons.reflect.invoker.Invoker;
-import com.rabbitframework.commons.reflect.invoker.MethodInvoker;
-import com.rabbitframework.commons.reflect.invoker.SetFieldInvoker;
-import com.rabbitframework.commons.reflect.property.PropertyNamer;
+import com.rabbitframework.jadb.reflect.invoker.GetFieldInvoker;
+import com.rabbitframework.jadb.reflect.invoker.Invoker;
+import com.rabbitframework.jadb.reflect.invoker.MethodInvoker;
+import com.rabbitframework.jadb.reflect.invoker.SetFieldInvoker;
+import com.rabbitframework.jadb.reflect.property.PropertyNamer;
 
 public class Reflector {
 
