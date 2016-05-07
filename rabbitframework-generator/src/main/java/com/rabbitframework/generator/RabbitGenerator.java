@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.rabbitframework.commons.utils.StringUtils;
+import com.rabbitframework.generator.dataaccess.ConnectionFactory;
 import com.rabbitframework.generator.dataaccess.DatabaseIntrospector;
 import com.rabbitframework.generator.mapping.EntityMapping;
 import com.rabbitframework.generator.template.JavaModeGenerate;
@@ -29,7 +30,7 @@ public class RabbitGenerator {
     public void generator() {
         Connection connection = null;
         try {
-            connection = configuration.getEnvironment().getDataSource().getConnection();
+            connection = ConnectionFactory.getInstance().getConnection(configuration.getJdbcConnectionInfo());
             DatabaseMetaData metaData = connection.getMetaData();
             DatabaseIntrospector databaseIntrospector = new DatabaseIntrospector(metaData, configuration);
             List<EntityMapping> entityMappings = databaseIntrospector.introspectTables();

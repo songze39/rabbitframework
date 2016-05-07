@@ -7,6 +7,7 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
+import com.rabbitframework.commons.propertytoken.PropertyParser;
 import com.rabbitframework.generator.template.JavaModeGenerate;
 import com.rabbitframework.generator.template.Template;
 import org.slf4j.Logger;
@@ -16,7 +17,7 @@ import com.rabbitframework.commons.utils.ResourceUtils;
 import com.rabbitframework.commons.utils.StringUtils;
 import com.rabbitframework.commons.xmlparser.XNode;
 import com.rabbitframework.commons.xmlparser.XPathParser;
-import com.rabbitframework.generator.dataaccess.Environment;
+import com.rabbitframework.generator.dataaccess.JdbcConnectionInfo;
 import com.rabbitframework.generator.exceptions.BuilderException;
 
 public class XMLConfigBuilder extends BaseBuilder {
@@ -60,7 +61,7 @@ public class XMLConfigBuilder extends BaseBuilder {
     private void parseConfiguration(XNode root) {
         try {
             propertiesElement(root.evalNode("properties"));
-            dataSourceElement(root.evalNode("dataSource"));
+            jdbcConnectionElement(root.evalNode("jdbcConnection"));
             generatorsElement(root.evalNode("generators"));
             tablesElement(root.evalNode("tables"));
         } catch (Exception e) {
@@ -87,22 +88,33 @@ public class XMLConfigBuilder extends BaseBuilder {
         configuration.setVariables(properties);
     }
 
-    private void dataSourceElement(XNode dataAccessNode) throws Exception {
-        if (dataAccessNode == null) {
+    private void jdbcConnectionElement(XNode jdbcConnection) throws Exception {
+        if (jdbcConnection == null) {
             return;
         }
-        Environment environment = new Environment();
+
+        JdbcConnectionInfo jdbcConnectionInfo = new JdbcConnectionInfo();
         Properties variables = configuration.getVariables();
-        String type = dataAccessNode.getStringAttribute("type");
-        String databaseName = dataAccessNode.getStringAttribute("databaseName");
-        String dataSourceClazz = dataAccessNode.getStringAttribute("class");
-        Properties properties = dataAccessNode.getChildrenAsProperties();
-        DataSource dataSource = (DataSource) resolveClass(dataSourceClazz).newInstance();
-        PropertiesConvert.setProperties(properties, dataSource, variables);
-        environment.setDataSource(dataSource);
-        environment.setType(type);
-        environment.setDatabaseName(databaseName);
-        configuration.setEnvironment(environment);
+        String driverClass = jdbcConnection.getStringAttribute("driverClass");
+        String catalog = jdbcConnection.getStringAttribute("catalog");
+        String connectionURL = jdbcConnection.getStringAttribute("connectionURL");
+        String userName = jdbcConnection.getStringAttribute("userName");
+        String password = jdbcConnection.getStringAttribute("password");
+        Properties properties = jdbcConnection.getChildrenAsProperties();
+        driverClass = PropertyParser.parseDollar(driverClass, variables);
+        catalog = PropertyParser.parseDollar(catalog, variables);
+        connectionURL = PropertyParser.parseDollar(connectionURL, variables);
+        userName = PropertyParser.parseDollar(userName, variables);
+        password = PropertyParser.parseDollar(password, variables);
+        jdbcConnectionInfo.setCatalog(catalog);
+        jdbcConnectionInfo.setConnectionURL(connectionURL);
+        jdbcConnectionInfo.setUserName(userName);
+        jdbcConnectionInfo.setPassword(password);
+        jdbcConnectionInfo.setDriverClass(driverClass);
+        if (properties != null) {
+            jdbcConnectionInfo.setProperties(properties);
+        }
+        configuration.setJdbcConnectionInfo(jdbcConnectionInfo);
     }
 
     private void generatorsElement(XNode generators) {

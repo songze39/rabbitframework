@@ -18,16 +18,15 @@ import junit.framework.TestCase;
  * @author Justin
  */
 public class ConfigBuilderTest extends TestCase {
-	private static final Logger logger = LoggerFactory.getLogger(ConfigBuilderTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(ConfigBuilderTest.class);
 
-	public void testConfig() throws IOException {
-		Reader reader = ResourceUtils.getResourceAsReader("generator-config.xml");
-		XMLConfigBuilder configBuilder = new XMLConfigBuilder(reader);
-		Configuration configuration = configBuilder.parse();
-		reader.close();
-		logger.debug(configuration.getVariables().size() + "");
-		logger.debug("datasource:" + configuration.getEnvironment().getDataSource());
-		Map<String, JavaModeGenerate> templateName = configuration.getTemplate().getTemplateMapping();
-		 logger.debug("templateName:" + templateName);
-	}
+    public void testConfig() throws IOException {
+        Reader reader = ResourceUtils.getResourceAsReader("generator-config.xml");
+        XMLConfigBuilder configBuilder = new XMLConfigBuilder(reader);
+        Configuration configuration = configBuilder.parse();
+        reader.close();
+        logger.debug(configuration.getVariables().size() + "");
+        Map<String, JavaModeGenerate> templateName = configuration.getTemplate().getTemplateMapping();
+        logger.debug("templateName:" + templateName);
+    }
 }

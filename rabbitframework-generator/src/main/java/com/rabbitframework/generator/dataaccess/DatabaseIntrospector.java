@@ -153,7 +153,11 @@ public class DatabaseIntrospector {
         ResultSet resultSet = null;
         Map<String, String> map = new HashMap<String, String>();
         try {
-            resultSet = databaseMetaData.getTables(configuration.getEnvironment().getDatabaseName(), null, null, new String[]{"TABLE"});
+            String catalog = configuration.getJdbcConnectionInfo().getCatalog();
+            if (StringUtils.isBlank(catalog)) {
+                catalog = null;
+            }
+            resultSet = databaseMetaData.getTables(catalog, null, null, new String[]{"TABLE"});
             while (resultSet.next()) {
                 String tableName = resultSet.getString("TABLE_NAME");
                 String objectName = StringUtils.toCamelCase(tableName, true);

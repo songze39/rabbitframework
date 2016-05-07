@@ -32,11 +32,11 @@
 			<version>${mysql.version}</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>c3p0</groupId>
-			<artifactId>c3p0</artifactId>
-			<version>${c3po.version}</version>
-			<scope>test</scope>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>c3p0</groupId>-->
+			<!--<artifactId>c3p0</artifactId>-->
+			<!--<version>${c3po.version}</version>-->
+			<!--<scope>test</scope>-->
+		<!--</dependency>-->
 	</dependencies>
 </project>
