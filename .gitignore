@@ -26,6 +26,7 @@ target/
 *.java~
 *.properties~
 *.xml~
+bin/
 
 # system ignore
 .DS_Store
