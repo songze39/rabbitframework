@@ -1,4 +1,4 @@
-package com.rabbitframework.jadb.reflect;
+package com.rabbitframework.commons.reflect;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;

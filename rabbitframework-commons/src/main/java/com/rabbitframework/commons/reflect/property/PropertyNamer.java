@@ -1,8 +1,8 @@
-package com.rabbitframework.jadb.reflect.property;
-
-import java.util.Locale;
+package com.rabbitframework.commons.reflect.property;
 
 import com.rabbitframework.commons.exceptions.ReflectionException;
+
+import java.util.Locale;
 
 /**
  * 属性名称判断类

@@ -6,8 +6,7 @@ import java.util.Map;
 
 import org.springframework.dao.support.DataAccessUtils;
 
-import com.rabbitframework.jadb.reflect.MetaObject;
-import com.rabbitframework.jadb.reflect.factory.ObjectFactory;
+import com.rabbitframework.commons.reflect.factory.ObjectFactory;
 import com.rabbitframework.jadb.builder.Configuration;
 import com.rabbitframework.jadb.exceptions.BindingException;
 import com.rabbitframework.jadb.exceptions.PersistenceException;
@@ -15,6 +14,7 @@ import com.rabbitframework.jadb.exceptions.TooManyResultsException;
 import com.rabbitframework.jadb.executor.Executor;
 import com.rabbitframework.jadb.mapping.MappedStatement;
 import com.rabbitframework.jadb.mapping.RowBounds;
+import com.rabbitframework.jadb.reflect.MetaObject;
 
 public class DefaultSqlDataAccess implements SqlDataAccess {
     private Configuration configuration;

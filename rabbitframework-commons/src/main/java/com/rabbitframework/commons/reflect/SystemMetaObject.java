@@ -1,4 +1,4 @@
-package com.rabbitframework.jadb.reflect;
+package com.rabbitframework.commons.reflect;
 
 import com.rabbitframework.commons.reflect.factory.DefaultObjectFactory;
 import com.rabbitframework.commons.reflect.factory.ObjectFactory;

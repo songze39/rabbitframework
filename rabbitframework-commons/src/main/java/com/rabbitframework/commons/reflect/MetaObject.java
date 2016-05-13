@@ -1,4 +1,4 @@
-package com.rabbitframework.jadb.reflect;
+package com.rabbitframework.commons.reflect;
 
 import java.util.Collection;
 import java.util.List;
@@ -6,10 +6,10 @@ import java.util.Map;
 
 import com.rabbitframework.commons.reflect.factory.ObjectFactory;
 import com.rabbitframework.commons.reflect.property.PropertyTokenizer;
-import com.rabbitframework.jadb.reflect.wrapper.BeanWrapper;
-import com.rabbitframework.jadb.reflect.wrapper.CollectionWrapper;
-import com.rabbitframework.jadb.reflect.wrapper.MapWrapper;
-import com.rabbitframework.jadb.reflect.wrapper.ObjectWrapper;
+import com.rabbitframework.commons.reflect.wrapper.BeanWrapper;
+import com.rabbitframework.commons.reflect.wrapper.CollectionWrapper;
+import com.rabbitframework.commons.reflect.wrapper.MapWrapper;
+import com.rabbitframework.commons.reflect.wrapper.ObjectWrapper;
 
 public class MetaObject {
 

@@ -1,4 +1,4 @@
-package com.rabbitframework.jadb.reflect.invoker;
+package com.rabbitframework.commons.reflect.invoker;
 
 import java.lang.reflect.InvocationTargetException;
 

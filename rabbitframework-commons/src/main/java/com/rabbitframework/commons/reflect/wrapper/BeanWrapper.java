@@ -13,17 +13,17 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.rabbitframework.jadb.reflect.wrapper;
+package com.rabbitframework.commons.reflect.wrapper;
 
 import java.util.List;
 
+import com.rabbitframework.commons.exceptions.ReflectionException;
+import com.rabbitframework.commons.reflect.MetaClass;
+import com.rabbitframework.commons.reflect.MetaObject;
+import com.rabbitframework.commons.reflect.SystemMetaObject;
 import com.rabbitframework.commons.reflect.factory.ObjectFactory;
 import com.rabbitframework.commons.reflect.invoker.Invoker;
 import com.rabbitframework.commons.reflect.property.PropertyTokenizer;
-import com.rabbitframework.jadb.reflect.MetaClass;
-import com.rabbitframework.jadb.reflect.MetaObject;
-import com.rabbitframework.jadb.reflect.ReflectionException;
-import com.rabbitframework.jadb.reflect.SystemMetaObject;
 
 /**
  * 对象封装Bean的实现类

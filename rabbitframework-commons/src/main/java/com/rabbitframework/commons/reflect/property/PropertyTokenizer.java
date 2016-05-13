@@ -1,4 +1,4 @@
-package com.rabbitframework.jadb.reflect.property;
+package com.rabbitframework.commons.reflect.property;
 
 import java.util.Iterator;
 

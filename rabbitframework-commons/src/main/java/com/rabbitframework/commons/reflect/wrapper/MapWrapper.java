@@ -1,13 +1,13 @@
-package com.rabbitframework.jadb.reflect.wrapper;
+package com.rabbitframework.commons.reflect.wrapper;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.rabbitframework.commons.reflect.MetaObject;
+import com.rabbitframework.commons.reflect.SystemMetaObject;
 import com.rabbitframework.commons.reflect.factory.ObjectFactory;
 import com.rabbitframework.commons.reflect.property.PropertyTokenizer;
-import com.rabbitframework.jadb.reflect.MetaObject;
-import com.rabbitframework.jadb.reflect.SystemMetaObject;
 
 public class MapWrapper extends BaseWrapper {
 
@@ -51,7 +51,8 @@ public class MapWrapper extends BaseWrapper {
 	public Class<?> getSetterType(String name) {
 		PropertyTokenizer prop = new PropertyTokenizer(name);
 		if (prop.hasNext()) {
-			MetaObject metaValue = metaObject.metaObjectForProperty(prop.getIndexedName());
+			MetaObject metaValue = metaObject.metaObjectForProperty(prop
+					.getIndexedName());
 			if (metaValue == SystemMetaObject.NULL_META_OBJECT) {
 				return Object.class;
 			} else {
@@ -69,7 +70,8 @@ public class MapWrapper extends BaseWrapper {
 	public Class<?> getGetterType(String name) {
 		PropertyTokenizer prop = new PropertyTokenizer(name);
 		if (prop.hasNext()) {
-			MetaObject metaValue = metaObject.metaObjectForProperty(prop.getIndexedName());
+			MetaObject metaValue = metaObject.metaObjectForProperty(prop
+					.getIndexedName());
 			if (metaValue == SystemMetaObject.NULL_META_OBJECT) {
 				return Object.class;
 			} else {
@@ -92,7 +94,8 @@ public class MapWrapper extends BaseWrapper {
 		PropertyTokenizer prop = new PropertyTokenizer(name);
 		if (prop.hasNext()) {
 			if (map.containsKey(prop.getIndexedName())) {
-				MetaObject metaValue = metaObject.metaObjectForProperty(prop.getIndexedName());
+				MetaObject metaValue = metaObject.metaObjectForProperty(prop
+						.getIndexedName());
 				if (metaValue == SystemMetaObject.NULL_META_OBJECT) {
 					return true;
 				} else {
@@ -106,7 +109,8 @@ public class MapWrapper extends BaseWrapper {
 		}
 	}
 
-	public MetaObject instantiatePropertyValue(String name, PropertyTokenizer prop, ObjectFactory objectFactory) {
+	public MetaObject instantiatePropertyValue(String name,
+			PropertyTokenizer prop, ObjectFactory objectFactory) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		set(prop, map);
 		return MetaObject.forObject(map, metaObject.getObjectFactory());

@@ -1,4 +1,4 @@
-package com.rabbitframework.jadb.reflect.factory;
+package com.rabbitframework.commons.reflect.factory;
 
 import java.util.List;
 import java.util.Properties;
@@ -32,7 +32,7 @@ public interface ObjectFactory {
 	 * @return
 	 */
 	<T> T create(Class<T> type, List<Class<?>> constructorArgTypes,
-			List<Object> constructorArgs);
+				 List<Object> constructorArgs);
 
 	/**
 	 *

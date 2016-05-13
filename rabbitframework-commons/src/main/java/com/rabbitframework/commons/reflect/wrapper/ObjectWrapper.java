@@ -1,11 +1,10 @@
-package com.rabbitframework.jadb.reflect.wrapper;
+package com.rabbitframework.commons.reflect.wrapper;
 
 import java.util.List;
 
+import com.rabbitframework.commons.reflect.MetaObject;
 import com.rabbitframework.commons.reflect.factory.ObjectFactory;
 import com.rabbitframework.commons.reflect.property.PropertyTokenizer;
-import com.rabbitframework.jadb.reflect.MetaObject;
-
 
 public interface ObjectWrapper {
 

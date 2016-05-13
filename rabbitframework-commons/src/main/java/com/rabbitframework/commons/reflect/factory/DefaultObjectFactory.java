@@ -1,19 +1,10 @@
-package com.rabbitframework.jadb.reflect.factory;
+package com.rabbitframework.commons.reflect.factory;
+
+import com.rabbitframework.commons.exceptions.ReflectionException;
 
 import java.io.Serializable;
 import java.lang.reflect.Constructor;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
-
-import com.rabbitframework.commons.exceptions.ReflectionException;
+import java.util.*;
 
 public class DefaultObjectFactory implements ObjectFactory, Serializable {
 	private static final long serialVersionUID = -6342219900307121045L;
