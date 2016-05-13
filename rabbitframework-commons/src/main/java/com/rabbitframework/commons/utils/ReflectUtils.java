@@ -55,8 +55,16 @@ public class ReflectUtils {
         Class<?> returnType = method.getReturnType();
         if (void.class.equals(returnType)) {
             return returnType;
-        } else if (Collection.class.isAssignableFrom(returnType)) {
-            Type returnTypeParameter = method.getGenericReturnType();
+        } else {
+            returnType = getType(returnType, method.getGenericReturnType());
+        }
+
+        return returnType;
+    }
+
+    private static Class<?> getType(Class<?> type, Type returnTypeParameter) {
+        Class<?> returnType = type;
+        if (Collection.class.isAssignableFrom(type)) {
             if (returnTypeParameter instanceof ParameterizedType) {
                 Type[] actualTypeArguments = ((ParameterizedType) returnTypeParameter).getActualTypeArguments();
                 if (actualTypeArguments != null && actualTypeArguments.length == 1) {
@@ -72,8 +80,7 @@ public class ReflectUtils {
                     }
                 }
             }
-        } else if (Map.class.isAssignableFrom(returnType)) {
-            Type returnTypeParameter = method.getGenericReturnType();
+        } else if (Map.class.isAssignableFrom(type)) {
             if (returnTypeParameter instanceof ParameterizedType) {
                 Type[] actualTypeArguments = ((ParameterizedType) returnTypeParameter).getActualTypeArguments();
                 if (actualTypeArguments != null && actualTypeArguments.length == 2) {
@@ -88,4 +95,17 @@ public class ReflectUtils {
         }
         return returnType;
     }
+
+    public static Class<?> getGenericClassByField(Field field) {
+        Type genericType = field.getGenericType();
+        Class<?> type = field.getType();
+        if (void.class.equals(type)) {
+            return type;
+        } else {
+            type = getType(type, genericType);
+        }
+        return type;
+    }
+
+
 }
