@@ -20,7 +20,7 @@ import java.util.List;
 import com.rabbitframework.commons.exceptions.ReflectionException;
 import com.rabbitframework.commons.reflect.MetaClass;
 import com.rabbitframework.commons.reflect.MetaObject;
-import com.rabbitframework.commons.reflect.SystemMetaObject;
+import com.rabbitframework.commons.reflect.MetaObjectUtils;
 import com.rabbitframework.commons.reflect.factory.ObjectFactory;
 import com.rabbitframework.commons.reflect.invoker.Invoker;
 import com.rabbitframework.commons.reflect.property.PropertyTokenizer;
@@ -76,7 +76,7 @@ public class BeanWrapper extends BaseWrapper {
 		if (prop.hasNext()) {
 			MetaObject metaValue = metaObject.metaObjectForProperty(prop
 					.getIndexedName());
-			if (metaValue == SystemMetaObject.NULL_META_OBJECT) {
+			if (metaValue == MetaObjectUtils.NULL_META_OBJECT) {
 				return metaClass.getSetterType(name);
 			} else {
 				return metaValue.getSetterType(prop.getChildren());
@@ -91,7 +91,7 @@ public class BeanWrapper extends BaseWrapper {
 		if (prop.hasNext()) {
 			MetaObject metaValue = metaObject.metaObjectForProperty(prop
 					.getIndexedName());
-			if (metaValue == SystemMetaObject.NULL_META_OBJECT) {
+			if (metaValue == MetaObjectUtils.NULL_META_OBJECT) {
 				return metaClass.getGetterType(name);
 			} else {
 				return metaValue.getGetterType(prop.getChildren());
@@ -107,7 +107,7 @@ public class BeanWrapper extends BaseWrapper {
 			if (metaClass.hasSetter(prop.getIndexedName())) {
 				MetaObject metaValue = metaObject.metaObjectForProperty(prop
 						.getIndexedName());
-				if (metaValue == SystemMetaObject.NULL_META_OBJECT) {
+				if (metaValue == MetaObjectUtils.NULL_META_OBJECT) {
 					return metaClass.hasSetter(name);
 				} else {
 					return metaValue.hasSetter(prop.getChildren());
@@ -126,7 +126,7 @@ public class BeanWrapper extends BaseWrapper {
 			if (metaClass.hasGetter(prop.getIndexedName())) {
 				MetaObject metaValue = metaObject.metaObjectForProperty(prop
 						.getIndexedName());
-				if (metaValue == SystemMetaObject.NULL_META_OBJECT) {
+				if (metaValue == MetaObjectUtils.NULL_META_OBJECT) {
 					return metaClass.hasGetter(name);
 				} else {
 					return metaValue.hasGetter(prop.getChildren());

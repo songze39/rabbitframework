@@ -12,7 +12,6 @@ import com.rabbitframework.commons.reflect.wrapper.MapWrapper;
 import com.rabbitframework.commons.reflect.wrapper.ObjectWrapper;
 
 public class MetaObject {
-
 	private Object originalObject;
 	private ObjectWrapper objectWrapper;
 	private ObjectFactory objectFactory;
@@ -25,17 +24,15 @@ public class MetaObject {
 		} else if (object instanceof Map) {
 			this.objectWrapper = new MapWrapper(this, (Map) object);
 		} else if (object instanceof Collection) {
-			this.objectWrapper = new CollectionWrapper(this,
-					(Collection) object);
+			this.objectWrapper = new CollectionWrapper(this, (Collection) object);
 		} else {
 			this.objectWrapper = new BeanWrapper(this, object);
 		}
 	}
 
-	public static MetaObject forObject(Object object,
-			ObjectFactory objectFactory) {
+	public static MetaObject forObject(Object object, ObjectFactory objectFactory) {
 		if (object == null) {
-			return SystemMetaObject.NULL_META_OBJECT;
+			return MetaObjectUtils.NULL_META_OBJECT;
 		} else {
 			return new MetaObject(object, objectFactory);
 		}
@@ -81,7 +78,7 @@ public class MetaObject {
 		PropertyTokenizer prop = new PropertyTokenizer(name);
 		if (prop.hasNext()) {
 			MetaObject metaValue = metaObjectForProperty(prop.getIndexedName());
-			if (metaValue == SystemMetaObject.NULL_META_OBJECT) {
+			if (metaValue == MetaObjectUtils.NULL_META_OBJECT) {
 				return null;
 			} else {
 				return metaValue.getValue(prop.getChildren());
@@ -95,12 +92,11 @@ public class MetaObject {
 		PropertyTokenizer prop = new PropertyTokenizer(name);
 		if (prop.hasNext()) {
 			MetaObject metaValue = metaObjectForProperty(prop.getIndexedName());
-			if (metaValue == SystemMetaObject.NULL_META_OBJECT) {
+			if (metaValue == MetaObjectUtils.NULL_META_OBJECT) {
 				if (value == null && prop.getChildren() != null) {
 					return; // don't instantiate child path if value is null
 				} else {
-					metaValue = objectWrapper.instantiatePropertyValue(name,
-							prop, objectFactory);
+					metaValue = objectWrapper.instantiatePropertyValue(name, prop, objectFactory);
 				}
 			}
 			metaValue.setValue(prop.getChildren(), value);

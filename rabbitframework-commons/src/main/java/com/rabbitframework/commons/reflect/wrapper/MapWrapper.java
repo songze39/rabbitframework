@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.rabbitframework.commons.reflect.MetaObject;
-import com.rabbitframework.commons.reflect.SystemMetaObject;
+import com.rabbitframework.commons.reflect.MetaObjectUtils;
 import com.rabbitframework.commons.reflect.factory.ObjectFactory;
 import com.rabbitframework.commons.reflect.property.PropertyTokenizer;
 
@@ -53,7 +53,7 @@ public class MapWrapper extends BaseWrapper {
 		if (prop.hasNext()) {
 			MetaObject metaValue = metaObject.metaObjectForProperty(prop
 					.getIndexedName());
-			if (metaValue == SystemMetaObject.NULL_META_OBJECT) {
+			if (metaValue == MetaObjectUtils.NULL_META_OBJECT) {
 				return Object.class;
 			} else {
 				return metaValue.getSetterType(prop.getChildren());
@@ -72,7 +72,7 @@ public class MapWrapper extends BaseWrapper {
 		if (prop.hasNext()) {
 			MetaObject metaValue = metaObject.metaObjectForProperty(prop
 					.getIndexedName());
-			if (metaValue == SystemMetaObject.NULL_META_OBJECT) {
+			if (metaValue == MetaObjectUtils.NULL_META_OBJECT) {
 				return Object.class;
 			} else {
 				return metaValue.getGetterType(prop.getChildren());
@@ -96,7 +96,7 @@ public class MapWrapper extends BaseWrapper {
 			if (map.containsKey(prop.getIndexedName())) {
 				MetaObject metaValue = metaObject.metaObjectForProperty(prop
 						.getIndexedName());
-				if (metaValue == SystemMetaObject.NULL_META_OBJECT) {
+				if (metaValue == MetaObjectUtils.NULL_META_OBJECT) {
 					return true;
 				} else {
 					return metaValue.hasGetter(prop.getChildren());

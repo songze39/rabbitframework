@@ -16,19 +16,11 @@ public class MetaClass {
 	private Reflector reflector;
 
 	private MetaClass(Class<?> type) {
-		this.reflector = Reflector.forClass(type);
+		this.reflector = new Reflector(type);
 	}
 
 	public static MetaClass forClass(Class<?> type) {
 		return new MetaClass(type);
-	}
-
-	public static boolean isClassCacheEnabled() {
-		return Reflector.isClassCacheEnabled();
-	}
-
-	public static void setClassCacheEnabled(boolean classCacheEnabled) {
-		Reflector.setClassCacheEnabled(classCacheEnabled);
 	}
 
 	public MetaClass metaClassForProperty(String name) {
@@ -87,16 +79,13 @@ public class MetaClass {
 		if (prop.getIndex() != null && Collection.class.isAssignableFrom(type)) {
 			Type returnType = getGenericGetterType(prop.getName());
 			if (returnType instanceof ParameterizedType) {
-				Type[] actualTypeArguments = ((ParameterizedType) returnType)
-						.getActualTypeArguments();
-				if (actualTypeArguments != null
-						&& actualTypeArguments.length == 1) {
+				Type[] actualTypeArguments = ((ParameterizedType) returnType).getActualTypeArguments();
+				if (actualTypeArguments != null && actualTypeArguments.length == 1) {
 					returnType = actualTypeArguments[0];
 					if (returnType instanceof Class) {
 						type = (Class<?>) returnType;
 					} else if (returnType instanceof ParameterizedType) {
-						type = (Class<?>) ((ParameterizedType) returnType)
-								.getRawType();
+						type = (Class<?>) ((ParameterizedType) returnType).getRawType();
 					}
 				}
 			}

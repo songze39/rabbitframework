@@ -12,7 +12,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import com.rabbitframework.commons.exceptions.ReflectionException;
 import com.rabbitframework.commons.reflect.invoker.GetFieldInvoker;
@@ -22,11 +21,7 @@ import com.rabbitframework.commons.reflect.invoker.SetFieldInvoker;
 import com.rabbitframework.commons.reflect.property.PropertyNamer;
 
 public class Reflector {
-
-	private static boolean classCacheEnabled = true;
 	private static final String[] EMPTY_STRING_ARRAY = new String[0];
-	private static final Map<Class<?>, Reflector> REFLECTOR_MAP = new ConcurrentHashMap<Class<?>, Reflector>();
-
 	private Class<?> type;
 	private String[] readablePropertyNames = EMPTY_STRING_ARRAY;
 	private String[] writeablePropertyNames = EMPTY_STRING_ARRAY;
@@ -38,23 +33,19 @@ public class Reflector {
 
 	private Map<String, String> caseInsensitivePropertyMap = new HashMap<String, String>();
 
-	private Reflector(Class<?> clazz) {
+	public Reflector(Class<?> clazz) {
 		type = clazz;
 		addDefaultConstructor(clazz);
 		addGetMethods(clazz);
 		addSetMethods(clazz);
 		addFields(clazz);
-		readablePropertyNames = getMethods.keySet().toArray(
-				new String[getMethods.keySet().size()]);
-		writeablePropertyNames = setMethods.keySet().toArray(
-				new String[setMethods.keySet().size()]);
+		readablePropertyNames = getMethods.keySet().toArray(new String[getMethods.keySet().size()]);
+		writeablePropertyNames = setMethods.keySet().toArray(new String[setMethods.keySet().size()]);
 		for (String propName : readablePropertyNames) {
-			caseInsensitivePropertyMap.put(
-					propName.toUpperCase(Locale.ENGLISH), propName);
+			caseInsensitivePropertyMap.put(propName.toUpperCase(Locale.ENGLISH), propName);
 		}
 		for (String propName : writeablePropertyNames) {
-			caseInsensitivePropertyMap.put(
-					propName.toUpperCase(Locale.ENGLISH), propName);
+			caseInsensitivePropertyMap.put(propName.toUpperCase(Locale.ENGLISH), propName);
 		}
 	}
 
@@ -97,8 +88,7 @@ public class Reflector {
 		resolveGetterConflicts(conflictingGetters);
 	}
 
-	private void resolveGetterConflicts(
-			Map<String, List<Method>> conflictingGetters) {
+	private void resolveGetterConflicts(Map<String, List<Method>> conflictingGetters) {
 		for (String propName : conflictingGetters.keySet()) {
 			List<Method> getters = conflictingGetters.get(propName);
 			Iterator<Method> iterator = getters.iterator();
@@ -113,10 +103,8 @@ public class Reflector {
 					Class<?> methodType = method.getReturnType();
 					if (methodType.equals(getterType)) {
 						throw new ReflectionException(
-								"Illegal overloaded getter method with ambiguous type for property "
-										+ propName
-										+ " in class "
-										+ firstMethod.getDeclaringClass()
+								"Illegal overloaded getter method with ambiguous type for property " + propName
+										+ " in class " + firstMethod.getDeclaringClass()
 										+ ".  This breaks the JavaBeans "
 										+ "specification and can cause unpredicatble results.");
 					} else if (methodType.isAssignableFrom(getterType)) {
@@ -126,10 +114,8 @@ public class Reflector {
 						getterType = methodType;
 					} else {
 						throw new ReflectionException(
-								"Illegal overloaded getter method with ambiguous type for property "
-										+ propName
-										+ " in class "
-										+ firstMethod.getDeclaringClass()
+								"Illegal overloaded getter method with ambiguous type for property " + propName
+										+ " in class " + firstMethod.getDeclaringClass()
 										+ ".  This breaks the JavaBeans "
 										+ "specification and can cause unpredicatble results.");
 					}
@@ -161,9 +147,7 @@ public class Reflector {
 		resolveSetterConflicts(conflictingSetters);
 	}
 
-	private void addMethodConflict(
-			Map<String, List<Method>> conflictingMethods, String name,
-			Method method) {
+	private void addMethodConflict(Map<String, List<Method>> conflictingMethods, String name, Method method) {
 		List<Method> list = conflictingMethods.get(name);
 		if (list == null) {
 			list = new ArrayList<Method>();
@@ -172,8 +156,7 @@ public class Reflector {
 		list.add(method);
 	}
 
-	private void resolveSetterConflicts(
-			Map<String, List<Method>> conflictingSetters) {
+	private void resolveSetterConflicts(Map<String, List<Method>> conflictingSetters) {
 		for (String propName : conflictingSetters.keySet()) {
 			List<Method> setters = conflictingSetters.get(propName);
 			Method firstMethod = setters.get(0);
@@ -182,31 +165,24 @@ public class Reflector {
 			} else {
 				Class<?> expectedType = getTypes.get(propName);
 				if (expectedType == null) {
-					throw new ReflectionException(
-							"Illegal overloaded setter method with ambiguous type for property "
-									+ propName
-									+ " in class "
-									+ firstMethod.getDeclaringClass()
-									+ ".  This breaks the JavaBeans "
-									+ "specification and can cause unpredicatble results.");
+					throw new ReflectionException("Illegal overloaded setter method with ambiguous type for property "
+							+ propName + " in class " + firstMethod.getDeclaringClass()
+							+ ".  This breaks the JavaBeans " + "specification and can cause unpredicatble results.");
 				} else {
 					Iterator<Method> methods = setters.iterator();
 					Method setter = null;
 					while (methods.hasNext()) {
 						Method method = methods.next();
 						if (method.getParameterTypes().length == 1
-								&& expectedType.equals(method
-										.getParameterTypes()[0])) {
+								&& expectedType.equals(method.getParameterTypes()[0])) {
 							setter = method;
 							break;
 						}
 					}
 					if (setter == null) {
 						throw new ReflectionException(
-								"Illegal overloaded setter method with ambiguous type for property "
-										+ propName
-										+ " in class "
-										+ firstMethod.getDeclaringClass()
+								"Illegal overloaded setter method with ambiguous type for property " + propName
+										+ " in class " + firstMethod.getDeclaringClass()
 										+ ".  This breaks the JavaBeans "
 										+ "specification and can cause unpredicatble results.");
 					}
@@ -242,8 +218,7 @@ public class Reflector {
 					// (JSR-133). (JGB)
 					// pr #16 - final static can only be set by the classloader
 					int modifiers = field.getModifiers();
-					if (!(Modifier.isFinal(modifiers) && Modifier
-							.isStatic(modifiers))) {
+					if (!(Modifier.isFinal(modifiers) && Modifier.isStatic(modifiers))) {
 						addSetField(field);
 					}
 				}
@@ -272,8 +247,7 @@ public class Reflector {
 	}
 
 	private boolean isValidPropertyName(String name) {
-		return !(name.startsWith("$") || "serialVersionUID".equals(name) || "class"
-				.equals(name));
+		return !(name.startsWith("$") || "serialVersionUID".equals(name) || "class".equals(name));
 	}
 
 	/*
@@ -306,8 +280,7 @@ public class Reflector {
 		return methods.toArray(new Method[methods.size()]);
 	}
 
-	private void addUniqueMethods(HashMap<String, Method> uniqueMethods,
-			Method[] methods) {
+	private void addUniqueMethods(HashMap<String, Method> uniqueMethods, Method[] methods) {
 		for (Method currentMethod : methods) {
 			if (!currentMethod.isBridge()) {
 				String signature = getSignature(currentMethod);
@@ -353,8 +326,7 @@ public class Reflector {
 		try {
 			SecurityManager securityManager = System.getSecurityManager();
 			if (null != securityManager) {
-				securityManager.checkPermission(new ReflectPermission(
-						"suppressAccessChecks"));
+				securityManager.checkPermission(new ReflectPermission("suppressAccessChecks"));
 			}
 		} catch (SecurityException e) {
 			return false;
@@ -375,8 +347,7 @@ public class Reflector {
 		if (defaultConstructor != null) {
 			return defaultConstructor;
 		} else {
-			throw new ReflectionException(
-					"There is no default constructor for " + type);
+			throw new ReflectionException("There is no default constructor for " + type);
 		}
 	}
 
@@ -384,8 +355,7 @@ public class Reflector {
 		Invoker method = setMethods.get(propertyName);
 		if (method == null) {
 			throw new ReflectionException(
-					"There is no setter for property named '" + propertyName
-							+ "' in '" + type + "'");
+					"There is no setter for property named '" + propertyName + "' in '" + type + "'");
 		}
 		return method;
 	}
@@ -394,8 +364,7 @@ public class Reflector {
 		Invoker method = getMethods.get(propertyName);
 		if (method == null) {
 			throw new ReflectionException(
-					"There is no getter for property named '" + propertyName
-							+ "' in '" + type + "'");
+					"There is no getter for property named '" + propertyName + "' in '" + type + "'");
 		}
 		return method;
 	}
@@ -411,8 +380,7 @@ public class Reflector {
 		Class<?> clazz = setTypes.get(propertyName);
 		if (clazz == null) {
 			throw new ReflectionException(
-					"There is no setter for property named '" + propertyName
-							+ "' in '" + type + "'");
+					"There is no setter for property named '" + propertyName + "' in '" + type + "'");
 		}
 		return clazz;
 	}
@@ -428,8 +396,7 @@ public class Reflector {
 		Class<?> clazz = getTypes.get(propertyName);
 		if (clazz == null) {
 			throw new ReflectionException(
-					"There is no getter for property named '" + propertyName
-							+ "' in '" + type + "'");
+					"There is no getter for property named '" + propertyName + "' in '" + type + "'");
 		}
 		return clazz;
 	}
@@ -478,32 +445,4 @@ public class Reflector {
 		return caseInsensitivePropertyMap.get(name.toUpperCase(Locale.ENGLISH));
 	}
 
-	/*
-	 * Gets an instance of ClassInfo for the specified class.
-	 *
-	 * @param clazz The class for which to lookup the method cache.
-	 *
-	 * @return The method cache for the class
-	 */
-	public static Reflector forClass(Class<?> clazz) {
-		if (classCacheEnabled) {
-			// synchronized (clazz) removed see issue #461
-			Reflector cached = REFLECTOR_MAP.get(clazz);
-			if (cached == null) {
-				cached = new Reflector(clazz);
-				REFLECTOR_MAP.put(clazz, cached);
-			}
-			return cached;
-		} else {
-			return new Reflector(clazz);
-		}
-	}
-
-	public static void setClassCacheEnabled(boolean classCacheEnabled) {
-		Reflector.classCacheEnabled = classCacheEnabled;
-	}
-
-	public static boolean isClassCacheEnabled() {
-		return classCacheEnabled;
-	}
 }
