@@ -5,6 +5,7 @@
 	<artifactId>rabbitframework-root-pom</artifactId>
 	<version>1.1.2</version>
 	<packaging>pom</packaging>
+
 	<modules>
 		<module>rabbitframework-commons</module>
 		<module>rabbitframework-security-pom</module>
